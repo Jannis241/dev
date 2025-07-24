@@ -21,16 +21,6 @@ Wenn du meine Hyprland-spezifischen Einstellungen nutzen möchtest, sollte Hyprl
 ~/programmieren       # Persönliches Programmierverzeichnis
 ```
 
----
-
-## 🚀 Installation
-
-```bash
-git clone https://github.com/Jannis241/dev.git ~/dev
-cd ~/dev
-./setup
-./dev-env
-```
 
 ---
 
@@ -62,3 +52,13 @@ cd ~/dev
 
    Die Paketliste findest du dann in `~/dev/dependencies`.
 
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/Jannis241/dev.git ~/dev
+cd ~/dev
+./setup
+./dev-env
+```
