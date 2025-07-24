@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+get-dependencies
 # Prüfen, ob DEV_ENV gesetzt ist
 if [ -z "$DEV_ENV" ]; then
     echo "❌ DEV_ENV ist nicht gesetzt!"
