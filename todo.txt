@@ -25,9 +25,6 @@ mit einem setup.sh alles downloaden und initalisieren (auch schon leere file str
 
 env ist das developer enviroment
 
-
-
-test
 wichtig:
 
 - nvim:  copy paste
