@@ -8,3 +8,11 @@ cd ~/dev
 ./setup
 
 ./dev-env
+
+----
+
+
+Wallpaper:  ~/wallpaper.png
+Dev:  ~/dev
+.config:  ~/.config
+
