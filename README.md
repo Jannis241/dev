@@ -5,6 +5,7 @@
 Wallpaper:  ~/wallpaper.png
 Dev:  ~/dev
 .config:  ~/.config
+---
 
 ## Installation
 ```bash
