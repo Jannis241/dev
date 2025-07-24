@@ -1,4 +1,12 @@
+- tmux sessionizer kopieren (beosnders gucken wie fzf implementeirt sit)
+- nvim copy paste fixxen-
+- fuzyy finder einrichten (besonders einen der nur in project folder sucht und einer der alles ucht etc)
+- readme machen (sagen dass man den dev path angeben musss)
+- ein script machen der alles auf github hochläd (dependencies updaten, vorher updates runnen, etc)
+
+
 - das als git repo machen
+
 - was ist lua rocks
 - lua rocks installieren
 - resources /setup bei prime
