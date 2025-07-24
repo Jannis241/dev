@@ -11,6 +11,7 @@ export PATH="$HOME/.local/scripts:$PATH"
 export DEV_ENV="$HOME/dev"
 
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ZSH_THEME="robbyrussell"
 
@@ -22,6 +23,8 @@ alias x='chmod +x'
 source $ZSH/oh-my-zsh.sh
 
 source ~/.zsh_profile
+
+# source ~/.fzf_config
 
 
 

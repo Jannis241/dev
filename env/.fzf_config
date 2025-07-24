@@ -1,6 +1,3 @@
-export XDG_CONFIG_HOME=$HOME/.config
-
-
 # --- fzf Standard Optionen (kein Preview, Standardlayout) ---
 export FZF_DEFAULT_OPTS="--border --info=inline"
 
@@ -62,6 +59,4 @@ bindkey '^F' fzf-cd-current-files
 
 # --- Optional: Alias für fzf schnell starten ---
 alias f='fzf'
-
-
 
