@@ -161,6 +161,11 @@ go install github.com/air-verse/air@latest
 # Node.js Tools
 sudo npm install -g typescript typescript-language-server eslint prettier
 
+
+if [[ ! -d "$HOME/programmieren" ]]; then
+    mkdir "$HOME/programmieren"
+fi
+
 sudo pacman -Syu
 paru -Qdtq | xargs -r sudo pacman -Rns
 
