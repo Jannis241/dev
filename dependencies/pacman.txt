@@ -68,6 +68,7 @@ slurp
 smartmontools
 spotify-launcher
 stylua
+tmux
 tree-sitter-cli
 ttf-hack-nerd
 ttf-hackgen
