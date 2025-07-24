@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Setze Zielverzeichnis relativ zu diesem Script
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
-OUT_DIR="$DOTFILES_DIR/dependencies"
+# Prüfen, ob DEV_ENV gesetzt ist
+if [[ -z "$DEV_ENV" ]]; then
+  echo "❌ DEV_ENV ist nicht gesetzt"
+  exit 1
+fi
+
+OUT_DIR="$DEV_ENV/dependencies"
 
 rm -rf "$OUT_DIR"
 
