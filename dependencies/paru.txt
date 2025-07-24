@@ -89,7 +89,6 @@ wl-clipboard
 wlogout
 wlr-randr
 wofi
-xclip
 xdg-desktop-portal-hyprland
 xdg-utils
 xorg-server
