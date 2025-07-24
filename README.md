@@ -1,3 +1,11 @@
+## File structure
+
+
+```bash
+Wallpaper:  ~/wallpaper.png
+Dev:  ~/dev
+.config:  ~/.config
+
 ## Installation
 ```bash
 
@@ -10,9 +18,4 @@ cd ~/dev
 ./dev-env
 
 
-## File structure
-
-Wallpaper:  ~/wallpaper.png
-Dev:  ~/dev
-.config:  ~/.config
 
