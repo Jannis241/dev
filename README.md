@@ -19,6 +19,20 @@ Wenn du meine Hyprland-spezifischen Einstellungen nutzen möchtest, sollte Hyprl
 ~/dev                 # Dotfiles- und Dev-Verzeichnis (dieses Repo)
 ~/.config             # Konfigurationsordner (Zielort der Konfigs)
 ~/programmieren       # Persönliches Programmierverzeichnis
+```
+
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/Jannis241/dev.git ~/dev
+cd ~/dev
+./setup
+./dev-env
+```
+
+---
 
 ## ⚙️ Konfiguration ändern
 
@@ -47,13 +61,4 @@ Wenn du meine Hyprland-spezifischen Einstellungen nutzen möchtest, sollte Hyprl
    ```
 
    Die Paketliste findest du dann in `~/dev/dependencies`.
-
-
-## 🚀 Installation
-
-```bash
-git clone https://github.com/Jannis241/dev.git ~/dev
-cd ~/dev
-./setup
-./dev-env
 
