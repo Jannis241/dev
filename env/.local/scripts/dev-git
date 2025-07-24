@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
-pushd DEV_ENV
+
+# Prüfen, ob DEV_ENV gesetzt ist
+if [ -z "$DEV_ENV" ]; then
+    echo "❌ DEV_ENV ist nicht gesetzt!"
+    exit 1
+fi
+
+# Wechsle ins DEV_ENV Verzeichnis
+pushd "$DEV_ENV" > /dev/null || exit 1
+
+# Git-Änderungen committen und pushen
 git add .
-git commit -m 'automated dev commit'
+git commit -m "automated dev commit"
 git push
-popd
+
+# Zurück wechseln
+popd > /dev/null
+
