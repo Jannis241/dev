@@ -3,6 +3,7 @@
 - fuzyy finder einrichten (besonders einen der nur in project folder sucht und einer der alles ucht etc)
 - readme machen (sagen dass man den dev path angeben musss)
 - ein script machen der alles auf github hochläd (dependencies updaten, vorher updates runnen, etc)
+- dev-git und dev-env erklären
 
 - das als git repo machen
 
