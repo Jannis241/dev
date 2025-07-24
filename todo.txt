@@ -4,7 +4,6 @@
 - readme machen (sagen dass man den dev path angeben musss)
 - ein script machen der alles auf github hochläd (dependencies updaten, vorher updates runnen, etc)
 
-
 - das als git repo machen
 
 - was ist lua rocks
@@ -22,8 +21,6 @@ auf git hochladen
 
 mit einem setup.sh alles downloaden und initalisieren (auch schon leere file structure machen für z.b download und programmieren etc..)
 
-
-env ist das developer enviroment
 
 wichtig:
 
