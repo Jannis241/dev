@@ -1,12 +1,10 @@
 export XDG_CONFIG_HOME=$HOME/.config
 
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+
+export FZF_DEFAULT_COMMAND="fd --type f"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 bindkey -s ^f "fzf\n"
 bindkey -s ^n "nvim .\n"
-
-bindkey -s ^f "tmux-sessionizer\n"
-bindkey -s '\eh' "tmux-sessionizer -s 0\n"
-bindkey -s '\et' "tmux-sessionizer -s 1\n"
-bindkey -s '\en' "tmux-sessionizer -s 2\n"
-bindkey -s '\es' "tmux-sessionizer -s 3\n"

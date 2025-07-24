@@ -2,6 +2,7 @@ amd-ucode
 ascii-image-converter-bin
 base
 base-devel
+bat
 clang
 cloc
 cmake
