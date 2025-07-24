@@ -36,7 +36,6 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 echo -e "${GREEN}==> Systemupdate und Basis-Tools installieren...${NC}"
-sudo pacman -Syu --noconfirm
 sudo pacman -S --needed --noconfirm base-devel git wget curl zsh flatpak neovim lua51 luarocks
 
 # Oh My Zsh (einmalig)
@@ -166,7 +165,7 @@ if [[ ! -d "$HOME/programmieren" ]]; then
     mkdir "$HOME/programmieren"
 fi
 
-sudo pacman -Syu
 paru -Qdtq | xargs -r sudo pacman -Rns
+sudo pacman -Syu
 
 echo -e "${GREEN}✅ Setup abgeschlossen! Starte den PC ggf. neu.${NC}"
