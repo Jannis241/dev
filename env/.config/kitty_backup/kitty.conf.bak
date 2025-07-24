@@ -1,0 +1,36 @@
+map ctrl+c copy_to_clipboard
+map ctrl+v paste_from_clipboard
+
+font_family FiraCode Nerd Font
+font_size 16.0
+
+bold_font auto
+italic_font auto
+bold_italic_font auto
+
+disable_ligatures never
+
+
+
+window_margin_width 0 
+single_window_margin_width 0
+
+
+# background_image Downloads/arch-wallpaper.jpeg
+# background_image layout scaled
+
+
+# gilt leider nciht für nvim. -> Entweder durch window rules in hypr mahcen oder in nvim config nochmal extra für nvim
+#background_opacity 0.9
+
+background_tint 0.8
+background_tint_gaps -10
+
+
+
+
+
+# BEGIN_KITTY_THEME
+# GitHub Dark Dimmed
+include current-theme.conf
+# END_KITTY_THEME

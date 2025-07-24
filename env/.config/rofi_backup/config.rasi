@@ -1,0 +1,15 @@
+@theme "/usr/share/rofi/themes/fullscreen-preview.rasi"
+
+
+configuration {
+    prompt: "Search: ";
+    drun-display-format: "{icon} {name}";
+    font: "JetBrainsMono Nerd Font 10";
+    modi: "window,run,drun";
+    show-icons: true;
+    icon-theme: "Papirus";
+    sort: true;
+}
+
+
+

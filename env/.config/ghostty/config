@@ -1,0 +1,17 @@
+
+keybind = ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard
+
+font-size =19
+
+theme = rose-pine-moon
+background = 000000
+background-opacity = 0.85
+background-blur = false
+confirm-close-surface=false
+
+shell-integration-features = no-cursor,no-sudo,no-title
+gtk-titlebar = false
+
+
+

@@ -1,0 +1,113 @@
+#!/bin/bash
+
+# Setze Zielverzeichnis relativ zu diesem Script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OUT_DIR="$SCRIPT_DIR/dependencies"
+
+rm -rf "$OUT_DIR"
+
+mkdir -p "$OUT_DIR"
+
+echo "📦 Exportiere installierte Pakete nach: $OUT_DIR"
+
+# Pacman (nur explizit installierte Pakete)
+pacman -Qqe | awk '{print $1}' > "$OUT_DIR/pacman.txt"
+
+# Paru AUR Pakete
+if command -v paru &> /dev/null; then
+    paru -Qqe | awk '{print $1}' > "$OUT_DIR/paru.txt"
+else
+    echo "⚠️ paru nicht gefunden"
+fi
+
+
+# Flatpak Pakete
+if command -v flatpak &> /dev/null; then
+    flatpak list --app --columns=application > "$OUT_DIR/flatpak.txt"
+else
+    echo "⚠️ flatpak nicht gefunden"
+fi
+
+echo "✅ Fertig! Paketlisten sind in $OUT_DIR"
+
+
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}==> Systemupdate und Basis-Tools installieren...${NC}"
+sudo pacman -Syu --noconfirm
+sudo pacman -S --needed --noconfirm base-devel git wget curl zsh flatpak neovim lua51 luarocks
+
+# Oh My Zsh (einmalig)
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    echo -e "${GREEN}==> Installiere Oh My Zsh...${NC}"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    chsh -s $(which zsh)
+fi
+
+echo -e "${GREEN}==> Installiere Hyprland-Umgebung...${NC}"
+sudo pacman -S --needed --noconfirm hyprland waybar dunst xdg-desktop-portal-hyprland sddm
+
+# Paru installieren, falls nötig
+if ! command -v paru &> /dev/null; then
+    echo -e "${GREEN}==> Installiere paru (AUR)...${NC}"
+    cd /tmp
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si --noconfirm
+fi
+
+# Flatpak & Snap
+echo -e "${GREEN}==> Flatpak & Snapd einrichten...${NC}"
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Netzwerkdienste & Loginmanager
+sudo systemctl enable --now NetworkManager sddm
+
+# Dotfiles-abhängige Pakete installieren
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
+DEPENDENCY_DIR="$DOTFILES_DIR/dependencies"
+
+echo -e "${GREEN}==> Installiere Pakete aus dependencies/...${NC}"
+
+[[ -f "$DEPENDENCY_DIR/pacman.txt" ]] && sudo pacman -S --needed --noconfirm $(< "$DEPENDENCY_DIR/pacman.txt")
+
+if [[ -f "$DEPENDENCY_DIR/paru.txt" && -x "$(command -v paru)" ]]; then
+    paru -S --needed --noconfirm $(< "$DEPENDENCY_DIR/paru.txt")
+fi
+
+if [[ -f "$DEPENDENCY_DIR/flatpak.txt" ]]; then
+    while IFS= read -r pkg; do
+        flatpak install -y flathub "$pkg"
+    done < "$DEPENDENCY_DIR/flatpak.txt"
+fi
+
+# Dev-Tools
+echo -e "${GREEN}==> Entwicklertools installieren...${NC}"
+sudo luarocks install luacheck
+
+# Rust & Tools
+if ! command -v rustc &> /dev/null; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+fi
+
+cargo install stylua --features luajit
+
+# Go Tools
+go install golang.org/x/tools/cmd/goimports@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install honnef.co/go/tools/cmd/staticcheck@latest
+go install golang.org/x/tools/gopls@latest
+go install github.com/air-verse/air@latest
+
+# Node.js Tools
+sudo npm install -g typescript typescript-language-server eslint prettier
+
+paru -Qdtq | xargs -r paru -Rns
+sudo pacman -Rns $(pacman -Qdtq)
+
+sudo pacman -Syu --noconfirm
+echo -e "${GREEN}✅ Setup abgeschlossen! Starte den PC ggf. neu.${NC}"

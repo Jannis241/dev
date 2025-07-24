@@ -1,0 +1,8 @@
+export XDG_CONFIG_HOME=$HOME/.config
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+bindkey -s ^f "fzf\n"
+bindkey -s ^n "nvim .\n"
+

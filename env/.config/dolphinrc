@@ -1,0 +1,13 @@
+[General]
+Version=202
+ViewPropsTimestamp=2025,7,19,2,26,21.266
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+
+[PreviewSettings]
+Plugins=audiothumbnail,windowsexethumbnail,ebookthumbnail,imagethumbnail,jpegthumbnail,opendocumentthumbnail,appimagethumbnail,windowsimagethumbnail,comicbookthumbnail,exrthumbnail,cursorthumbnail,directorythumbnail,svgthumbnail,djvuthumbnail,kraorathumbnail,gdk-pixbuf-thumbnailer

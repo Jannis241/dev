@@ -1,0 +1,57 @@
+- das als git repo machen
+- was ist lua rocks
+- lua rocks installieren
+- resources /setup bei prime
+
+runs bei prime
+gucken wie er das mit linken gemacht hat
+struktur aufmalen und planen wie ich das wirklcih mache
+
+
+mit einem script die realen .config datein aktualisierne (das macht er immer mit devenv ) also dass .config dann den symlink
+von dotfiles/env/.config bentuzt und somit akutalisiert
+auf git hochladen
+
+mit einem setup.sh alles downloaden und initalisieren (auch schon leere file structure machen für z.b download und programmieren etc..)
+
+
+env ist das developer enviroment
+
+
+
+test
+wichtig:
+
+- nvim:  copy paste
+- fzf in zsh machen
+- update scripts -> system links angucken
+- alles auf git hochladen falls ich was schrotte -> so machen dass  das get repo irgendwie in meiner normalen config ist, sodas ich meine neuen dot files nicht immer darüber kopieren muss
+- fixxen dass die waybar kleiner wird wenn man auf den anderen monitor geht (weil das workspace ding größeres padding hat)
+
+- zsh: config einrichten (path besser anzeigen), scripts machen, fzf
+
+- loupe mit imv ersetzten
+- rofi verbessern (eventuell mit tofi ersetzten)
+- alle unnötigen packages löschen (auch flatpak) -> loupe, feh,
+- hyperland eco system anschauen -> nochmal gucken was prime sonst noch so hat
+- waybar verbessern (vielleicht nochmal die nvim ah waybar)
+
+
+weitere:
+- tmux
+- tmux-sessionizer
+- prime scripts angucken
+- auch so ein git upload script machen
+
+
+weitere:
+- tmux
+- tmux-sessionizer
+- prime scripts angucken
+- auch so ein git upload script machen
+-
+-
+
+geile cfg: https://github.com/ericmurphyxyz/dotfiles/tree/master/.config
+prime: https://github.com/ThePrimeagen/dev
+
