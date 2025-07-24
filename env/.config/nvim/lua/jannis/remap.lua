@@ -7,8 +7,6 @@ vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 
 
-vim.keymap.set({ "n", "v" }, "<C-c>", [["+y]])
-
 vim.keymap.set("n", "<leader>ppv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pv", ":Neotree<CR>")
 
