@@ -17,7 +17,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ZSH_THEME="robbyrussell"
 
-plugins=()
+plugins=(git)
 
 
 alias x='chmod +x'
