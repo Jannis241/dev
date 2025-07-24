@@ -28,6 +28,7 @@ hyprland
 hyprland-protocols
 hyprlock
 hyprpaper
+imv
 iwd
 jdk-openjdk
 jq

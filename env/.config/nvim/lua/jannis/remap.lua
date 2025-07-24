@@ -3,7 +3,14 @@ vim.g.mapleader = " "
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 
+
  vim.keymap.set("n", "q", ":cclose<CR>", {})
+
+-- ctrl y zum kopieren (ctrl - c wird vom terminal abgefangen)
+vim.keymap.set({'n', 'v'}, "<C-y>", '"+y', { noremap = true, silent = true })
+
+-- ctrl a um alles zu selecten
+vim.keymap.set({'n', 'v', 'i'}, "<C-a>", '<esc>gg_vG$', { noremap = true, silent = true })
 
 
 
