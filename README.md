@@ -8,7 +8,7 @@ Wenn du meine Hyprland-spezifischen Einstellungen nutzen möchtest, sollte Hyprl
 ## ✅ Voraussetzungen
 
 - Arch Linux (mit Internetzugang)
-- Optional: Hyprland (für Hyprland-Konfigurationen)
+- Hyprland
 
 ---
 
@@ -35,19 +35,19 @@ Wenn du meine Hyprland-spezifischen Einstellungen nutzen möchtest, sollte Hyprl
 2. Übertrage die Änderungen ins System mit:
 
    ```bash
-   ./dev-env
+   dev-env
    ```
 
 3. Optional: Lade deine Änderungen auf GitHub hoch mit:
 
    ```bash
-   ./dev-git
+   dev-git
    ```
 
 4. Optional: Speichere alle manuell installierten Pakete in:
 
    ```bash
-   ./get-dependencies
+   get-dependencies
    ```
 
    Die Paketliste findest du dann in `~/dev/dependencies`.
@@ -62,3 +62,4 @@ cd ~/dev
 ./setup
 ./dev-env
 ```
+Ggf. Terminal oder PC neustarten.
