@@ -1,4 +1,5 @@
 amd-ucode
+ascii-image-converter-bin
 base
 base-devel
 clang
@@ -49,6 +50,7 @@ networkmanager
 nodejs
 npm
 nvidia-dkms
+opencode-bin
 paru
 paru-debug
 pavucontrol
@@ -70,9 +72,11 @@ spotify-launcher
 stylua
 tmux
 tree-sitter-cli
+ttf-font-awesome
 ttf-hack-nerd
 ttf-hackgen
 ttf-jetbrains-mono-nerd
+ttf-nerd-fonts-symbols
 unzip
 uwsm
 vim

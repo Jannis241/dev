@@ -13,7 +13,6 @@ export DEV_ENV="$HOME/dev"
 
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border'
 
 
 ZSH_THEME="robbyrussell"

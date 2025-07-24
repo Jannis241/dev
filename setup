@@ -84,15 +84,70 @@ if [[ -f "$DEPENDENCY_DIR/flatpak.txt" ]]; then
     done < "$DEPENDENCY_DIR/flatpak.txt"
 fi
 
+
+
+
+INSTALL_DIR="$HOME/.local"
+LUAROCKS_VERSION="3.12.2"
+LUAROCKS_TAR="luarocks-$LUAROCKS_VERSION.tar.gz"
+LUAROCKS_DIR="luarocks-$LUAROCKS_VERSION"
+
+# Gehe ins dev-Verzeichnis (also das Verzeichnis, wo das Script liegt)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+# Nur laden, wenn noch nicht installiert
+if ! command -v luarocks &> /dev/null; then
+    echo "📦 Installing LuaRocks..."
+
+    # Herunterladen, wenn Datei nicht existiert
+    if [ ! -f "$LUAROCKS_TAR" ]; then
+        wget "https://luarocks.org/releases/$LUAROCKS_TAR"
+    fi
+
+    # Entpacken
+    tar zxpf "$LUAROCKS_TAR"
+    cd "$LUAROCKS_DIR"
+
+    # Kompilieren und lokal installieren
+    ./configure --prefix="$INSTALL_DIR"
+    make
+    make install
+
+    echo "✅ LuaRocks installiert in $INSTALL_DIR"
+else
+    echo "✔️ LuaRocks ist bereits installiert"
+fi
+
+# Stelle sicher, dass ~/.local/bin in $PATH ist
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
+    export PATH="$HOME/.local/bin:$PATH"
+    echo "🔧 .zshrc angepasst: PATH hinzugefügt"
+fi
+
+
+
+
+
+paru -S --noconfirm --needed opencode-bin
+sudo pacman -S --noconfirm --needed tmux
 # Dev-Tools
 echo -e "${GREEN}==> Entwicklertools installieren...${NC}"
 sudo luarocks install luacheck
+sudo pacman -S --noconfirm neovim lua51 luarocks
 
+paru -S ttf-font-awesome waybar ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols
+paru -S ffmpeg aalib ascii-image-converter-bin --noconfirm
 # Rust & Tools
 if ! command -v rustc &> /dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     source "$HOME/.cargo/env"
 fi
+
+
+git clone git@github.com:junegunn/fzf.git $HOME/fzf
+$HOME/fzf/install
 
 cargo install stylua --features luajit
 
