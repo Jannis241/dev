@@ -9,8 +9,8 @@ cd ~/dev
 
 ./dev-env
 
-----
 
+## File structure
 
 Wallpaper:  ~/wallpaper.png
 Dev:  ~/dev
