@@ -1,3 +1,5 @@
+- die anderen zwei dotfiles dinger löschen
+- überlegen: wenn jetzt ein komplett neuer das downloaden würde, würde es dann funktionieren?
 - tmux sessionizer kopieren (beosnders gucken wie fzf implementeirt sit)
 - nvim copy paste fixxen-
 - fuzyy finder einrichten (besonders einen der nur in project folder sucht und einer der alles ucht etc)
