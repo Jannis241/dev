@@ -83,6 +83,7 @@ mkdir -p $HOME/.local/bin
 
 
 hyprctl reload
-sudo pacman -Syu --noconfirm
-paru -Qdtq | xargs -r paru -Rns
-sudo pacman -Rns $(pacman -Qdtq)
+
+sudo pacman -Syu
+paru -Qdtq | xargs -r sudo pacman -Rns
+

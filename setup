@@ -161,8 +161,7 @@ go install github.com/air-verse/air@latest
 # Node.js Tools
 sudo npm install -g typescript typescript-language-server eslint prettier
 
-paru -Qdtq | xargs -r paru -Rns
-sudo pacman -Rns $(pacman -Qdtq)
+sudo pacman -Syu
+paru -Qdtq | xargs -r sudo pacman -Rns
 
-sudo pacman -Syu --noconfirm
 echo -e "${GREEN}✅ Setup abgeschlossen! Starte den PC ggf. neu.${NC}"
