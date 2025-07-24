@@ -24,7 +24,6 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.zsh_profile
 
-# source ~/.fzf_config
 
 
 

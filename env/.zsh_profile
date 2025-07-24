@@ -1,67 +1,34 @@
 export XDG_CONFIG_HOME=$HOME/.config
 
 
-# --- fzf Standard Optionen (kein Preview, Standardlayout) ---
-export FZF_DEFAULT_OPTS="--border --info=inline"
-
-# --- Prüfe, ob fd oder fdfind installiert ist ---
-if command -v fd >/dev/null 2>&1; then
-  FD_CMD='fd --hidden --follow --exclude .git'
-elif command -v fdfind >/dev/null 2>&1; then
-  FD_CMD='fdfind --hidden --follow --exclude .git'
-else
-  FD_CMD=''
-fi
-
-# --- Lade fzf Keybindings (sofern installiert) ---
-
-# --- Strg+H: Suche Verzeichnisse im Home-Verzeichnis und cd ---
-fzf-cd-home-dirs() {
+fzf-cd-home() {
   local dir
-  if [[ -n $FD_CMD ]]; then
-    dir=$($FD_CMD --type d "$HOME" 2>/dev/null | fzf) || return 0
-  else
-    dir=$(find "$HOME" -type d 2>/dev/null | fzf) || return 0
-  fi
-  cd "$dir" || return 1
+  dir=$(fd . --type d --hidden --follow --exclude .git "$HOME" | fzf) || return
+  cd "$dir" && echo -e "\nPath: $PWD\n"
+  echo
 }
-zle -N fzf-cd-home-dirs
-bindkey '^H' fzf-cd-home-dirs
+zle -N fzf-cd-home
+bindkey '^H' fzf-cd-home
 
-# --- Strg+P: Suche Verzeichnisse in ~/programmieren und cd ---
-fzf-cd-programmieren-dirs() {
+
+fzf-cd-prog() {
   local dir
-  local PROG_DIR="$HOME/programmieren"
-  if [[ ! -d "$PROG_DIR" ]]; then
-    echo "Ordner $PROG_DIR existiert nicht!"
-    return 1
-  fi
-  if [[ -n $FD_CMD ]]; then
-    dir=$($FD_CMD --type d "$PROG_DIR" 2>/dev/null | fzf) || return 0
-  else
-    dir=$(find "$PROG_DIR" -type d 2>/dev/null | fzf) || return 0
-  fi
-  cd "$dir" || return 1
+  dir=$(fd . --type d --hidden --follow --exclude .git "$HOME/programmieren" | fzf) || return
+  cd "$dir" && echo -e "\nPath: $PWD\n"
+  echo
 }
-zle -N fzf-cd-programmieren-dirs
-bindkey '^P' fzf-cd-programmieren-dirs
+zle -N fzf-cd-prog
+bindkey '^P' fzf-cd-prog
 
-# --- Strg+F: Suche Dateien im aktuellen Verzeichnis und cd ins Verzeichnis der Datei ---
-fzf-cd-current-files() {
+fzf-cd-current() {
   local file dir
-  if [[ -n $FD_CMD ]]; then
-    file=$($FD_CMD --type f . 2>/dev/null | fzf) || return 0
-  else
-    file=$(find . -type f 2>/dev/null | fzf) || return 0
-  fi
+  file=$(fd . --type d --hidden --follow --exclude .git . | fzf) || return
   dir=$(dirname "$file")
-  cd "$dir" || return 1
+  cd "$dir" && echo -e "\nPath: $PWD\n"
+  echo
+
 }
-zle -N fzf-cd-current-files
-bindkey '^F' fzf-cd-current-files
-
-# --- Optional: Alias für fzf schnell starten ---
-alias f='fzf'
-
+zle -N fzf-cd-current
+bindkey '^F' fzf-cd-file
 
 
