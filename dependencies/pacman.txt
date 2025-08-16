@@ -6,6 +6,8 @@ bat
 clang
 cloc
 cmake
+cuda
+cudnn
 discord
 dkms
 dolphin
@@ -51,7 +53,7 @@ network-manager-applet
 networkmanager
 nodejs
 npm
-nvidia-dkms
+nvidia
 opencode-bin
 paru
 paru-debug
