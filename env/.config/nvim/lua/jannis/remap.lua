@@ -11,8 +11,6 @@ end, { desc = "Show diagnostics or hover" })
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 
-
-
  vim.keymap.set("n", "<leader>h", vim.lsp.buf.signature_help, {})
  vim.keymap.set("n", "q", ":cclose<CR>", {})
 

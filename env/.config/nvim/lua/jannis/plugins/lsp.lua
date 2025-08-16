@@ -110,8 +110,8 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
-				["k"] = cmp.mapping.select_prev_item(cmp_select),
-				["j"] = cmp.mapping.select_next_item(cmp_select),
+				["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
+				["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
 				["<tab>"] = cmp.mapping.confirm({ select = true }),
 				["<enter>"] = cmp.mapping.confirm({ select = true }),
 				["<C-Space>"] = cmp.mapping.complete(),
@@ -135,6 +135,7 @@ return {
 				{ name = "buffer" },
 			}),
 		})
+
 
 		vim.diagnostic.config({
 			virtual_text = {
