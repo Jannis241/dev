@@ -54,6 +54,7 @@ networkmanager
 nodejs
 npm
 nvidia
+nvidia-settings
 opencode-bin
 paru
 paru-debug
