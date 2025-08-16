@@ -116,6 +116,17 @@ return {
 				["<enter>"] = cmp.mapping.confirm({ select = true }),
 				["<C-Space>"] = cmp.mapping.complete(),
 			}),
+              window = {
+    completion = cmp.config.window.bordered({
+      max_height = 10,   -- max Zeilen
+      max_width = 50,    -- max Spalten
+    }),
+    documentation = cmp.config.window.bordered({
+      max_height = 10,
+      max_width = 50,
+    }),
+  },
+
 			sources = cmp.config.sources({
 				{ name = "copilot", group_index = 2 },
 				{ name = "nvim_lsp" },
@@ -131,9 +142,9 @@ return {
 				prefix = "●",
 				spacing = 1,
 			},
-			signs = false,
+			signs = true,
 			underline = true,
-			update_in_insert = false, -- warten bis :w kommt -> sonst nervig
+			update_in_insert = true, -- warten bis :w kommt -> sonst nervig
 			float = {
 				focusable = true,
 				style = "minimal",

@@ -9,8 +9,14 @@
 - rechts die minimap mti errors
 - schöner machen alles
 - deise bar unten
+
 - nvchad features copieren
 - bie autocompletion die typen anzeigen
 - keybinds besser machetrue d x c und so nciht in clipbaord übershcrieben
 
 vim.lsp.buf.signature_help
+
+- alles zu einem theme machen
+- auto completion und definition kleiner machen und passend machen
+- live grep schöner machen (so wie nvchad)
+- ineine mfile suchen geielr machen

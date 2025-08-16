@@ -1,1 +1,3 @@
 - rofi mit browser ding da machen
+- nvim config verbessern (bisschen wie nvchad machen und todo erfüllen)
+- loupe verbessern oder irgendwie den file browser dass man leichter bilder auf machen kann.
