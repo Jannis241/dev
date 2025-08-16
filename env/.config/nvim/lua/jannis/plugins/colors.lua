@@ -1,9 +1,8 @@
 function apply_colorscheme(color)
-	color = color or "rose-pine-moon"
 	vim.cmd.colorscheme(color)
 
-	 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 return {
@@ -12,12 +11,18 @@ return {
         "erikbackman/brightburn.vim",
     },
 
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000,
+        config = function ()
+            -- apply_colorscheme("catppuccin")
+        end
+    },
+
     {
         "folke/tokyonight.nvim",
         lazy = false,
         opts = {},
         config = function()
-            -- apply_colorscheme("tokyonight")
+            apply_colorscheme("tokyonight")
         end
     },
     {
@@ -59,13 +64,13 @@ return {
         name = "rose-pine",
         config = function()
             require('rose-pine').setup({
-                disable_background = true,
+                disable_background = false,
                 styles = {
                     italic = false,
                 },
             })
 
-            apply_colorscheme("rose-pine")
+            -- apply_colorscheme("rose-pine")
         end
     },
 }

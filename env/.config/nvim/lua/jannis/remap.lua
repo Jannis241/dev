@@ -1,9 +1,19 @@
 vim.g.mapleader = " "
 
+vim.keymap.set("n", "<leader>e", function()
+  local diags = vim.diagnostic.get(0, { lnum = vim.fn.line('.') - 1 })
+  if #diags > 0 then
+    vim.diagnostic.open_float(nil, { focusable = false, border = "rounded" })
+  else
+    vim.lsp.buf.hover()
+  end
+end, { desc = "Show diagnostics or hover" })
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 
 
+
+ vim.keymap.set("n", "<leader>h", vim.lsp.buf.signature_help, {})
  vim.keymap.set("n", "q", ":cclose<CR>", {})
 
 -- ctrl y zum kopieren (ctrl - c wird vom terminal abgefangen)
