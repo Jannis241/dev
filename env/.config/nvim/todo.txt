@@ -1,0 +1,4 @@
+- gd besser machen (sodass es wie hovern in vscode ist)
+- rust auto completion schneller machen.
+- direkt bei methoden anzeigen was sie für parameter nehmen etc (bei autocompletion)
+- in einem file nach dingen suchen einfacher machen ("/")
