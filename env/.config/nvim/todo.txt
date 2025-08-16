@@ -2,3 +2,4 @@
 - rust auto completion schneller machen.
 - direkt bei methoden anzeigen was sie für parameter nehmen etc (bei autocompletion)
 - in einem file nach dingen suchen einfacher machen ("/")
+- bei den vorschlägen auch mit vim motions navigieren

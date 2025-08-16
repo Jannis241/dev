@@ -3,7 +3,6 @@ return {
     branch = "harpoon2",
     config = function()
         local harpoon = require("harpoon")
-        local mark = require("harpoon.mark")
         local ui = require("harpoon.ui")
 
         harpoon.setup({
@@ -12,7 +11,8 @@ return {
             }
         })
 
-        vim.keymap.set("n", "<leader>a", mark.add_file)
+        -- Dateien hinzufügen direkt über harpoon.add_file
+        vim.keymap.set("n", "<leader>a", function() harpoon.add_file() end)
         vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
         vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
@@ -21,3 +21,4 @@ return {
         vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
     end
 }
+
