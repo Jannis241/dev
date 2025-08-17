@@ -34,16 +34,9 @@ vim.opt.updatetime = 50
 vim.g.rustaceanvim = {
   server = {
     on_attach = function(client, bufnr)
-      -- deine Keymaps für Rust hier
     end,
-    settings = { -- wichtig: "settings", nicht "default_settings"
+    settings = {
       ["rust-analyzer"] = {
-        cargo = { allFeatures = true },
-        checkOnSave = { command = "clippy" },
-        imports = {
-          granularity = { group = "module" },
-          prefix = "self",
-        },
         inlayHints = {
           lifetimeElisionHints = { enable = true, useParameterNames = true },
           parameterHints = true,
