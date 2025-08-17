@@ -1,23 +1,20 @@
 return {
-    {
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup({
-                icons = false,
-            })
+	{
+		"folke/trouble.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons", -- für Icons
+		config = function()
+			require("trouble").setup({
+				fold_open = "",
+				fold_closed = "",
+				icons = {
+					error = "",
+					warning = "",
+					hint = "",
+					information = "",
+				},
+				use_diagnostic_signs = true,
+			})
 
-            vim.keymap.set("n", "<leader>tt", function()
-                require("trouble").toggle()
-            end)
-
-            vim.keymap.set("n", "[t", function()
-                require("trouble").next({skip_groups = true, jump = true});
-            end)
-
-            vim.keymap.set("n", "]t", function()
-                require("trouble").previous({skip_groups = true, jump = true});
-            end)
-
-        end
-    },
+		end,
+	},
 }

@@ -1,5 +1,2 @@
-
--- lua/plugins/harpoon.lua
-return {
-}
+return {}
 

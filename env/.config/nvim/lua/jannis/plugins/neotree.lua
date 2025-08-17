@@ -15,7 +15,7 @@ return {
   ---@module "neo-tree"
   ---@type neotree.Config?
   opts = {
-            close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+        close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
         popup_border_style = "rounded",
         enable_git_status = true,
         enable_diagnostics = true,
@@ -154,8 +154,8 @@ return {
               --".env*",
             },
             never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-              --".DS_Store",
-              --"thumbs.db"
+              ".DS_Store",
+              "thumbs.db"
             },
             never_show_by_pattern = { -- uses glob style patterns
               --".null-ls_*",

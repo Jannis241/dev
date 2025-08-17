@@ -1,26 +1,37 @@
+local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "<leader>tt", "<cmd>Trouble toggle<cr>", {})
+
+vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Workspace)" })
+vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Diagnostics (Buffer)" })
+-- vim.keymap.set("n", "<leader>fr", "<cmd>Trouble lsp_references toggle<cr>", { desc = "LSP References" })
+vim.keymap.set("n", "<leader>qf", "<cmd>Trouble quickfix toggle<cr>", { desc = "Quickfix" })
+
+vim.keymap.set("n", "<C-j>", function()
+	require("trouble").next({ skip_groups = true, jump = true })
+end, opts)
+vim.keymap.set("n", "<C-k>", function()
+	require("trouble").previous({ skip_groups = true, jump = true })
+end, opts)
+vim.keymap.set(
+	"n",
+	"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+	function()
+		vim.cmd.RustLsp({ "hover", "actions" })
+	end,
+	{ silent = true, buffer = bufnr }
+)
+
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>e", function()
-  local diags = vim.diagnostic.get(0, { lnum = vim.fn.line('.') - 1 })
-  if #diags > 0 then
-    vim.diagnostic.open_float(nil, { focusable = false, border = "rounded" })
-  else
-    vim.lsp.buf.hover()
-  end
-end, { desc = "Show diagnostics or hover" })
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
-
- vim.keymap.set("n", "<leader>h", vim.lsp.buf.signature_help, {})
- vim.keymap.set("n", "q", ":cclose<CR>", {})
+vim.keymap.set("n", "q", ":cclose<CR>", {})
 
 -- ctrl y zum kopieren (ctrl - c wird vom terminal abgefangen)
-vim.keymap.set({'n', 'v'}, "<C-y>", '"+y', { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<C-y>", '"+y', { noremap = true, silent = true })
 
 -- ctrl a um alles zu selecten
-vim.keymap.set({'n', 'v', 'i'}, "<C-a>", '<esc>gg_vG$', { noremap = true, silent = true })
-
-
+vim.keymap.set({ "n", "v", "i" }, "<C-a>", "<esc>gg_vG$", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>ppv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pv", ":Neotree<CR>")

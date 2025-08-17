@@ -27,7 +27,14 @@ return {
 
 	config = function()
 		require("conform").setup({
-			formatters_by_ft = {},
+			formatters_by_ft = {
+				lua = { "stylua" },
+				rust = { "rustfmt" },
+				python = { "black" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				go = { "gofmt" },
+			},
 		})
 
 		local cmp = require("cmp")
@@ -39,7 +46,8 @@ return {
 			cmp_lsp.default_capabilities()
 		)
 
-		require("fidget").setup({})
+		require("fidget").setup()
+
 		require("mason").setup()
 
 		-- mason update -> installiert alles
@@ -57,42 +65,38 @@ return {
 				"clangd", -- c und c++
 			},
 			handlers = {
-				function(server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-
-
-				zls = function()
-					local lspconfig = require("lspconfig")
-					lspconfig.zls.setup({
-						root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-						settings = {
-							zls = {
-								enable_inlay_hints = true,
-								enable_snippets = true,
-								warn_style = true,
-							},
-						},
-					})
-					vim.g.zig_fmt_parse_errors = 0
-					vim.g.zig_fmt_autosave = 0
-				end,
-				["lua_ls"] = function()
-					local lspconfig = require("lspconfig")
-					lspconfig.lua_ls.setup({
+				-- function(server_name) -- default handler (optional)
+				-- 	if server_name == "rust_analyzer" then
+				-- 		-- rust anaylzer soll die config unten laden nicht die default config.
+				-- 		return
+				-- 	end
+				--
+				-- 	require("lspconfig")[server_name].setup({
+				-- 		capabilities = capabilities,
+				-- 	})
+				-- end,
+				["rust_analyzer"] = function()
+					require("lspconfig").rust_analyzer.setup({
 						capabilities = capabilities,
 						settings = {
-							Lua = {
-								format = {
-									enable = true,
-									-- Put format options here
-									-- NOTE: the value should be STRING!!
-									defaultConfig = {
-										indent_style = "space",
-										indent_size = "2",
+							["rust-analyzer"] = {
+								cargo = {
+									allFeatures = true, -- lädt alle Features
+								},
+								checkOnSave = {
+									command = "clippy", -- direkt mit clippy prüfen
+								},
+								imports = {
+									granularity = {
+										group = "module",
 									},
+									prefix = "self",
+								},
+								inlayHints = {
+									lifetimeElisionHints = { enable = true, useParameterNames = true },
+									parameterHints = true,
+									typeHints = true,
+									chainingHints = true,
 								},
 							},
 						},
@@ -102,8 +106,30 @@ return {
 		})
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
+		local lspkind = require("lspkind")
 
 		cmp.setup({
+			formatting = {
+				format = lspkind.cmp_format({
+					mode = "symbol_text", -- show only symbol annotations
+					maxwidth = {
+						-- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+						-- can also be a function to dynamically calculate max width such as
+						-- menu = function() return math.floor(0.45 * vim.o.columns) end,
+						menu = 50, -- leading text (labelDetails)
+						abbr = 50, -- actual suggestion item
+					},
+					ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+					show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+
+					-- The function below will be called before any actual modifications from lspkind
+					-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+					before = function(entry, vim_item)
+						-- ...
+						return vim_item
+					end,
+				}),
+			},
 			snippet = {
 				expand = function(args)
 					require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
@@ -116,16 +142,16 @@ return {
 				["<enter>"] = cmp.mapping.confirm({ select = true }),
 				["<C-Space>"] = cmp.mapping.complete(),
 			}),
-              window = {
-    completion = cmp.config.window.bordered({
-      max_height = 10,   -- max Zeilen
-      max_width = 50,    -- max Spalten
-    }),
-    documentation = cmp.config.window.bordered({
-      max_height = 10,
-      max_width = 50,
-    }),
-  },
+			window = {
+				completion = cmp.config.window.bordered({
+					max_height = 10, -- max Zeilen
+					max_width = 20, -- max Spalten
+				}),
+				documentation = cmp.config.window.bordered({
+					max_height = 10,
+					max_width = 20,
+				}),
+			},
 
 			sources = cmp.config.sources({
 				{ name = "copilot", group_index = 2 },
@@ -136,21 +162,26 @@ return {
 			}),
 		})
 
+		local signs = { Error = " ", Warn = " ", Hint = "󰌵 ", Info = " " }
+		for type, icon in pairs(signs) do
+			local hl = "DiagnosticSign" .. type
+			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+		end
 
+		-- Diagnostic Config
 		vim.diagnostic.config({
 			virtual_text = {
-				severity = vim.diagnostic.severity.ERROR,
-				prefix = "●",
-				spacing = 1,
+				prefix = "", -- kleines Icon statt nur Text
+				spacing = 2, -- Abstand zum Text
 			},
-			signs = true,
-			underline = true,
-			update_in_insert = true, -- warten bis :w kommt -> sonst nervig
+			signs = true, -- links in der SignColumn
+			underline = true, -- rote / gelbe Unterstreichungen
+			update_in_insert = true, -- nach :w oder wenn du Insert verlässt
+			severity_sort = true, -- sortiert nach Error > Warn > Hint > Info
 			float = {
 				focusable = true,
-				style = "minimal",
-				border = "rounded",
-				source = "always",
+				border = "rounded", -- schöne runde Ränder
+				source = "if_many", -- Quelle nur anzeigen, wenn mehrere
 				header = "",
 				prefix = "",
 			},
