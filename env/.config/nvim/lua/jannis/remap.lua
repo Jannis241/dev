@@ -6,12 +6,16 @@ vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<
 -- vim.keymap.set("n", "<leader>fr", "<cmd>Trouble lsp_references toggle<cr>", { desc = "LSP References" })
 vim.keymap.set("n", "<leader>qf", "<cmd>Trouble quickfix toggle<cr>", { desc = "Quickfix" })
 
-vim.keymap.set("n", "<C-j>", function()
-	require("trouble").next({ skip_groups = true, jump = true })
-end, opts)
+-- Springt zum vorherigen Fehler, egal in welcher Datei
 vim.keymap.set("n", "<C-k>", function()
-	require("trouble").previous({ skip_groups = true, jump = true })
-end, opts)
+    require("trouble").previous({ skip_groups = true, jump = true })
+end, { noremap = true, silent = true })
+
+-- Springt zum nächsten Fehler, egal in welcher Datei
+vim.keymap.set("n", "<C-j>", function()
+    require("trouble").next({ skip_groups = true, jump = true })
+end, { noremap = true, silent = true })
+
 vim.keymap.set(
 	"n",
 	"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
