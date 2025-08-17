@@ -32,12 +32,11 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 vim.g.rustaceanvim = {
-  tools = {},
   server = {
     on_attach = function(client, bufnr)
-      -- deine Keymaps
+      -- deine Keymaps für Rust hier
     end,
-    default_settings = {
+    settings = { -- wichtig: "settings", nicht "default_settings"
       ["rust-analyzer"] = {
         cargo = { allFeatures = true },
         checkOnSave = { command = "clippy" },
@@ -55,5 +54,6 @@ vim.g.rustaceanvim = {
     },
   },
   dap = {},
+  tools = {},
 }
 
