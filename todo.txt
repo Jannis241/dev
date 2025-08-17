@@ -2,6 +2,7 @@
 - keybinds merken
 - lsp fr besser machen
 - fzf farben
+- rustacean adden und die ganzen gielen featrues
 
 
 

@@ -65,16 +65,11 @@ return {
 				"clangd", -- c und c++
 			},
 			handlers = {
-				-- function(server_name) -- default handler (optional)
-				-- 	if server_name == "rust_analyzer" then
-				-- 		-- rust anaylzer soll die config unten laden nicht die default config.
-				-- 		return
-				-- 	end
-				--
-				-- 	require("lspconfig")[server_name].setup({
-				-- 		capabilities = capabilities,
-				-- 	})
-				-- end,
+				function(server_name)
+					if server_name ~= "rust_analyzer" then
+						require("lspconfig")[server_name].setup({ capabilities = capabilities })
+					end
+				end,
 				["rust_analyzer"] = function()
 					require("lspconfig").rust_analyzer.setup({
 						capabilities = capabilities,
