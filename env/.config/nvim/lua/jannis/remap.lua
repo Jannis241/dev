@@ -1,6 +1,7 @@
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>tt", "<cmd>Trouble toggle<cr>", {})
 
+
 vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Workspace)" })
 vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Diagnostics (Buffer)" })
 -- vim.keymap.set("n", "<leader>fr", "<cmd>Trouble lsp_references toggle<cr>", { desc = "LSP References" })
@@ -21,6 +22,30 @@ vim.keymap.set(
 	"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
 	function()
 		vim.cmd.RustLsp({ "hover", "actions" })
+	end,
+	{ silent = true, buffer = bufnr }
+)
+-- vim.keymap.set(
+-- 	"n",
+-- 	"<leader>e", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+-- 	function()
+--         vim.cmd.RustLsp('explainError')
+-- 	end,
+-- 	{ silent = true, buffer = bufnr }
+-- )
+vim.keymap.set(
+	"n",
+	"<leader>rd", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+	function()
+        vim.cmd.RustLsp('renderDiagnostic')
+	end,
+	{ silent = true, buffer = bufnr }
+)
+vim.keymap.set(
+	"n",
+	"<leader>od", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+	function()
+        vim.cmd.RustLsp('openDocs')
 	end,
 	{ silent = true, buffer = bufnr }
 )

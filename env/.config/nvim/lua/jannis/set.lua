@@ -37,6 +37,7 @@ vim.g.rustaceanvim = {
     end,
     settings = {
       ["rust-analyzer"] = {
+                checkOnSave=true,
         inlayHints = {
           lifetimeElisionHints = { enable = true, useParameterNames = true },
           parameterHints = true,
