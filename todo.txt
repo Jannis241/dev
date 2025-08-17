@@ -5,7 +5,7 @@
 - rustacean adden und die ganzen gielen featrues
 
 
-
+- shift k besser sichtbar machen und dieses special mit rust gut machen und <leader>e und cargo errors
 
 - rofi mit browser ding da machen
 - nvim config verbessern (bisschen wie nvchad machen und todo erfüllen)

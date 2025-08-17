@@ -47,7 +47,6 @@ return {
 		)
 
 		require("fidget").setup()
-
 		require("mason").setup()
 
 		-- mason update -> installiert alles
@@ -55,50 +54,28 @@ return {
 		-- bsp: für c und c++: clang
 		-- rust-analyzer mti rustup usw sollte man auch haben damit alles gut funktoiniert
 		-- sonst gibt es einen error
-		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"lua_ls", -- lua
-				"rust_analyzer", -- rust
-				"jdtls", --java
-				"pyright", --python
-				"gopls", --go
-				"clangd", -- c und c++
-			},
-			handlers = {
-				function(server_name)
-					if server_name ~= "rust_analyzer" then
-						require("lspconfig")[server_name].setup({ capabilities = capabilities })
-					end
-				end,
-				["rust_analyzer"] = function()
-					require("lspconfig").rust_analyzer.setup({
-						capabilities = capabilities,
-						settings = {
-							["rust-analyzer"] = {
-								cargo = {
-									allFeatures = true, -- lädt alle Features
-								},
-								checkOnSave = {
-									command = "clippy", -- direkt mit clippy prüfen
-								},
-								imports = {
-									granularity = {
-										group = "module",
-									},
-									prefix = "self",
-								},
-								inlayHints = {
-									lifetimeElisionHints = { enable = true, useParameterNames = true },
-									parameterHints = true,
-									typeHints = true,
-									chainingHints = true,
-								},
-							},
-						},
-					})
-				end,
-			},
-		})
+		--
+		--
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "lua_ls",
+    "jdtls",
+    "pyright",
+    "gopls",
+    "clangd",
+  },
+  handlers = {
+    function(server_name)
+      if server_name == "rust_analyzer" then
+        return
+      end
+      require("lspconfig")[server_name].setup({
+        capabilities = capabilities,
+      })
+    end,
+  },
+})
+
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 		local lspkind = require("lspkind")
