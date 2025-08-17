@@ -22,6 +22,7 @@ ghostty
 gimp
 git
 go
+graphviz
 grim
 gst-plugin-pipewire
 hack-font-ligature-nerd-font-git
