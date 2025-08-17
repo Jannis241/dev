@@ -145,6 +145,10 @@ if ! command -v rustc &> /dev/null; then
 fi
 sudo pacman -S linux-firmware
 
+rustc --version
+cargo --version
+rustup --version
+
 
 git clone git@github.com:junegunn/fzf.git $HOME/fzf
 $HOME/fzf/install
