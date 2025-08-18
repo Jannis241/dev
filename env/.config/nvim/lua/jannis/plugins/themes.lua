@@ -34,7 +34,7 @@ return {
 					Comment = { italic = false },
 				},
 			})
-			apply_colorscheme("ayu")
+			-- apply_colorscheme("ayu")
 		end,
 	},
 
@@ -98,12 +98,21 @@ return {
 		name = "rose-pine",
 		config = function()
 			require("rose-pine").setup({
+				variant = "moon",
+				dark_variant = "moon",
+
+				enable = {
+					terminal = true,
+					legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+					migrations = true, -- Handle deprecated options automatically
+				},
 				disable_background = true,
 				styles = {
 					italic = false,
+					transparency = true,
 				},
 			})
-			-- apply_colorscheme("rose-pine")
+			apply_colorscheme("rose-pine")
 		end,
 	},
 }
