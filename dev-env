@@ -89,6 +89,6 @@ rustup component add rust-analyzer
 
 hyprctl reload
 
-sudo pacman -Syu
 paru -Qdtq | xargs -r sudo pacman -Rns
+sudo pacman -Syu
 
