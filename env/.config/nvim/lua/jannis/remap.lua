@@ -27,12 +27,13 @@ vim.keymap.set(
 )
 -- vim.keymap.set(
 -- 	"n",
--- 	"<leader>e", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+-- 	"<leader>", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
 -- 	function()
 --         vim.cmd.RustLsp('explainError')
 -- 	end,
 -- 	{ silent = true, buffer = bufnr }
 -- )
+
 vim.keymap.set(
 	"n",
 	"<leader>rd", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
