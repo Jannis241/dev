@@ -181,5 +181,6 @@ xdg-mime default org.gnome.Loupe.desktop image/gif
 xdg-mime default org.gnome.Loupe.desktop image/webp
 
 
+update_script
 
 echo -e "${GREEN}✅ Setup abgeschlossen! Starte den PC ggf. neu.${NC}"

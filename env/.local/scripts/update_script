@@ -1,0 +1,64 @@
+#!/bin/bash
+# Arch Linux Cleanup & Update Script
+# Achtung: Führt Systemupdates und Reinigung aus. Prüfe vor Ausführung!
+
+# -----------------------
+# 2. Systemupdate
+# -----------------------
+echo "==> System wird aktualisiert..."
+sudo pacman -Syu --noconfirm
+
+# -----------------------
+# 3. AUR Update (falls yay installiert)
+# -----------------------
+if command -v paru &> /dev/null; then
+    echo "==> AUR-Pakete werden aktualisiert..."
+    sudo paru -Syu --noconfirm
+fi
+
+# -----------------------
+# 4. Unnötige Pakete entfernen
+# -----------------------
+echo "==> Unbenutzte Abhängigkeiten werden entfernt..."
+sudo pacman -Rns $(pacman -Qtdq) --noconfirm || echo "Keine unbenutzten Pakete gefunden"
+
+# -----------------------
+# 5. Cache aufräumen
+# -----------------------
+echo "==> Pacman Cache wird bereinigt..."
+paccache -r -k 3  # behält die letzten 3 Versionen
+echo "==> Paru Cache wird bereinigt..."
+[ -f /usr/bin/paru ] && sudo paru -Sc --noconfirm
+
+# -----------------------
+# 6. Flatpak Update & Cleanup
+# -----------------------
+if command -v flatpak &> /dev/null; then
+    echo "==> Flatpak Pakete aktualisieren..."
+    sudo flatpak update -y
+    echo "==> Flatpak Cleanup..."
+    sudo flatpak uninstall --unused -y
+fi
+
+# -----------------------
+# 7. Snap Update & Cleanup
+# -----------------------
+if command -v snap &> /dev/null; then
+    echo "==> Snap Pakete aktualisieren..."
+    sudo snap refresh
+    echo "==> Snap alte Revisionen entfernen..."
+    sudo snap set system refresh.retain=2
+fi
+
+# -----------------------
+# 8. System Cleanup
+# -----------------------
+echo "==> Temporäre Dateien und Logs werden gelöscht..."
+sudo rm -rf ~/.cache/*
+journalctl --vacuum-time=7d
+
+# -----------------------
+# 9. Fertig
+# -----------------------
+echo "==> Cleanup & Update abgeschlossen!"
+
