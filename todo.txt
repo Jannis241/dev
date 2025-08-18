@@ -1,12 +1,7 @@
-- nvim doppel lsp start fixxen
 - keybinds merken
 - lsp fr besser machen
 - fzf farben
 - rustacean adden und die ganzen gielen featrues
 
-
-- shift k besser sichtbar machen und dieses special mit rust gut machen und <leader>e und cargo errors
-
 - rofi mit browser ding da machen
-- nvim config verbessern (bisschen wie nvchad machen und todo erfüllen)
 - loupe verbessern oder irgendwie den file browser dass man leichter bilder auf machen kann.

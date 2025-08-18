@@ -16,6 +16,7 @@ export DEV_ENV="$HOME/dev"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="awesomepanda"
 
 
 plugins=(git)

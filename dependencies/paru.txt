@@ -25,6 +25,7 @@ go
 graphviz
 grim
 gst-plugin-pipewire
+gwenview
 hack-font-ligature-nerd-font-git
 htop
 hyprland
@@ -76,12 +77,15 @@ slurp
 smartmontools
 spotify-launcher
 stylua
+thunar
+thunar-volman
 tmux
 tree-sitter-cli
 ttf-hack-nerd
 ttf-hackgen
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
+tumbler
 unzip
 uwsm
 vim
