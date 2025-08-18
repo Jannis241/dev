@@ -60,5 +60,8 @@ journalctl --vacuum-time=7d
 # -----------------------
 # 9. Fertig
 # -----------------------
+rustup update
+rustup component add rust-analyzer
+
 echo "==> Cleanup & Update abgeschlossen!"
 

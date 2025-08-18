@@ -144,6 +144,9 @@ if ! command -v rustc &> /dev/null; then
     source "$HOME/.cargo/env"
 fi
 sudo pacman -S linux-firmware
+rustup update
+rustup component add rust-analyzer
+
 
 rustc --version
 cargo --version

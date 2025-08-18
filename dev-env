@@ -82,8 +82,6 @@ copy $DEV_ENV/wallpaper.png $HOME/wallpaper.png
 
 mkdir -p $HOME/.local/bin
 
-rustup update
-rustup component add rust-analyzer
 
 
 
