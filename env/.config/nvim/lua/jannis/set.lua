@@ -32,22 +32,20 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 vim.g.rustaceanvim = {
-  server = {
-    on_attach = function(client, bufnr)
-    end,
-    settings = {
-      ["rust-analyzer"] = {
-                checkOnSave=true,
-        inlayHints = {
-          lifetimeElisionHints = { enable = true, useParameterNames = true },
-          parameterHints = true,
-          typeHints = true,
-          chainingHints = true,
-        },
-      },
-    },
-  },
-  dap = {},
-  tools = {},
+	server = {
+		on_attach = function(client, bufnr) end,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = true,
+				inlayHints = {
+					lifetimeElisionHints = { enable = true, useParameterNames = true },
+					parameterHints = true,
+					typeHints = true,
+					chainingHints = true,
+				},
+			},
+		},
+	},
+	dap = {},
+	tools = {},
 }
-

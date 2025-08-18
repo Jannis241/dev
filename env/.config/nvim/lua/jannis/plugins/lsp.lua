@@ -148,7 +148,7 @@ require("mason-lspconfig").setup({
 			},
 			signs = true, -- links in der SignColumn
 			underline = true, -- rote / gelbe Unterstreichungen
-			update_in_insert = true, -- nach :w oder wenn du Insert verlässt
+			update_in_insert = false, -- nach :w oder wenn du Insert verlässt
 			severity_sort = true, -- sortiert nach Error > Warn > Hint > Info
 			float = {
 				focusable = true,

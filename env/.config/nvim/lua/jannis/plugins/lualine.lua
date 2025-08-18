@@ -38,7 +38,7 @@ return {
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { "filename" },
+				lualine_c = { { "filename", path = 1 } }, -- Pfad anzeigen
 				lualine_x = { "filetype" },
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
@@ -52,9 +52,11 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			winbar = {},
 			inactive_winbar = {},
-			extensions = {},
+			winbar = {},
+			extensions = { "fugitive", "nvim-tree", "quickfix" },
 		})
+		vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
+		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
 	end,
 }

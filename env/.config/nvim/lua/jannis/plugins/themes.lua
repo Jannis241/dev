@@ -1,13 +1,40 @@
+local function mach_transparent()
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+	vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
+	vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
+	vim.api.nvim_set_hl(0, "VertSplit", { bg = "none" })
+end
+
+local function apply_colorscheme(color)
+	color = color or "rose-pine-moon"
+	vim.cmd.colorscheme(color)
+	-- mach_transparent()
+end
+
 return {
 	{
 		"Shatur/neovim-ayu",
 		config = function()
 			require("ayu").setup({
 				mirage = false,
-				terminal = false,
-				overrides = {},
+				terminal = true,
+				overrides = {
+					Normal = { bg = "None" },
+					NormalFloat = { bg = "none" },
+					ColorColumn = { bg = "None" },
+					SignColumn = { bg = "None" },
+					Folded = { bg = "None" },
+					FoldColumn = { bg = "None" },
+					-- CursorLine = { bg = "None" },
+					-- CursorColumn = { bg = "None" },
+					VertSplit = { bg = "None" },
+					Comment = { italic = false },
+				},
 			})
-            vim.cmd.colorscheme("ayu")
+			apply_colorscheme("ayu")
 		end,
 	},
 
@@ -19,6 +46,9 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		config = function()
+			-- apply_colorscheme("catppuccin")
+		end,
 	},
 
 	{
@@ -26,7 +56,11 @@ return {
 		lazy = false,
 		name = "tokyonight",
 		opts = {},
+		config = function()
+			-- apply_colorscheme("tokyonight")
+		end,
 	},
+
 	{
 		"ellisonleao/gruvbox.nvim",
 		name = "gruvbox",
@@ -49,12 +83,13 @@ return {
 				invert_tabline = false,
 				invert_intend_guides = false,
 				inverse = true, -- invert background for search, diffs, statuslines and errors
-				contrast = "", -- can be "hard", "soft" or empty string
+				contrast = "hard", -- can be "hard", "soft" or empty string
 				palette_overrides = {},
 				overrides = {},
 				dim_inactive = false,
-				transparent_mode = false,
+				transparent_mode = true,
 			})
+			-- apply_colorscheme("gruvbox")
 		end,
 	},
 
@@ -68,8 +103,7 @@ return {
 					italic = false,
 				},
 			})
+			-- apply_colorscheme("rose-pine")
 		end,
 	},
-
-
 }

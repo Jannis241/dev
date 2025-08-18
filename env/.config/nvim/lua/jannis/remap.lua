@@ -34,9 +34,10 @@ vim.keymap.set(
 -- 	{ silent = true, buffer = bufnr }
 -- )
 
+
 vim.keymap.set(
 	"n",
-	"<leader>rd", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+	"<leader>rd",
 	function()
         vim.cmd.RustLsp('renderDiagnostic')
 	end,
@@ -44,7 +45,7 @@ vim.keymap.set(
 )
 vim.keymap.set(
 	"n",
-	"<leader>od", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+	"<leader>od",
 	function()
         vim.cmd.RustLsp('openDocs')
 	end,
