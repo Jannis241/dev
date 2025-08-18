@@ -6,6 +6,7 @@ font-size =20
 
 #theme = rose-pine-moon
 theme = catppuccin-mocha
+
 background = 000000
 background-opacity = 0.85
 background-blur = false

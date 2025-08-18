@@ -16,6 +16,22 @@ end
 
 return {
 	{
+		"projekt0n/github-nvim-theme",
+		name = "github-theme",
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			require("github-theme").setup({
+                options = {
+                    transparent = true,
+                }
+			})
+            -- namen: https://github.com/projekt0n/github-nvim-theme
+
+            apply_colorscheme("github_dark_default")
+		end,
+	},
+	{
 		"Shatur/neovim-ayu",
 		config = function()
 			require("ayu").setup({
@@ -35,6 +51,14 @@ return {
 				},
 			})
 			-- apply_colorscheme("ayu")
+		end,
+	},
+
+	{
+		"embark-theme/vim",
+		as = "embark",
+		config = function()
+			-- apply_colorscheme("embark")
 		end,
 	},
 
@@ -112,7 +136,7 @@ return {
 					transparency = true,
 				},
 			})
-			apply_colorscheme("rose-pine")
+			-- apply_colorscheme("rose-pine")
 		end,
 	},
 }
