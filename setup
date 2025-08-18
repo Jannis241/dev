@@ -174,5 +174,12 @@ fi
 paru -Qdtq | xargs -r sudo pacman -Rns
 sudo pacman -Syu
 
+xdg-mime default org.gnome.Loupe.desktop image/png
+xdg-mime default org.gnome.Loupe.desktop image/jpeg
+xdg-mime default org.gnome.Loupe.desktop image/jpg
+xdg-mime default org.gnome.Loupe.desktop image/gif
+xdg-mime default org.gnome.Loupe.desktop image/webp
+
+
 
 echo -e "${GREEN}✅ Setup abgeschlossen! Starte den PC ggf. neu.${NC}"
