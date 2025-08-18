@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-sudo pacman -Syu
 get-dependencies
 # Prüfen, ob DEV_ENV gesetzt ist
 if [ -z "$DEV_ENV" ]; then
@@ -19,4 +18,5 @@ git push
 
 # Zurück wechseln
 popd > /dev/null
+sudo pacman -Syu
 
