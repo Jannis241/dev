@@ -81,6 +81,7 @@ thunar
 thunar-volman
 tmux
 tree-sitter-cli
+ttf-firacode-nerd
 ttf-hack-nerd
 ttf-hackgen
 ttf-jetbrains-mono-nerd

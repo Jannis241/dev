@@ -23,7 +23,7 @@ return {
 		config = function()
 			require("github-theme").setup({
                 options = {
-                    transparent = true,
+                    -- transparent = true,
                 }
 			})
             -- namen: https://github.com/projekt0n/github-nvim-theme
@@ -38,17 +38,17 @@ return {
 				mirage = false,
 				terminal = true,
 				overrides = {
-					-- Normal = { bg = "None" },
-					-- NormalFloat = { bg = "none" },
+					Normal = { bg = "None" },
+					-- NormalFloat = { bg = "None" },
 					-- ColorColumn = { bg = "None" },
-					-- SignColumn = { bg = "None" },
+					SignColumn = { bg = "None" },
 					-- Folded = { bg = "None" },
 					-- FoldColumn = { bg = "None" },
-					-- VertSplit = { bg = "None" },
-					-- Comment = { italic = false },
+					VertSplit = { bg = "None" },
+					Comment = { italic = false },
 				},
 			})
-			-- apply_colorscheme("ayu")
+			apply_colorscheme("ayu")
 		end,
 	},
 
@@ -134,7 +134,7 @@ return {
 					transparency = true,
 				},
 			})
-			apply_colorscheme("rose-pine")
+			-- apply_colorscheme("rose-pine")
 		end,
 	},
 }
