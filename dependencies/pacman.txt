@@ -49,6 +49,7 @@ lua51
 luarocks
 mousepad
 nano
+nasm
 neovim
 nerd-fonts-git
 network-manager-applet
