@@ -8,7 +8,7 @@ font-size =20
 theme = ayu
 
 background = 000000
-background-opacity = 0.9
+background-opacity = 0.85
 #background-blur =true
 confirm-close-surface=false
 window-decoration = true
