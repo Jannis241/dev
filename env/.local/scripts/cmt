@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Abbruch, wenn keine Commit-Message übergeben wurde
+if [ -z "$1" ]; then
+  echo "Fehler: Bitte eine Commit-Message angeben!"
+  echo "Usage: cmt \"Deine Nachricht\""
+  exit 1
+fi
+
+# Git Befehle
+git add .
+git commit -m "$1"
+git pull
+git push
+
