@@ -5,11 +5,11 @@ keybind = ctrl+v=paste_from_clipboard
 font-size =20
 
 #theme = rose-pine-moon
-#theme = catppuccin-mocha
+theme = ayu
 
-background = 010101
-background-opacity = 0.85
-#background-blur = false
+background = 000000
+background-opacity = 0.9
+#background-blur =true
 confirm-close-surface=false
 window-decoration = true
 

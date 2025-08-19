@@ -1,7 +1,4 @@
-- keybinds merken
-- lsp fr besser machen
+- das grep in einem file besser machen (so wie /) -> bei telescope so machen dass direkt matches priorisiert werden oder so
+- lsp keybinds besser machen
 - fzf farben
-- rustacean adden und die ganzen gielen featrues
 
-- rofi mit browser ding da machen
-- loupe verbessern oder irgendwie den file browser dass man leichter bilder auf machen kann.
