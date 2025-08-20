@@ -2,7 +2,7 @@ font-family = "FiraCode Nerd Font Mono"
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 
-font-size =20
+font-size =22
 
 #theme = rose-pine-moon
 theme = ayu
