@@ -56,26 +56,25 @@ return {
 		-- sonst gibt es einen error
 		--
 		--
-require("mason-lspconfig").setup({
-  ensure_installed = {
-    "lua_ls",
-    "jdtls",
-    "pyright",
-    "gopls",
-    "clangd",
-  },
-  handlers = {
-    function(server_name)
-      if server_name == "rust_analyzer" then
-        return
-      end
-      require("lspconfig")[server_name].setup({
-        capabilities = capabilities,
-      })
-    end,
-  },
-})
-
+		require("mason-lspconfig").setup({
+			ensure_installed = {
+				"lua_ls",
+				"jdtls",
+				"pyright",
+				"gopls",
+				"clangd",
+			},
+			handlers = {
+				function(server_name)
+					if server_name == "rust_analyzer" then
+						return
+					end
+					require("lspconfig")[server_name].setup({
+						capabilities = capabilities,
+					})
+				end,
+			},
+		})
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 		local lspkind = require("lspkind")
@@ -145,9 +144,16 @@ require("mason-lspconfig").setup({
 			virtual_text = {
 				prefix = "", -- kleines Icon statt nur Text
 				spacing = 2, -- Abstand zum Text
+				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
 			},
-			signs = true, -- links in der SignColumn
-			underline = true, -- rote / gelbe Unterstreichungen
+			signs = {
+				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
+            },
+            underline = {
+				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
+            },
+
+
 			update_in_insert = false, -- nach :w oder wenn du Insert verlässt
 			severity_sort = true, -- sortiert nach Error > Warn > Hint > Info
 			float = {
