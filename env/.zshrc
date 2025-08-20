@@ -17,7 +17,7 @@ export DEV_ENV="$HOME/dev"
 
 ZSH_THEME="robbyrussell"
 # ZSH_THEME="awesomepanda"
-
+unset PROMPT_EOL_MARK
 
 plugins=(git)
 
