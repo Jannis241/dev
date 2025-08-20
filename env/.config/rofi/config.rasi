@@ -6,6 +6,13 @@ configuration {
     display-drun: "Open ";
     drun-display-format: "{icon} {name}";
     modi: "run,drun";
+
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+
+    kb-accept-entry: "Return,Control+m,KP_Enter";
+    kb-remove-to-eol: "";
+    kb-remove-to-sol: "";
 }
 
 @import "~/.config/colors/colors.rasi"
