@@ -48,7 +48,7 @@ return {
 					Comment = { italic = false },
 				},
 			})
-			apply_colorscheme("ayu")
+			-- apply_colorscheme("ayu")
 		end,
 	},
 
@@ -134,7 +134,7 @@ return {
 					transparency = true,
 				},
 			})
-			-- apply_colorscheme("rose-pine")
+			apply_colorscheme("rose-pine")
 		end,
 	},
 }
