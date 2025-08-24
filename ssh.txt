@@ -1,0 +1,15 @@
+1. ssh-keygen -t ed25519 -C "NameOderEmail" # key generieren
+2. Den public key auf dem "Server" in .ssh/authorized_keys einfügen.
+
+
+Connecten:
+ssh benutzername@ip
+
+
+Achtung:
+- Beim server muss pubkey authentication an sein und passwort aus.
+
+
+
+
+

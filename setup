@@ -183,6 +183,8 @@ xdg-mime default org.gnome.Loupe.desktop image/jpg
 xdg-mime default org.gnome.Loupe.desktop image/gif
 xdg-mime default org.gnome.Loupe.desktop image/webp
 
+sudo systemctl enable --now sshd
+
 
 update_script
 
