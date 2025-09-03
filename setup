@@ -1,46 +1,34 @@
 #!/bin/bash
+set -euo pipefail
+
+# Farben direkt am Anfang definieren
+GREEN='\033[0;32m'
+NC='\033[0m'
 
 # Setze Zielverzeichnis relativ zu diesem Script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUT_DIR="$SCRIPT_DIR/dependencies"
 
 rm -rf "$OUT_DIR"
-
 mkdir -p "$OUT_DIR"
 
 echo "📦 Exportiere installierte Pakete nach: $OUT_DIR"
 
-# Pacman (nur explizit installierte Pakete)
-pacman -Qqe | awk '{print $1}' > "$OUT_DIR/pacman.txt"
-
-# Paru AUR Pakete
-if command -v paru &> /dev/null; then
-    paru -Qqe | awk '{print $1}' > "$OUT_DIR/paru.txt"
-else
-    echo "⚠️ paru nicht gefunden"
-fi
-
-
-# Flatpak Pakete
-if command -v flatpak &> /dev/null; then
-    flatpak list --app --columns=application > "$OUT_DIR/flatpak.txt"
-else
-    echo "⚠️ flatpak nicht gefunden"
-fi
-
-echo "✅ Fertig! Paketlisten sind in $OUT_DIR"
-
-
-
-GREEN='\033[0;32m'
-NC='\033[0m'
-
 echo -e "${GREEN}==> Systemupdate und Basis-Tools installieren...${NC}"
-sudo pacman -S --needed --noconfirm base-devel git wget curl zsh flatpak neovim lua51 luarocks
-
+sudo pacman -Syu --noconfirm
+sudo pacman -S --needed --noconfirm base-devel git wget curl zsh flatpak neovim lua51 luarocks go nodejs npm openssh
 
 echo -e "${GREEN}==> Installiere Hyprland-Umgebung...${NC}"
 sudo pacman -S --needed --noconfirm hyprland waybar dunst xdg-desktop-portal-hyprland sddm
+
+# Rust installieren, wenn nicht vorhanden
+if ! command -v rustc &> /dev/null; then
+    echo -e "${GREEN}==> Installiere Rust...${NC}"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+fi
+rustup update
+rustup component add rust-analyzer
 
 # Paru installieren, falls nötig
 if ! command -v paru &> /dev/null; then
@@ -51,7 +39,19 @@ if ! command -v paru &> /dev/null; then
     makepkg -si --noconfirm
 fi
 
-# Flatpak & Snap
+# Versionen checken
+rustc --version
+cargo --version
+rustup --version
+
+# Exportiere installierte Pakete
+pacman -Qqe > "$OUT_DIR/pacman.txt"
+paru -Qqe > "$OUT_DIR/paru.txt" || echo "⚠️ paru nicht gefunden"
+flatpak list --app --columns=application > "$OUT_DIR/flatpak.txt" || echo "⚠️ flatpak nicht gefunden"
+
+echo "✅ Paketlisten sind in $OUT_DIR"
+
+# Flatpak einrichten
 echo -e "${GREEN}==> Flatpak & Snapd einrichten...${NC}"
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -59,97 +59,32 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 sudo systemctl enable --now NetworkManager sddm
 
 # Dotfiles-abhängige Pakete installieren
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
 DEPENDENCY_DIR="$DOTFILES_DIR/dependencies"
 
 echo -e "${GREEN}==> Installiere Pakete aus dependencies/...${NC}"
-
 [[ -f "$DEPENDENCY_DIR/pacman.txt" ]] && sudo pacman -S --needed --noconfirm $(< "$DEPENDENCY_DIR/pacman.txt")
-
-if [[ -f "$DEPENDENCY_DIR/paru.txt" && -x "$(command -v paru)" ]]; then
-    paru -S --needed --noconfirm $(< "$DEPENDENCY_DIR/paru.txt")
-fi
-
+[[ -f "$DEPENDENCY_DIR/paru.txt" && -x "$(command -v paru)" ]] && paru -S --needed --noconfirm $(< "$DEPENDENCY_DIR/paru.txt")
 if [[ -f "$DEPENDENCY_DIR/flatpak.txt" ]]; then
     while IFS= read -r pkg; do
         flatpak install -y flathub "$pkg"
     done < "$DEPENDENCY_DIR/flatpak.txt"
 fi
 
-
-
-
-INSTALL_DIR="$HOME/.local"
-LUAROCKS_VERSION="3.12.2"
-LUAROCKS_TAR="luarocks-$LUAROCKS_VERSION.tar.gz"
-LUAROCKS_DIR="luarocks-$LUAROCKS_VERSION"
-
-# Gehe ins dev-Verzeichnis (also das Verzeichnis, wo das Script liegt)
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
-
-# Nur laden, wenn noch nicht installiert
-if ! command -v luarocks &> /dev/null; then
-    echo "📦 Installing LuaRocks..."
-
-    # Herunterladen, wenn Datei nicht existiert
-    if [ ! -f "$LUAROCKS_TAR" ]; then
-        wget "https://luarocks.org/releases/$LUAROCKS_TAR"
-    fi
-
-    # Entpacken
-    tar zxpf "$LUAROCKS_TAR"
-    cd "$LUAROCKS_DIR"
-
-    # Kompilieren und lokal installieren
-    ./configure --prefix="$INSTALL_DIR"
-    make
-    make install
-
-    echo "✅ LuaRocks installiert in $INSTALL_DIR"
-else
-    echo "✔️ LuaRocks ist bereits installiert"
-fi
-
-# Stelle sicher, dass ~/.local/bin in $PATH ist
-if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
-    export PATH="$HOME/.local/bin:$PATH"
-    echo "🔧 .zshrc angepasst: PATH hinzugefügt"
-fi
-
-
-
-
-
-paru -S --noconfirm --needed opencode-bin
-sudo pacman -S --noconfirm --needed tmux
 # Dev-Tools
 echo -e "${GREEN}==> Entwicklertools installieren...${NC}"
 sudo luarocks install luacheck
-sudo pacman -S --noconfirm neovim lua51 luarocks
+sudo pacman -S --noconfirm tmux
 
-paru -S ttf-font-awesome waybar ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols
-paru -S ffmpeg aalib ascii-image-converter-bin --noconfirm
-# Rust & Tools
-if ! command -v rustc &> /dev/null; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME/.cargo/env"
+paru -S --noconfirm --needed opencode-bin ttf-font-awesome waybar ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols ffmpeg aalib ascii-image-converter-bin
+
+# fzf Installation via HTTPS (kein SSH-Key nötig)
+if [[ ! -d "$HOME/fzf" ]]; then
+    git clone https://github.com/junegunn/fzf.git "$HOME/fzf"
+    "$HOME/fzf/install" --all
 fi
-sudo pacman -S linux-firmware
-rustup update
-rustup component add rust-analyzer
 
-
-rustc --version
-cargo --version
-rustup --version
-
-
-git clone git@github.com:junegunn/fzf.git $HOME/fzf
-$HOME/fzf/install
-
+# Rust Tools
 cargo install stylua --features luajit
 
 # Go Tools
@@ -159,32 +94,32 @@ go install honnef.co/go/tools/cmd/staticcheck@latest
 go install golang.org/x/tools/gopls@latest
 go install github.com/air-verse/air@latest
 
-
 # Node.js Tools
 sudo npm install -g typescript typescript-language-server eslint prettier
 
+# Programmieren-Verzeichnis
+mkdir -p "$HOME/programmieren"
 
-if [[ ! -d "$HOME/programmieren" ]]; then
-    mkdir "$HOME/programmieren"
-fi
-
+# Aufräumen & Updates
 paru -Qdtq | xargs -r sudo pacman -Rns
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 
+# Standard-Bildbetrachter
 xdg-mime default org.gnome.Loupe.desktop image/png
 xdg-mime default org.gnome.Loupe.desktop image/jpeg
 xdg-mime default org.gnome.Loupe.desktop image/jpg
 xdg-mime default org.gnome.Loupe.desktop image/gif
 xdg-mime default org.gnome.Loupe.desktop image/webp
 
+# Dienste
 sudo systemctl enable --now sshd
 
-# Oh My Zsh (einmalig)
+# Oh My Zsh (einmalig, ohne interaktive Shell-Änderung)
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo -e "${GREEN}==> Installiere Oh My Zsh...${NC}"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    chsh -s $(which zsh)
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    chsh -s "$(which zsh)"
 fi
 
 echo -e "${GREEN}✅ Setup abgeschlossen! Starte den PC ggf. neu.${NC}"
-echo -e "${GREEN}Führe das dev-env script aus, um alle configs zu aktualisieren.${NC}"
+
