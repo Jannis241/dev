@@ -10,9 +10,6 @@ export PATH="$HOME/.local/scripts:$PATH"
 
 export DEV_ENV="$HOME/dev"
 
-
-
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ZSH_THEME="robbyrussell"
