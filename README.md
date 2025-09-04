@@ -54,13 +54,3 @@ Wenn du meine Hyprland-spezifischen Einstellungen nutzen möchtest, sollte Hyprl
 
 ---
 
-## 🚀 Installation
-
-```bash
-git clone https://github.com/Jannis241/dev.git ~/dev
-cd ~/dev
-./setup
-./dev-env DEV_ENV = "$HOME/dev"
-./env/.local/scripts/update_script
-reboot
-```
