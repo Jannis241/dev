@@ -71,7 +71,7 @@ polkit-kde-agent
 python-pip
 qt5-wayland
 qt6-wayland
-rofi-wayland
+rofi
 rust
 sddm
 sddm-kcm
