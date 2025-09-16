@@ -13,6 +13,7 @@ dkms
 dolphin
 dunst
 efibootmgr
+fastfetch
 fd
 feh
 firefox
@@ -56,6 +57,10 @@ nerd-fonts-git
 network-manager-applet
 networkmanager
 nodejs
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
 npm
 nvidia
 nvidia-settings
@@ -83,10 +88,13 @@ thunar
 thunar-volman
 tmux
 tree-sitter-cli
+ttf-dejavu
 ttf-firacode-nerd
 ttf-hack-nerd
 ttf-hackgen
 ttf-jetbrains-mono-nerd
+ttf-liberation
+ttf-ms-fonts
 ttf-nerd-fonts-symbols
 tumbler
 unzip
