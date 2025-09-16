@@ -1,7 +1,8 @@
 #font-family = "FiraCode Nerd Font Mono"
 #font-family = Iosevka Nerd Font
-font-family = SFMono Nerd Font
+#font-family = SFMono Nerd Font
 #font-family = BerkeleyMono Nerd Font
+font-family = Meslo
 
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
@@ -9,8 +10,8 @@ keybind = ctrl+v=paste_from_clipboard
 font-size =23
 
 #theme = rose-pine-moon
-#theme = ayu
-theme = GruvboxDarkHard
+theme = ayu
+#theme = GruvboxDarkHard
 
 #background =000000
 #background-opacity = 0.85

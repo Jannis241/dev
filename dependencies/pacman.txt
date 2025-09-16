@@ -94,6 +94,7 @@ ttf-hack-nerd
 ttf-hackgen
 ttf-jetbrains-mono-nerd
 ttf-liberation
+ttf-meslo
 ttf-ms-fonts
 ttf-nerd-fonts-symbols
 tumbler
