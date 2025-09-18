@@ -7,7 +7,7 @@ font-family = Meslo
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 
-font-size =23
+font-size =16
 
 #theme = rose-pine-moon
 theme = ayu
