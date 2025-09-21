@@ -1,0 +1,8 @@
+#!/bin/bash
+
+file_name=${1:-Main} # das was man gibt oder Main
+path=$(fd "$file_name.java")
+
+javac "$path"
+java "$path"
+
