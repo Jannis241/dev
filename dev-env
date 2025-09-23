@@ -84,7 +84,7 @@ mkdir -p $HOME/.local/bin
 
 hyprctl reload
 
-update_script
+update_files
 
 
 
