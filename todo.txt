@@ -1,4 +1,0 @@
-- das grep in einem file besser machen (so wie /) -> bei telescope so machen dass direkt matches priorisiert werden oder so
-- lsp keybinds besser machen
-- fzf farben
-
