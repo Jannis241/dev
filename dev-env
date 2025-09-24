@@ -83,8 +83,3 @@ copy $DEV_ENV/wallpaper.png $HOME/wallpaper.png
 mkdir -p $HOME/.local/bin
 
 hyprctl reload
-
-update_files
-
-
-

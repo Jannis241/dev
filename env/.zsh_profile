@@ -4,8 +4,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 fzf-cd-home() {
   local dir
   dir=$(fd . --type d --hidden --follow --exclude .git "$HOME" | fzf) || return
-  cd "$dir" && echo
-  nvim .
+  cd "$dir"
 }
 zle -N fzf-cd-home
 bindkey '^H' fzf-cd-home
@@ -14,8 +13,7 @@ bindkey '^H' fzf-cd-home
 fzf-cd-prog() {
   local dir
   dir=$(fd . --type d --hidden --follow --exclude .git "$HOME/programmieren" | fzf) || return
-  cd "$dir" && echo
-  nvim .
+  cd "$dir"
 }
 zle -N fzf-cd-prog
 bindkey '^P' fzf-cd-prog
@@ -24,8 +22,7 @@ fzf-cd-current() {
   echo""
   local dir
   dir=$(fd . --type d --hidden --follow --exclude .git . | fzf) || return
-  cd "$dir" && echo
-  nvim .
+  cd "$dir"
 }
 zle -N fzf-cd-current
 bindkey '^F' fzf-cd-current
