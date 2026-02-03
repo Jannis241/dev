@@ -13,11 +13,11 @@
 
 window,
 tooltip {
-    background-color: @background;
+    background-color: @background2;
 }
 
 #waybar {
-    background: alpha(@background, 0.7);
+    background: alpha(@background2, 0.85);
     border-radius: 0;
 }
 
@@ -61,6 +61,7 @@ tooltip {
     margin: 1px 0;
     padding: 0 10px;
 }
+
 
 #custom-power:hover,
 #bluetooth:hover,
