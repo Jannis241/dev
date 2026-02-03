@@ -8,6 +8,7 @@ cloc
 cmake
 cuda
 cudnn
+dhcpcd
 discord
 dkms
 dolphin

@@ -63,5 +63,7 @@ journalctl --vacuum-time=7d
 rustup update
 rustup component add rust-analyzer
 
+omz update
+
 echo "==> Cleanup & Update abgeschlossen!"
 

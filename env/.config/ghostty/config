@@ -2,7 +2,7 @@
 #font-family = Iosevka Nerd Font
 #font-family = SFMono Nerd Font
 #font-family = BerkeleyMono Nerd Font
-font-family = Meslo
+font-family = Meslo #(hatte ich eigentlich immer)
 
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
@@ -13,8 +13,8 @@ font-size =23
 theme = ayu
 #theme = GruvboxDarkHard
 
-#background =000000
-#background-opacity = 0.85
+background =11111
+background-opacity = 0.85
 background-blur = false
 confirm-close-surface=false
 window-decoration = true
