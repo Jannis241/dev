@@ -13,7 +13,7 @@ font-size =23
 theme = ayu
 #theme = GruvboxDarkHard
 
-background =00000
+background =#000000
 background-opacity = 0.9
 background-blur = false
 confirm-close-surface=false
