@@ -13,7 +13,7 @@
 
 window,
 tooltip {
-    background-color: @background2;
+    background-color: @background;
 }
 
 #waybar {
