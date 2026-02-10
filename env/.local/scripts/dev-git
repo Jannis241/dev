@@ -19,5 +19,4 @@ git push
 
 # Zurück wechseln
 popd > /dev/null
-sudo pacman -Syu
 

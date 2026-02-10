@@ -2,24 +2,29 @@
 #font-family = Iosevka Nerd Font
 #font-family = SFMono Nerd Font
 #font-family = BerkeleyMono Nerd Font
-font-family = Meslo #(hatte ich eigentlich immer)
+#font-family = Meslo #(hatte ich eigentlich immer)
+#font-family = Square Sans Mono
+
+
 
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 
-font-size =23
+font-size =20
 
-#theme = rose-pine-moon
-theme = ayu
+theme = rose-pine-moon
+#theme = ayu
 #theme = GruvboxDarkHard
+#theme = tokyonight
 
-background =#000000
-background-opacity = 0.9
+background = 111111
+background-opacity = 1
 background-blur = false
 confirm-close-surface=false
 window-decoration = true
 cursor-style = block
 
+shell-integration = zsh
 shell-integration-features = no-cursor,sudo,no-title
 gtk-titlebar = false
 mouse-scroll-multiplier = 2
