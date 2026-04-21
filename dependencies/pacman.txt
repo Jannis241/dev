@@ -63,7 +63,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
 npm
-nvidia
+nvidia-open
 nvidia-settings
 opencode-bin
 paru
@@ -85,6 +85,8 @@ slurp
 smartmontools
 spotify-launcher
 stylua
+tesseract
+tesseract-data-eng
 thunar
 thunar-volman
 tmux
