@@ -238,8 +238,7 @@ Repo klonen (Pfad wie im README erwartet):
 ```bash
 mkdir -p "$HOME/dev"
 cd "$HOME/dev"
-git clone <DEIN_REPO_URL> .
-https://github.com/Jannis241/dev.git .
+git clone https://github.com/Jannis241/dev.git .
 ```
 
 `DEV_ENV` setzen:
