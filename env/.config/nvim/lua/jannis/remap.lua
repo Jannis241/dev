@@ -7,50 +7,15 @@ vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<
 -- vim.keymap.set("n", "<leader>fr", "<cmd>Trouble lsp_references toggle<cr>", { desc = "LSP References" })
 vim.keymap.set("n", "<leader>qf", "<cmd>Trouble quickfix toggle<cr>", { desc = "Quickfix" })
 
--- Springt zum vorherigen Fehler, egal in welcher Datei
-vim.keymap.set("n", "<C-k>", function()
+-- Springt zum vorherigen Trouble-Eintrag
+vim.keymap.set("n", "[t", function()
     require("trouble").previous({ skip_groups = true, jump = true })
 end, { noremap = true, silent = true })
 
--- Springt zum nächsten Fehler, egal in welcher Datei
-vim.keymap.set("n", "<C-j>", function()
+-- Springt zum nächsten Trouble-Eintrag
+vim.keymap.set("n", "]t", function()
     require("trouble").next({ skip_groups = true, jump = true })
 end, { noremap = true, silent = true })
-
-vim.keymap.set(
-	"n",
-	"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-	function()
-		vim.cmd.RustLsp({ "hover", "actions" })
-	end,
-	{ silent = true, buffer = bufnr }
-)
--- vim.keymap.set(
--- 	"n",
--- 	"<leader>", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
--- 	function()
---         vim.cmd.RustLsp('explainError')
--- 	end,
--- 	{ silent = true, buffer = bufnr }
--- )
-
-
-vim.keymap.set(
-	"n",
-	"<leader>rd",
-	function()
-        vim.cmd.RustLsp('renderDiagnostic')
-	end,
-	{ silent = true, buffer = bufnr }
-)
-vim.keymap.set(
-	"n",
-	"<leader>od",
-	function()
-        vim.cmd.RustLsp('openDocs')
-	end,
-	{ silent = true, buffer = bufnr }
-)
 
 vim.g.mapleader = " "
 
@@ -79,8 +44,8 @@ vim.keymap.set("n", "<leader>f", function()
 	require("conform").format({ bufnr = 0 })
 end)
 
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 

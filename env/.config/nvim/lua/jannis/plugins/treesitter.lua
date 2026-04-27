@@ -1,6 +1,9 @@
 return {
     {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    build = ":TSUpdate",
+    lazy = false,
     config = function()
         require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all"
@@ -22,7 +25,7 @@ return {
 
             highlight = {
                 enable = true,
-                    use_languagetree = true,
+                use_languagetree = false,
             },
         })
 

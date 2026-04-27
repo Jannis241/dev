@@ -3,6 +3,7 @@ ascii-image-converter-bin
 base
 base-devel
 bat
+chromium
 clang
 cloc
 cmake
