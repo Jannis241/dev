@@ -56,7 +56,11 @@ return {
         dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
         config = function()
             local dap = require("dap")
-            local dapui = require("dapui")
+            local ok, dapui = pcall(require, "dapui")
+            if not ok then
+                vim.notify("nvim-dap-ui not available (missing dependency nvim-nio)", vim.log.levels.WARN)
+                return
+            end
             local function layout(name)
                 return {
                     elements = {

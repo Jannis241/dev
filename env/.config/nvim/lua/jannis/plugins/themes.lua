@@ -54,7 +54,7 @@ return {
 
 	{
 		"embark-theme/vim",
-		as = "embark",
+		name = "embark",
 		config = function()
 			-- apply_colorscheme("embark")
 		end,
