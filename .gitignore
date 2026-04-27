@@ -1,0 +1,4 @@
+.codex
+env/.config/nvim/.codex
+env/.config/nvim/nvim.log
+env/.config/ghostty/ttf-meslo/

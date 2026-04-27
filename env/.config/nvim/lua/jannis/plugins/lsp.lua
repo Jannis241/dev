@@ -1,14 +1,3 @@
-local root_files = {
-	".luarc.json",
-	".luarc.jsonc",
-	".luacheckrc",
-	".stylua.toml",
-	"stylua.toml",
-	"selene.toml",
-	"selene.yml",
-	".git",
-}
-
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
@@ -26,17 +15,6 @@ return {
 	},
 
 	config = function()
-		require("conform").setup({
-			formatters_by_ft = {
-				lua = { "stylua" },
-				rust = { "rustfmt" },
-				python = { "black" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				go = { "gofmt" },
-			},
-		})
-
 		local cmp = require("cmp")
 		local cmp_lsp = require("cmp_nvim_lsp")
 		local capabilities = vim.tbl_deep_extend(

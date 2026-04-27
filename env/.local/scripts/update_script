@@ -20,7 +20,12 @@ fi
 # 4. Unnötige Pakete entfernen
 # -----------------------
 echo "==> Unbenutzte Abhängigkeiten werden entfernt..."
-sudo pacman -Rns $(pacman -Qtdq) --noconfirm || echo "Keine unbenutzten Pakete gefunden"
+orphans="$(pacman -Qtdq 2>/dev/null || true)"
+if [[ -n "$orphans" ]]; then
+    sudo pacman -Rns $orphans --noconfirm
+else
+    echo "Keine unbenutzten Pakete gefunden"
+fi
 
 # -----------------------
 # 5. Cache aufräumen
@@ -54,8 +59,10 @@ fi
 # 8. System Cleanup
 # -----------------------
 echo "==> Temporäre Dateien und Logs werden gelöscht..."
-sudo rm -rf ~/.cache/*
-journalctl --vacuum-time=7d
+if [[ -d "$HOME/.cache" ]]; then
+    find "$HOME/.cache" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+fi
+sudo journalctl --vacuum-time=7d
 
 # -----------------------
 # 9. Fertig
@@ -63,7 +70,10 @@ journalctl --vacuum-time=7d
 rustup update
 rustup component add rust-analyzer
 
-omz update
+if command -v omz >/dev/null 2>&1; then
+    omz update
+else
+    echo "==> omz nicht gefunden, überspringe Update."
+fi
 
 echo "==> Cleanup & Update abgeschlossen!"
-

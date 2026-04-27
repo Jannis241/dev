@@ -1,8 +1,16 @@
 #!/bin/bash
+set -euo pipefail
 
-file_name=${1:-Main} # das was man gibt oder Main
-path=$(fd "$file_name.java")
+file_name=${1:-Main}
+path="$(fd --type f "^${file_name}\\.java$" . | head -n 1)"
+
+if [[ -z "$path" ]]; then
+    echo "Datei nicht gefunden: ${file_name}.java"
+    exit 1
+fi
+
+dir="$(dirname "$path")"
+class_name="$(basename "$path" .java)"
 
 javac "$path"
-java "$path"
-
+java -cp "$dir" "$class_name"

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 
 update_script
@@ -13,10 +14,16 @@ fi
 pushd "$DEV_ENV" > /dev/null || exit 1
 
 # Git-Änderungen committen und pushen
-git add .
-git commit -m "automated dev commit"
+git add -A
+if git diff --cached --quiet; then
+    echo "ℹ️ Keine Änderungen für DEV_ENV gefunden."
+    popd > /dev/null
+    exit 0
+fi
+
+git commit -m "chore(dev): automated snapshot $(date +%F)"
+git pull --rebase --autostash
 git push
 
 # Zurück wechseln
 popd > /dev/null
-

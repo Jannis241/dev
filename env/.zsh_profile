@@ -19,12 +19,10 @@ zle -N fzf-cd-prog
 bindkey '^P' fzf-cd-prog
 
 fzf-cd-current() {
-  echo""
   local dir
   dir=$(fd . --type d --hidden --follow --exclude .git . | fzf) || return
   cd "$dir"
 }
 zle -N fzf-cd-current
 bindkey '^F' fzf-cd-current
-
 
