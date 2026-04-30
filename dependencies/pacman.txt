@@ -90,6 +90,7 @@ tesseract
 tesseract-data-eng
 thunar
 thunar-volman
+tmate
 tmux
 tree-sitter-cli
 ttf-dejavu
