@@ -145,8 +145,8 @@ Diagnostics sind bewusst auf Errors fokussiert:
 
 Trouble zeigt Error-Uebersichten:
 
-- `<leader>ef`: Errors im aktuellen File.
-- `<leader>ep`: Errors im Projekt.
+- `<leader>xf`: Errors im aktuellen File.
+- `<leader>xp`: Errors im Projekt.
 
 Trouble oeffnet rechts, bleibt aber ohne Fokuswechsel im Editor. `Enter` springt zum ausgewaehlten Error und schliesst die Liste.
 

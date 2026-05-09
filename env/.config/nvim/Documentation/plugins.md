@@ -305,8 +305,8 @@ Listenansicht fuer Diagnostics und Quickfix.
 
 Keymaps:
 
-- `<leader>ef`: File Errors.
-- `<leader>ep`: Project Errors.
+- `<leader>xf`: File Errors.
+- `<leader>xp`: Project Errors.
 - `<leader>qf`: Quickfix in Trouble.
 
 Config:

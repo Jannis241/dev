@@ -45,8 +45,8 @@ Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
 
 | Key | Mode | Aktion |
 | --- | --- | --- |
-| `<leader>ef` | Normal | Alle Errors im aktuellen File in Trouble anzeigen, ohne Trouble zu fokussieren |
-| `<leader>ep` | Normal | Alle Errors im Projekt in Trouble anzeigen, ohne Trouble zu fokussieren |
+| `<leader>xf` | Normal | Alle Errors im aktuellen File in Trouble anzeigen, ohne Trouble zu fokussieren |
+| `<leader>xp` | Normal | Alle Errors im Projekt in Trouble anzeigen, ohne Trouble zu fokussieren |
 | `<leader>qf` | Normal | Quickfix-Liste in Trouble anzeigen |
 | `]q` | Normal | Naechster Quickfix-Eintrag und zentrieren |
 | `[q` | Normal | Vorheriger Quickfix-Eintrag und zentrieren |

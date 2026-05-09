@@ -4,7 +4,7 @@ return {
 		cmd = "Trouble",
 		keys = {
 			{
-				"<leader>ef",
+				"<leader>xf",
 				function()
 					require("trouble").toggle({
 						mode = "diagnostics",
@@ -23,7 +23,7 @@ return {
 				desc = "File errors",
 			},
 			{
-				"<leader>ep",
+				"<leader>xp",
 				function()
 					require("trouble").toggle({
 						mode = "diagnostics",
