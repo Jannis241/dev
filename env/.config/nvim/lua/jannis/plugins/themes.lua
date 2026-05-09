@@ -245,4 +245,170 @@ return {
 			transparent = true,
 		},
 	},
+	{
+		"sainnhe/gruvbox-material",
+		name = "gruvbox-material",
+		lazy = false,
+		priority = 1000,
+		init = function()
+			vim.g.gruvbox_material_background = "hard"
+			vim.g.gruvbox_material_transparent_background = 1
+		end,
+	},
+	{
+		"sainnhe/sonokai",
+		name = "sonokai",
+		lazy = false,
+		priority = 1000,
+		init = function()
+			vim.g.sonokai_style = "andromeda"
+			vim.g.sonokai_transparent_background = 1
+		end,
+	},
+	{
+		"sainnhe/edge",
+		name = "edge",
+		lazy = false,
+		priority = 1000,
+		init = function()
+			vim.g.edge_style = "aura"
+			vim.g.edge_transparent_background = 1
+		end,
+	},
+	{
+		"savq/melange-nvim",
+		name = "melange",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"marko-cerovac/material.nvim",
+		name = "material",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.g.material_style = "deep ocean"
+			require("material").setup({
+				disable = {
+					background = true,
+				},
+			})
+		end,
+	},
+	{
+		"ribru17/bamboo.nvim",
+		name = "bamboo",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			transparent = true,
+		},
+	},
+	{
+		"rmehri01/onenord.nvim",
+		name = "onenord",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			theme = "dark",
+			disable = {
+				background = true,
+			},
+		},
+	},
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+		name = "oxocarbon",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"AlexvZyl/nordic.nvim",
+		name = "nordic",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			transparent = true,
+		},
+	},
+	{
+		"dasupradyumna/midnight.nvim",
+		name = "midnight",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"olivercederborg/poimandres.nvim",
+		name = "poimandres",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			disable_background = true,
+		},
+	},
+	{
+		"bluz71/vim-moonfly-colors",
+		name = "moonfly",
+		lazy = false,
+		priority = 1000,
+		init = function()
+			vim.g.moonflyTransparent = true
+		end,
+	},
+	{
+		"bluz71/vim-nightfly-colors",
+		name = "nightfly",
+		lazy = false,
+		priority = 1000,
+		init = function()
+			vim.g.nightflyTransparent = true
+		end,
+	},
+	{
+		"challenger-deep-theme/vim",
+		name = "challenger-deep",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"arzg/vim-colors-xcode",
+		name = "xcode",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"tomasiser/vim-code-dark",
+		name = "codedark",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"ramojus/mellifluous.nvim",
+		name = "mellifluous",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			transparent_background = {
+				enabled = true,
+			},
+		},
+	},
+	{
+		"rktjmp/lush.nvim",
+		name = "lush",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"mcchrish/zenbones.nvim",
+		name = "zenbones",
+		lazy = false,
+		priority = 1000,
+		dependencies = {
+			"rktjmp/lush.nvim",
+		},
+		config = function()
+			vim.g.zenbones_transparent_background = true
+		end,
+	},
 }

@@ -1,5 +1,5 @@
 # font-family = "FiraCode Nerd Font Mono"
-#font-family = Iosevka Nerd Font
+font-family = Iosevka Nerd Font
 # font-family = SFMono Nerd Font
 # font-family = BerkeleyMono Nerd Font
 # font-family = Meslo #(hatte ich eigentlich immer)
@@ -18,7 +18,7 @@ theme = ayu
 #theme = tokyonight
 
 background = 101010
-background-opacity = 0.9
+background-opacity = 1
 background-blur = false
 confirm-close-surface=false
 window-decoration = true
