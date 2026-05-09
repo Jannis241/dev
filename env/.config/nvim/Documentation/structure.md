@@ -1,0 +1,84 @@
+# Struktur und Lade-Reihenfolge
+
+## Einstieg
+
+`env/.config/nvim/init.lua` enthaelt nur:
+
+```lua
+require("jannis")
+```
+
+Dadurch wird `lua/jannis/init.lua` geladen.
+
+## `lua/jannis/init.lua`
+
+Diese Datei macht die zentrale Initialisierung:
+
+1. Setzt `<leader>` auf Space.
+2. Bootstrapped `lazy.nvim`, falls es noch nicht installiert ist.
+3. Laedt `jannis.set`.
+4. Setzt einen Compatibility-Shim fuer `vim.lsp.get_buffers_by_client_id`.
+5. Definiert Autocommands.
+6. Definiert LSP-Keymaps in `LspAttach`.
+7. Laedt alle Plugins mit `require("lazy").setup("jannis.plugins")`.
+8. Initialisiert das Theme-System mit `require("jannis.theme").setup()`.
+9. Laedt globale Remaps aus `jannis.remap`.
+
+## Autocommands
+
+- `BufWritePre *`: Entfernt trailing whitespace vor jedem Speichern.
+- `LspAttach`: Setzt buffer-lokale LSP-Keymaps, sobald ein LSP-Client an einen Buffer attached.
+
+## Filetypes
+
+Die Extension `templ` wird als Filetype `templ` registriert. Treesitter hat dazu ebenfalls eine eigene Parser-Konfiguration.
+
+## `lua/jannis/set.lua`
+
+Diese Datei enthaelt Editor-Optionen:
+
+- Absolute und relative Line Numbers sind aktiv.
+- Tabs werden als 4 Spaces expandiert.
+- Smartindent ist aktiv.
+- Zeilenumbruch ist deaktiviert.
+- Swapfile und Backup sind aus.
+- Persistent Undo ist aktiv unter `~/.vim/undodir`.
+- Suche: `hlsearch` aus, `incsearch` an.
+- Truecolor ist aktiv.
+- `scrolloff = 8`, damit beim Scrollen immer Kontext bleibt.
+- `signcolumn = "yes"`, damit Diagnostic/Git-Zeichen die Textspalten nicht verschieben.
+- `updatetime = 50`, damit UI-Reaktionen schneller sind.
+
+## Rustacean-Grundsettings in `set.lua`
+
+`vim.g.rustaceanvim` konfiguriert Rust Analyzer fuer `rustaceanvim`:
+
+- `checkOnSave = true`
+- Inlay Hints fuer Lifetimes, Parameter, Types und Chaining sind aktiv.
+- `dap = {}` und `tools = {}` bleiben minimal.
+
+Rust Analyzer wird absichtlich nicht ueber `mason-lspconfig` automatisch enabled, damit er nicht doppelt laeuft.
+
+## `lua/jannis/remap.lua`
+
+Globale Keymaps, die nicht direkt an einen Plugin-Spec gekoppelt sind. Plugin-spezifische Keymaps liegen ueberwiegend in den jeweiligen Plugin-Dateien.
+
+## `lua/jannis/theme.lua`
+
+Eigenes Theme-System:
+
+- Default Theme: `ayu`
+- Aktives Theme wird in `stdpath("state") .. "/jannis-theme"` gespeichert.
+- Theme-Auswahl ueber Telescope oder fallback `vim.ui.select`.
+- Favoriten stehen in der Auswahl oben.
+- Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt.
+
+## `lua/jannis/plugins`
+
+Lazy findet alle Plugin-Specs in diesem Ordner. Die Dateinamen sind organisatorisch:
+
+- Manche Dateien enthalten genau ein Plugin.
+- Manche Dateien enthalten mehrere zusammengehoerende Plugins, z. B. `dap.lua`.
+- `fzf.lua` ist leer, weil `telescope-fzf-native.nvim` als Telescope-Dependency definiert ist.
+- `harpoon.lua` gibt aktuell `{}` zurueck, also ist Harpoon nicht aktiv konfiguriert.
+

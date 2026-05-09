@@ -1,22 +1,3 @@
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>tt", "<cmd>Trouble toggle<cr>", {})
-
-
-vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Workspace)" })
-vim.keymap.set("n", "<leader>tb", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Diagnostics (Buffer)" })
--- vim.keymap.set("n", "<leader>fr", "<cmd>Trouble lsp_references toggle<cr>", { desc = "LSP References" })
-vim.keymap.set("n", "<leader>qf", "<cmd>Trouble quickfix toggle<cr>", { desc = "Quickfix" })
-
--- Springt zum vorherigen Trouble-Eintrag
-vim.keymap.set("n", "[t", function()
-    require("trouble").previous({ skip_groups = true, jump = true })
-end, { noremap = true, silent = true })
-
--- Springt zum nächsten Trouble-Eintrag
-vim.keymap.set("n", "]t", function()
-    require("trouble").next({ skip_groups = true, jump = true })
-end, { noremap = true, silent = true })
-
 vim.g.mapleader = " "
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])

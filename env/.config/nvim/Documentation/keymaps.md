@@ -1,0 +1,170 @@
+# Keymaps
+
+`<leader>` ist Space.
+
+## Navigation und Dateien
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `\` | Normal | `Neotree reveal`, oeffnet Neo-tree auf aktueller Datei |
+| `<leader>pv` | Normal | Neo-tree oeffnen |
+| `<leader>ppv` | Normal | `:Ex` oeffnen |
+| `<leader>pf` | Normal | Telescope Find Files |
+| `<leader>ps` | Normal | Telescope Live Grep |
+| `<leader>pws` | Normal | Telescope Suche im aktuellen Buffer |
+| `<leader>fb` | Normal | Telescope Buffer-Auswahl |
+| `<leader>fh` | Normal | Telescope Help Tags |
+
+## Theme
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<C-t>` | Normal | Theme-Auswahl oeffnen |
+
+Alternativ geht auch `:Theme`.
+
+## LSP
+
+Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>gd` | Normal | Go to Definition |
+| `<leader>gb` | Normal | Zurueck zur vorherigen Jump-Position (`<C-o>`) |
+| `<leader>gf` | Normal | Vorwaerts in der Jump-History (`<C-i>`) |
+| `K` | Normal | Hover-Dokumentation mit rounded Border |
+| `<C-k>` | Normal | Hover-Dokumentation mit rounded Border |
+| `<leader>vws` | Normal | Workspace Symbol suchen |
+| `<leader>e` | Normal | Diagnostic-Float an Cursorposition oeffnen |
+| `<leader>vca` | Normal | Code Action |
+| `<leader>fr` | Normal | References anzeigen |
+| `<leader>rn` | Normal | LSP Rename |
+| `<C-h>` | Insert/Normal | Signature Help |
+
+## Errors und Quickfix
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>ef` | Normal | Alle Errors im aktuellen File in Trouble anzeigen |
+| `<leader>ep` | Normal | Alle Errors im Projekt in Trouble anzeigen |
+| `<leader>qf` | Normal | Quickfix-Liste in Trouble anzeigen |
+| `]q` | Normal | Naechster Quickfix-Eintrag und zentrieren |
+| `[q` | Normal | Vorheriger Quickfix-Eintrag und zentrieren |
+| `<leader>k` | Normal | Naechster Location-List-Eintrag und zentrieren |
+| `<leader>j` | Normal | Vorheriger Location-List-Eintrag und zentrieren |
+
+In Trouble kannst du mit `j`/`k` navigieren. `Enter` springt zum ausgewaehlten Error und schliesst Trouble.
+
+## Completion
+
+Diese Mappings gelten im Completion-Menue von `nvim-cmp`.
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<C-j>` | Insert | Naechster Completion-Eintrag |
+| `<C-k>` | Insert | Vorheriger Completion-Eintrag |
+| `<Tab>` | Insert | Completion bestaetigen |
+| `<Enter>` | Insert | Completion bestaetigen |
+| `<C-Space>` | Insert | Completion manuell oeffnen |
+
+## Formatierung
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>f` | Normal | Aktuellen Buffer mit Conform formatieren |
+
+Rust, Python und Java werden zusaetzlich automatisch beim Speichern formatiert.
+
+## Git
+
+### Fugitive
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>gs` | Normal | `:Git` oeffnen |
+| `gu` | Normal | In Diff/Merge `diffget //2` |
+| `gh` | Normal | In Diff/Merge `diffget //3` |
+
+Nur in Fugitive-Buffern:
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>p` | Normal | `Git push` |
+| `<leader>P` | Normal | `Git pull --rebase` |
+| `<leader>t` | Normal | `Git push -u origin ` vorbereiten |
+
+### Gitsigns
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `]h` | Normal | Naechster Git-Hunk |
+| `[h` | Normal | Vorheriger Git-Hunk |
+| `<leader>hs` | Normal/Visual | Hunk oder Auswahl stagen |
+| `<leader>hr` | Normal/Visual | Hunk oder Auswahl resetten |
+| `<leader>hp` | Normal | Hunk preview |
+| `<leader>hb` | Normal | Blame fuer aktuelle Zeile |
+| `<leader>hB` | Normal | Line-Blame togglen |
+| `<leader>hd` | Normal | Diff fuer aktuelle Datei |
+
+## Rust
+
+Nur in Rust-Buffern:
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>ra` | Normal | Rust hover actions |
+| `<leader>rd` | Normal | Rust Diagnostic rendern |
+| `<leader>od` | Normal | Rust Docs oeffnen |
+
+## Todo Comments
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `]T` | Normal | Naechster Todo-Kommentar |
+| `[T` | Normal | Vorheriger Todo-Kommentar |
+| `<leader>ft` | Normal | Todos in Telescope suchen |
+| `<leader>xt` | Normal | Todos in Trouble anzeigen |
+
+## Snippets
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<C-s>e` | Insert | Snippet expandieren |
+| `<C-s>;` | Insert/Select | Zum naechsten Snippet-Jump |
+| `<C-s>,` | Insert/Select | Zum vorherigen Snippet-Jump |
+| `<C-E>` | Insert/Select | Naechste Snippet-Choice |
+
+## Debugging
+
+DAP ist lazy und wird erst ueber diese Keys geladen.
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<F8>` | Normal | Debug Continue |
+| `<F10>` | Normal | Step Over |
+| `<F11>` | Normal | Step Into |
+| `<F12>` | Normal | Step Out |
+| `<leader>b` | Normal | Breakpoint togglen |
+| `<leader>B` | Normal | Conditional Breakpoint setzen |
+| `<leader>dr` | Normal | DAP REPL UI togglen |
+| `<leader>ds` | Normal | DAP Stacks UI togglen |
+| `<leader>dw` | Normal | DAP Watches UI togglen |
+| `<leader>db` | Normal | DAP Breakpoints UI togglen |
+| `<leader>dS` | Normal | DAP Scopes UI togglen |
+| `<leader>dc` | Normal | DAP Console UI togglen |
+
+## Allgemein
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `q` | Normal | Quickfix-Fenster schliessen (`:cclose`) |
+| `<C-y>` | Normal/Visual | In System-Clipboard kopieren |
+| `<C-a>` | Normal/Visual/Insert | Gesamten Buffer selektieren |
+| `<` | Visual | Ausruecken und Auswahl behalten |
+| `>` | Visual | Einruecken und Auswahl behalten |
+| `<C-d>` | Normal | Halbseite runter und zentrieren |
+| `<C-u>` | Normal | Halbseite hoch und zentrieren |
+| `<leader>d` | Normal/Visual | Loeschen ohne Yank-Register zu ueberschreiben |
+| `<leader><leader>` | Normal | Aktuelle Datei sourcen |
+| `<leader>u` | Normal | Undotree togglen |
+

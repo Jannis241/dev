@@ -103,3 +103,4 @@ fi
 if [[ $dry_run -eq 0 ]] && command -v hyprctl >/dev/null 2>&1; then
     hyprctl reload >/dev/null 2>&1 || true
 fi
+
