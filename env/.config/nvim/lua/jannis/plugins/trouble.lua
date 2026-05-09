@@ -8,7 +8,7 @@ return {
 				function()
 					require("trouble").toggle({
 						mode = "diagnostics",
-						focus = true,
+						focus = false,
 						pinned = true,
 						filter = {
 							buf = 0,
@@ -27,7 +27,7 @@ return {
 				function()
 					require("trouble").toggle({
 						mode = "diagnostics",
-						focus = true,
+						focus = false,
 						filter = {
 							severity = vim.diagnostic.severity.ERROR,
 						},
@@ -45,7 +45,7 @@ return {
 		config = function()
 			require("trouble").setup({
 				auto_preview = true,
-				focus = true,
+				focus = false,
 				keys = {
 					["<cr>"] = "jump_close",
 				},

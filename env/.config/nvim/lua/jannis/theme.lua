@@ -239,6 +239,12 @@ function M.apply_float_highlights()
 	vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 	vim.api.nvim_set_hl(0, "CmpDocumentation", { link = "NormalFloat" })
 	vim.api.nvim_set_hl(0, "CmpDocumentationBorder", { link = "FloatBorder" })
+	vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "none", fg = fg })
+	vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "none", fg = fg })
+	vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { bg = "none", fg = fg })
+	vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = "none", fg = border })
+	vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { bg = "none", fg = line_nr })
+	vim.api.nvim_set_hl(0, "NeoTreeExpander", { bg = "none", fg = line_nr })
 end
 
 local function saved_theme()
@@ -369,8 +375,8 @@ function M.setup()
 	vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
 		config = vim.tbl_deep_extend("force", config or {}, {
 			border = "rounded",
-			max_width = 90,
-			max_height = 24,
+			max_width = 100,
+			max_height = 26,
 		})
 		return hover(err, result, ctx, config)
 	end
@@ -379,8 +385,8 @@ function M.setup()
 	vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
 		config = vim.tbl_deep_extend("force", config or {}, {
 			border = "rounded",
-			max_width = 90,
-			max_height = 16,
+			max_width = 100,
+			max_height = 18,
 		})
 		return signature_help(err, result, ctx, config)
 	end

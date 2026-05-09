@@ -155,6 +155,12 @@ Installiert automatisch:
 
 Completion-Engine mit Sources fuer LSP, Snippets und Buffer.
 
+UI:
+
+- Completion und Dokumentation nutzen bordered Float-Fenster.
+- Completion ist breiter konfiguriert als die alte 20-Spalten-Ansicht.
+- Hover- und Signature-Help-Infos folgen dem gleichen Float-Stil.
+
 ### `cmp-nvim-lsp`, `cmp-buffer`, `cmp_luasnip`
 
 Completion-Sources fuer LSP, Buffer und LuaSnip.
@@ -241,11 +247,13 @@ Custom Parser:
 
 - `templ` von `https://github.com/vrischmann/tree-sitter-templ.git`
 
-Beim `VeryLazy`-Event werden nur fehlende Parser installiert. Bei jedem Filetype wird versucht, Treesitter zu starten und Treesitter-Indent zu setzen.
+Beim `VeryLazy`-Event werden nur fehlende Parser installiert. Bei jedem Filetype wird versucht, Treesitter zu starten und Treesitter-Indent zu setzen. Dateien ueber 1 MiB oder 10000 Zeilen werden ausgelassen, damit sehr grosse Dateien nicht durch Parsing oder Sticky Context ausgebremst werden.
 
 ### `nvim-treesitter-context`
 
 Sticky Context am oberen Fensterrand.
+
+Sehr grosse Dateien werden nicht attached, weil der Context dort mehr kostet als er im Alltag bringt.
 
 Lazy Loading:
 
@@ -304,7 +312,7 @@ Keymaps:
 Config:
 
 - Oeffnet rechts.
-- Fokussiert direkt die Liste.
+- Bleibt ohne Fokuswechsel im Editor.
 - `Enter` springt zum Eintrag und schliesst Trouble.
 - Auto Preview ist aktiv.
 

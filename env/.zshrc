@@ -1,14 +1,4 @@
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
-export LUA_VERSION=5.1
-export LUA_INCDIR=/usr/include/lua5.1
-export LUA_LIBDIR=/usr/lib
-export PATH="$HOME/.cargo/bin:$PATH"
-export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/usr/local/share:/usr/share"
-export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
-export PATH="$HOME/.local/scripts:$PATH"
-
-export DEV_ENV="$HOME/dev"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -21,10 +11,37 @@ plugins=(git)
 
 alias x='chmod +x'
 
-source $ZSH/oh-my-zsh.sh
+if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
+	source "$ZSH/oh-my-zsh.sh"
+fi
 
-source ~/.zsh_profile
+if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
+	fzf-cd-to() {
+		local root="$1"
+		local dir
 
+		[[ -d "$root" ]] || return
+		dir=$(fd . --type d --hidden --follow --exclude .git "$root" | fzf) || return
+		cd "$dir" || return
+	}
 
+	fzf-cd-home() {
+		fzf-cd-to "$HOME"
+	}
+	zle -N fzf-cd-home
+	bindkey '^H' fzf-cd-home
 
+	if [[ -d "$HOME/programmieren" ]]; then
+		fzf-cd-prog() {
+			fzf-cd-to "$HOME/programmieren"
+		}
+		zle -N fzf-cd-prog
+		bindkey '^P' fzf-cd-prog
+	fi
 
+	fzf-cd-current() {
+		fzf-cd-to .
+	}
+	zle -N fzf-cd-current
+	bindkey '^F' fzf-cd-current
+fi

@@ -52,6 +52,12 @@ Die Zuordnung passiert in `plugin_by_colorscheme` und `plugin_prefixes`.
 - `LspInfoBorder`
 - `CmpDocumentation`
 - `CmpDocumentationBorder`
+- `NeoTreeNormal`
+- `NeoTreeNormalNC`
+- `NeoTreeFloatNormal`
+- `NeoTreeFloatBorder`
+- `NeoTreeIndentMarker`
+- `NeoTreeExpander`
 
 Ziel: Hover-Docs, Completion-Doku und andere Floating Windows sollen bei allen Themes lesbare Borders haben.
 
@@ -59,8 +65,8 @@ Ziel: Hover-Docs, Completion-Doku und andere Floating Windows sollen bei allen T
 
 In `theme.lua` werden die LSP Handler ueberschrieben:
 
-- Hover (`K`, `<C-k>`) bekommt rounded Border, max width 90, max height 24.
-- Signature Help (`<C-h>`) bekommt rounded Border, max width 90, max height 16.
+- Hover (`K`, `<C-k>`) bekommt rounded Border, max width 100, max height 26.
+- Signature Help (`<C-h>`) bekommt rounded Border, max width 100, max height 18.
 
 ## Theme-Plugins
 
@@ -147,4 +153,3 @@ Die Liste steht in `M.themes` in `theme.lua`. Sie enthaelt externe Theme-Variant
 - Xcode Dark, Code Dark, Mellifluous
 - Zenbones Varianten
 - Neovim Builtins wie Habamax, Retrobox, Wildcharm, Desert, Evening, Slate, Torte, Industry, Lunaperche, Quiet
-

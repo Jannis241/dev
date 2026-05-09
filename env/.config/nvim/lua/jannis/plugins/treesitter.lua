@@ -1,3 +1,21 @@
+local uv = vim.uv or vim.loop
+local max_treesitter_filesize = 1024 * 1024
+local max_treesitter_lines = 10000
+
+local function is_large_buffer(bufnr)
+	if vim.api.nvim_buf_line_count(bufnr) > max_treesitter_lines then
+		return true
+	end
+
+	local name = vim.api.nvim_buf_get_name(bufnr)
+	if name == "" then
+		return false
+	end
+
+	local ok, stat = pcall(uv.fs_stat, name)
+	return ok and stat and stat.size > max_treesitter_filesize
+end
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -51,6 +69,10 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "*",
 				callback = function(args)
+					if is_large_buffer(args.buf) then
+						return
+					end
+
 					local ft = vim.bo[args.buf].filetype
 					local lang = vim.treesitter.language.get_lang(ft)
 					if not lang then
@@ -83,7 +105,9 @@ return {
 				-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
 				separator = nil,
 				zindex = 20, -- The Z-index of the context window
-				on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+				on_attach = function(bufnr)
+					return not is_large_buffer(bufnr)
+				end,
 			})
 		end,
 	},

@@ -35,7 +35,7 @@ Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
 | `K` | Normal | Hover-Dokumentation mit rounded Border |
 | `<C-k>` | Normal | Hover-Dokumentation mit rounded Border |
 | `<leader>vws` | Normal | Workspace Symbol suchen |
-| `<leader>e` | Normal | Diagnostic-Float an Cursorposition oeffnen |
+| `<leader>e` | Normal | Diagnostic-Float an Cursorposition oeffnen, ohne den Fokus zu stehlen |
 | `<leader>vca` | Normal | Code Action |
 | `<leader>fr` | Normal | References anzeigen |
 | `<leader>rn` | Normal | LSP Rename |
@@ -45,15 +45,15 @@ Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
 
 | Key | Mode | Aktion |
 | --- | --- | --- |
-| `<leader>ef` | Normal | Alle Errors im aktuellen File in Trouble anzeigen |
-| `<leader>ep` | Normal | Alle Errors im Projekt in Trouble anzeigen |
+| `<leader>ef` | Normal | Alle Errors im aktuellen File in Trouble anzeigen, ohne Trouble zu fokussieren |
+| `<leader>ep` | Normal | Alle Errors im Projekt in Trouble anzeigen, ohne Trouble zu fokussieren |
 | `<leader>qf` | Normal | Quickfix-Liste in Trouble anzeigen |
 | `]q` | Normal | Naechster Quickfix-Eintrag und zentrieren |
 | `[q` | Normal | Vorheriger Quickfix-Eintrag und zentrieren |
 | `<leader>k` | Normal | Naechster Location-List-Eintrag und zentrieren |
 | `<leader>j` | Normal | Vorheriger Location-List-Eintrag und zentrieren |
 
-In Trouble kannst du mit `j`/`k` navigieren. `Enter` springt zum ausgewaehlten Error und schliesst Trouble.
+In Trouble kannst du mit `j`/`k` navigieren. `Enter` springt zum ausgewaehlten Error und schliesst Trouble. Trouble laeuft jetzt ohne Fokuswechsel, damit du im Editor bleiben kannst.
 
 ## Completion
 
@@ -66,6 +66,8 @@ Diese Mappings gelten im Completion-Menue von `nvim-cmp`.
 | `<Tab>` | Insert | Completion bestaetigen |
 | `<Enter>` | Insert | Completion bestaetigen |
 | `<C-Space>` | Insert | Completion manuell oeffnen |
+
+Die Completion-Vorschlaege und die Dokumentation erscheinen jeweils in bordered Float-Fenstern. Die Completion-Box ist breiter als frueher, damit Eintraege lesbar bleiben, und die Dokumentation hat ebenfalls mehr Platz. Hover- und Signature-Help-Floats folgen demselben Stil.
 
 ## Formatierung
 
@@ -151,7 +153,7 @@ Nur in Rust-Buffern:
 
 | Key | Mode | Aktion |
 | --- | --- | --- |
-| `q` | Normal | Quickfix-Fenster schliessen (`:cclose`) |
+| `<leader>q` | Normal | Quickfix-Fenster schliessen (`:cclose`) |
 | `<C-y>` | Normal/Visual | In System-Clipboard kopieren |
 | `<C-a>` | Normal/Visual/Insert | Gesamten Buffer selektieren |
 | `<` | Visual | Ausruecken und Auswahl behalten |

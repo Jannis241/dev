@@ -19,7 +19,7 @@ Diese Datei macht die zentrale Initialisierung:
 3. Laedt `jannis.set`.
 4. Setzt einen Compatibility-Shim fuer `vim.lsp.get_buffers_by_client_id`.
 5. Definiert Autocommands.
-6. Definiert LSP-Keymaps in `LspAttach`.
+6. Definiert buffer-lokale LSP-Keymaps in `LspAttach` und den globalen Diagnostic-Shortcut `<leader>e`.
 7. Laedt alle Plugins mit `require("lazy").setup("jannis.plugins", opts)`.
 8. Initialisiert das Theme-System mit `require("jannis.theme").setup()`.
 9. Laedt globale Remaps aus `jannis.remap`.
@@ -54,7 +54,7 @@ Nicht benoetigt ist ein separates `lua`-Paket: Neovim bringt die Lua/LuaJIT-Runt
 
 ## Autocommands
 
-- `BufWritePre *`: Entfernt trailing whitespace vor jedem Speichern.
+- `BufWritePre *`: Entfernt trailing whitespace vor dem Speichern nur in normalen, editierbaren Buffern.
 - `LspAttach`: Setzt buffer-lokale LSP-Keymaps, sobald ein LSP-Client an einen Buffer attached.
 
 ## Filetypes
@@ -100,6 +100,7 @@ Eigenes Theme-System:
 - Theme-Auswahl ueber Telescope oder fallback `vim.ui.select`.
 - Favoriten stehen in der Auswahl oben.
 - Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt.
+- Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt, inklusive Neo-tree-Indent-Markern.
 
 ## `lua/jannis/plugins`
 

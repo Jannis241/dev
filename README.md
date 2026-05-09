@@ -7,7 +7,7 @@ Persönliche Dotfiles, Shell-Konfigurationen und Utility-Skripte für ein Linux-
 - `env/`: Inhalte, die in das Home-Verzeichnis synchronisiert werden.
   - `env/.config/`: App-Konfigurationen (z. B. `nvim`, `hypr`, `waybar`, `rofi`, `ghostty`, `wlogout`)
   - `env/.local/scripts/`: Eigene Shell-Helfer
-  - `env/.zshrc`, `env/.zsh_profile`, `env/.profile`: Shell-Setup
+  - `env/.zshenv`, `env/.zprofile`, `env/.zshrc`, `env/.profile`: Shell-Setup
 - `dev-env`: Sync-Skript, das Dateien aus diesem Repo nach `$HOME` kopiert.
 - `dependencies/`: Exportierte Paketlisten (`pacman`, `paru`, `flatpak`).
 - `wallpaper.png`: Desktop-Wallpaper.
@@ -47,9 +47,10 @@ Was passiert:
 
 - Inhalte aus `env/.config` nach `$XDG_CONFIG_HOME` (fallback `~/.config`)
 - Inhalte aus `env/.local` nach `~/.local`
-- Einzeldateien wie `~/.zshrc`, `~/.zsh_profile`, `~/.profile`
+- Einzeldateien wie `~/.zshenv`, `~/.zprofile`, `~/.zshrc`, `~/.profile`
 - `dev-env` nach `~/.local/scripts/dev-env`
 - `wallpaper.png` nach `~/wallpaper.png`
+- Hyprland wird neu geladen und Waybar sowie Hyprpaper werden nach dem Sync neu gestartet, damit das Desktop-Setup aktiv bleibt.
 
 ## Skripte (`env/.local/scripts`)
 
@@ -73,6 +74,7 @@ xargs -a dependencies/flatpak.txt -r flatpak install -y flathub
 
 - `dev-env` überschreibt Zielinhalte bewusst (vorher ggf. Backups machen).
 - Einige Skripte sind absichtlich "aggressiv" (z. B. Cleanup). Vor Nutzung prüfen.
+- Meslo wird als Paket `ttf-meslo` ueber `dependencies/pacman.txt` installiert; lokale AUR-/Build-Verzeichnisse gehoeren nicht in `env/.config/ghostty`.
 
 ## Komplette Neuinstallation (Arch) - Schritt für Schritt
 

@@ -131,12 +131,14 @@ return {
 			}),
 			window = {
 				completion = cmp.config.window.bordered({
-					max_height = 10, -- max Zeilen
-					max_width = 20, -- max Spalten
+					max_height = 12, -- max Zeilen
+					max_width = 60, -- max Spalten
+					winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 				}),
 				documentation = cmp.config.window.bordered({
-					max_height = 10,
-					max_width = 20,
+					max_height = 14,
+					max_width = 80,
+					winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
 				}),
 			},
 

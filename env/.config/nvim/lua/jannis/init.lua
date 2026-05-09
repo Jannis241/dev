@@ -54,7 +54,14 @@ vim.filetype.add({
 autocmd({ "BufWritePre" }, {
 	group = g,
 	pattern = "*",
-	command = [[%s/\s\+$//e]],
+	callback = function(args)
+		local bufnr = args.buf
+		if vim.bo[bufnr].buftype ~= "" or not vim.bo[bufnr].modifiable or vim.bo[bufnr].readonly then
+			return
+		end
+
+		vim.cmd([[keepjumps keeppatterns silent! %s/\s\+$//e]])
+	end,
 })
 
 autocmd("LspAttach", {
@@ -75,9 +82,6 @@ autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>vws", function()
 			vim.lsp.buf.workspace_symbol()
 		end, opts)
-		vim.keymap.set("n", "<leader>e", function()
-			vim.diagnostic.open_float()
-		end, opts)
 		vim.keymap.set("n", "<leader>vca", function()
 			vim.lsp.buf.code_action()
 		end, opts)
@@ -90,6 +94,13 @@ autocmd("LspAttach", {
 		vim.keymap.set({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, {})
 	end,
 })
+
+vim.keymap.set("n", "<leader>e", function()
+	vim.diagnostic.open_float(nil, {
+		focus = false,
+		scope = "cursor",
+	})
+end, { desc = "Open diagnostics float" })
 
 require("lazy").setup("jannis.plugins", {
 	install = {

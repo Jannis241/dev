@@ -11,7 +11,7 @@ Verwendete Bausteine:
 - `mason-lspconfig.nvim`: Verbindet Mason mit LSPConfig.
 - `mason-tool-installer.nvim`: Installiert Formatter/Tools automatisch.
 - `cmp-nvim-lsp`: Erweitert LSP-Capabilities fuer Completion.
-- `nvim-cmp`: Completion-Engine.
+- `nvim-cmp`: Completion-Engine mit bordered Completion- und Dokumentations-Floats.
 - `LuaSnip` und `cmp_luasnip`: Snippet-Expansion in Completion.
 - `fidget.nvim`: LSP-Fortschritt rechts im Editor.
 
@@ -125,8 +125,9 @@ Sources:
 Completion-Fenster:
 
 - Completion und Dokumentation haben Borders.
-- Max Height: 10
-- Max Width: 20
+- Completion-Fenster: Max Height 12, Max Width 60
+- Dokumentations-Fenster: Max Height 14, Max Width 80
+- Hover und Signature Help erscheinen ebenfalls in grossen rounded Floats.
 - Icons/Text kommen ueber `lspkind`.
 
 ## Diagnostics
@@ -147,7 +148,7 @@ Trouble zeigt Error-Uebersichten:
 - `<leader>ef`: Errors im aktuellen File.
 - `<leader>ep`: Errors im Projekt.
 
-Trouble oeffnet rechts, fokussiert direkt die Error-Liste und `Enter` springt zum ausgewaehlten Error und schliesst die Liste.
+Trouble oeffnet rechts, bleibt aber ohne Fokuswechsel im Editor. `Enter` springt zum ausgewaehlten Error und schliesst die Liste.
 
 ## LSP-Keymaps
 

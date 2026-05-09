@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
-vim.keymap.set("n", "q", ":cclose<CR>", {})
+vim.keymap.set("n", "<leader>q", ":cclose<CR>", { desc = "Close quickfix" })
 
 -- ctrl y zum kopieren (ctrl - c wird vom terminal abgefangen)
 vim.keymap.set({ "n", "v" }, "<C-y>", '"+y', { noremap = true, silent = true })

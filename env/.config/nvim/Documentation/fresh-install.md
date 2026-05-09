@@ -9,6 +9,7 @@ Diese Config kann sich ab dem Punkt selbst einrichten, an dem Neovim die Config 
 - Lazy macht keine Update-Checks beim normalen Start.
 - LSP/Completion/Mason laden erst beim Oeffnen einer Datei.
 - Mason installiert konfigurierte LSP-Server und Tools auf interaktiven Neovim-Starts, sofern die benoetigten System-Provider vorhanden sind. In Headless/CI wird diese automatische Installation nicht gestartet.
+- `mason-tool-installer.nvim` laeuft verzögert und ohne Auto-Update, damit nur fehlende Tools nachgezogen werden und der Start schnell bleibt.
 - Treesitter installiert nur fehlende Parser.
 - Theme-Plugins werden nur on demand geladen; beim Start wird nur das aktive Theme geladen.
 
@@ -41,3 +42,4 @@ Nach dem ersten erfolgreichen Start sind Plugins, Mason-Pakete und Treesitter Pa
 - PHP-Support nur bei PHP-Dateien
 - Snippets erst im Insert Mode
 - Lualine erst `VeryLazy`
+- `nvim-cmp` und die LSP-Doku-Floats laden mit dem ersten Buffer-/LSP-Bedarf und erscheinen dann in bordered Boxen.
