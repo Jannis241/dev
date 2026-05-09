@@ -38,14 +38,14 @@ return {
 				mirage = false,
 				terminal = true,
 				overrides = {
-					Normal = { bg = "None" },
-					-- NormalFloat = { bg = "None" },
-					-- ColorColumn = { bg = "None" },
-					SignColumn = { bg = "None" },
-					-- Folded = { bg = "None" },
-					-- FoldColumn = { bg = "None" },
-					VertSplit = { bg = "None" },
-					Comment = { italic = false },
+					-- Normal = { bg = "None" },
+					-- -- NormalFloat = { bg = "None" },
+					-- -- ColorColumn = { bg = "None" },
+					-- SignColumn = { bg = "None" },
+					-- -- Folded = { bg = "None" },
+					-- -- FoldColumn = { bg = "None" },
+					-- VertSplit = { bg = "None" },
+					-- Comment = { italic = false },
 				},
 			})
 			apply_colorscheme("ayu")
@@ -56,7 +56,7 @@ return {
 		"embark-theme/vim",
 		name = "embark",
 		config = function()
-			apply_colorscheme("embark")
+			-- apply_colorscheme("embark")
 		end,
 	},
 
