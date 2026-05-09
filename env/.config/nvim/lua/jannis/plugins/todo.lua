@@ -15,14 +15,14 @@ return {
 	},
 	keys = {
 		{
-			"]T",
+			"nt",
 			function()
 				require("todo-comments").jump_next()
 			end,
 			desc = "Next todo comment",
 		},
 		{
-			"[T",
+			"pt",
 			function()
 				require("todo-comments").jump_prev()
 			end,
