@@ -28,7 +28,7 @@ return {
 			})
             -- namen: https://github.com/projekt0n/github-nvim-theme
 
-            -- apply_colorscheme("github_dark_default")
+            apply_colorscheme("github_dark_default")
 		end,
 	},
 	{
@@ -205,7 +205,7 @@ return {
 					transparency = true,
 				},
 			})
-			apply_colorscheme("rose-pine")
+			-- apply_colorscheme("rose-pine")
 		end,
 	},
 }
