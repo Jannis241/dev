@@ -28,7 +28,7 @@ return {
 			})
             -- namen: https://github.com/projekt0n/github-nvim-theme
 
-            apply_colorscheme("github_dark_default")
+            -- apply_colorscheme("github_dark_default")
 		end,
 	},
 	{
@@ -48,7 +48,7 @@ return {
 					Comment = { italic = false },
 				},
 			})
-			-- apply_colorscheme("ayu")
+			apply_colorscheme("ayu")
 		end,
 	},
 
@@ -56,7 +56,7 @@ return {
 		"embark-theme/vim",
 		name = "embark",
 		config = function()
-			-- apply_colorscheme("embark")
+			apply_colorscheme("embark")
 		end,
 	},
 
