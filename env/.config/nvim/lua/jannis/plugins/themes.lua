@@ -2,7 +2,7 @@ return {
 	{
 		"projekt0n/github-nvim-theme",
 		name = "github-theme",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("github-theme").setup({
@@ -14,7 +14,7 @@ return {
 	},
 	{
 		"Shatur/neovim-ayu",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("ayu").setup({
@@ -26,19 +26,19 @@ return {
 	{
 		"embark-theme/vim",
 		name = "embark",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"erikbackman/brightburn.vim",
 		name = "brightburn",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("catppuccin").setup({
@@ -113,7 +113,7 @@ return {
 	{
 		"folke/tokyonight.nvim",
 		name = "tokyonight",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent = true,
@@ -126,7 +126,7 @@ return {
 	{
 		"ellisonleao/gruvbox.nvim",
 		name = "gruvbox",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("gruvbox").setup({
@@ -158,7 +158,7 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			require("rose-pine").setup({
@@ -180,7 +180,7 @@ return {
 	{
 		"rebelot/kanagawa.nvim",
 		name = "kanagawa",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent = true,
@@ -190,7 +190,7 @@ return {
 	{
 		"EdenEast/nightfox.nvim",
 		name = "nightfox",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			options = {
@@ -201,7 +201,7 @@ return {
 	{
 		"navarasu/onedark.nvim",
 		name = "onedark",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			style = "dark",
@@ -211,7 +211,7 @@ return {
 	{
 		"sainnhe/everforest",
 		name = "everforest",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.everforest_background = "hard"
@@ -221,7 +221,7 @@ return {
 	{
 		"Mofiqul/dracula.nvim",
 		name = "dracula",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent_bg = true,
@@ -230,7 +230,7 @@ return {
 	{
 		"shaunsingh/nord.nvim",
 		name = "nord",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.nord_disable_background = true
@@ -239,7 +239,7 @@ return {
 	{
 		"Mofiqul/vscode.nvim",
 		name = "vscode",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent = true,
@@ -248,7 +248,7 @@ return {
 	{
 		"sainnhe/gruvbox-material",
 		name = "gruvbox-material",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.gruvbox_material_background = "hard"
@@ -258,7 +258,7 @@ return {
 	{
 		"sainnhe/sonokai",
 		name = "sonokai",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.sonokai_style = "andromeda"
@@ -268,7 +268,7 @@ return {
 	{
 		"sainnhe/edge",
 		name = "edge",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.edge_style = "aura"
@@ -278,13 +278,13 @@ return {
 	{
 		"savq/melange-nvim",
 		name = "melange",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"marko-cerovac/material.nvim",
 		name = "material",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		config = function()
 			vim.g.material_style = "deep ocean"
@@ -298,7 +298,7 @@ return {
 	{
 		"ribru17/bamboo.nvim",
 		name = "bamboo",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent = true,
@@ -307,7 +307,7 @@ return {
 	{
 		"rmehri01/onenord.nvim",
 		name = "onenord",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			theme = "dark",
@@ -319,13 +319,13 @@ return {
 	{
 		"nyoom-engineering/oxocarbon.nvim",
 		name = "oxocarbon",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"AlexvZyl/nordic.nvim",
 		name = "nordic",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent = true,
@@ -334,13 +334,13 @@ return {
 	{
 		"dasupradyumna/midnight.nvim",
 		name = "midnight",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"olivercederborg/poimandres.nvim",
 		name = "poimandres",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			disable_background = true,
@@ -349,7 +349,7 @@ return {
 	{
 		"bluz71/vim-moonfly-colors",
 		name = "moonfly",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.moonflyTransparent = true
@@ -358,7 +358,7 @@ return {
 	{
 		"bluz71/vim-nightfly-colors",
 		name = "nightfly",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		init = function()
 			vim.g.nightflyTransparent = true
@@ -367,25 +367,25 @@ return {
 	{
 		"challenger-deep-theme/vim",
 		name = "challenger-deep",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"arzg/vim-colors-xcode",
 		name = "xcode",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"tomasiser/vim-code-dark",
 		name = "codedark",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"ramojus/mellifluous.nvim",
 		name = "mellifluous",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		opts = {
 			transparent_background = {
@@ -396,13 +396,13 @@ return {
 	{
 		"rktjmp/lush.nvim",
 		name = "lush",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 	},
 	{
 		"mcchrish/zenbones.nvim",
 		name = "zenbones",
-		lazy = false,
+		lazy = true,
 		priority = 1000,
 		dependencies = {
 			"rktjmp/lush.nvim",

@@ -1,6 +1,18 @@
 local M = {}
 
 M.default = "ayu"
+M.favorites = {
+	"ayu",
+	"rose-pine-moon",
+	"catppuccin-mocha",
+	"tokyonight-moon",
+	"kanagawa-wave",
+	"nightfox",
+	"gruvbox-material",
+	"melange",
+	"bamboo",
+	"github_dark_default",
+}
 
 M.themes = {
 	{ name = "Ayu", colorscheme = "ayu" },
@@ -91,6 +103,106 @@ M.themes = {
 
 local state_file = vim.fn.stdpath("state") .. "/jannis-theme"
 
+local builtin_themes = {
+	desert = true,
+	evening = true,
+	habamax = true,
+	industry = true,
+	lunaperche = true,
+	quiet = true,
+	retrobox = true,
+	slate = true,
+	sorbet = true,
+	torte = true,
+	wildcharm = true,
+	zaibatsu = true,
+}
+
+local plugin_by_colorscheme = {
+	ayu = "neovim-ayu",
+	embark = "embark",
+	brightburn = "brightburn",
+	gruvbox = "gruvbox",
+	everforest = "everforest",
+	dracula = "dracula",
+	nord = "nord",
+	vscode = "vscode",
+	["gruvbox-material"] = "gruvbox-material",
+	sonokai = "sonokai",
+	edge = "edge",
+	melange = "melange",
+	material = "material",
+	bamboo = "bamboo",
+	onenord = "onenord",
+	oxocarbon = "oxocarbon",
+	nordic = "nordic",
+	midnight = "midnight",
+	poimandres = "poimandres",
+	moonfly = "moonfly",
+	nightfly = "nightfly",
+	challenger_deep = "challenger-deep",
+	xcodedark = "xcode",
+	codedark = "codedark",
+	mellifluous = "mellifluous",
+	zenbones = "zenbones",
+	neobones = "zenbones",
+	rosebones = "zenbones",
+	nordbones = "zenbones",
+	forestbones = "zenbones",
+	tokyobones = "zenbones",
+	vimbones = "zenbones",
+	seoulbones = "zenbones",
+	duckbones = "zenbones",
+}
+
+local plugin_prefixes = {
+	{ prefix = "ayu", plugin = "neovim-ayu" },
+	{ prefix = "rose-pine", plugin = "rose-pine" },
+	{ prefix = "catppuccin", plugin = "catppuccin" },
+	{ prefix = "tokyonight", plugin = "tokyonight" },
+	{ prefix = "github_", plugin = "github-theme" },
+	{ prefix = "kanagawa", plugin = "kanagawa" },
+	{ prefix = "nightfox", plugin = "nightfox" },
+	{ prefix = "dayfox", plugin = "nightfox" },
+	{ prefix = "dawnfox", plugin = "nightfox" },
+	{ prefix = "duskfox", plugin = "nightfox" },
+	{ prefix = "nordfox", plugin = "nightfox" },
+	{ prefix = "terafox", plugin = "nightfox" },
+	{ prefix = "carbonfox", plugin = "nightfox" },
+	{ prefix = "onedark", plugin = "onedark" },
+}
+
+local favorite_lookup = {}
+for _, colorscheme in ipairs(M.favorites) do
+	favorite_lookup[colorscheme] = true
+end
+
+local function plugin_for(colorscheme)
+	if builtin_themes[colorscheme] then
+		return nil
+	end
+	if plugin_by_colorscheme[colorscheme] then
+		return plugin_by_colorscheme[colorscheme]
+	end
+	for _, entry in ipairs(plugin_prefixes) do
+		if vim.startswith(colorscheme, entry.prefix) then
+			return entry.plugin
+		end
+	end
+	return nil
+end
+
+local function load_theme_plugin(colorscheme)
+	local plugin = plugin_for(colorscheme)
+	if not plugin then
+		return
+	end
+	local ok, lazy = pcall(require, "lazy")
+	if ok then
+		lazy.load({ plugins = { plugin }, show = false })
+	end
+end
+
 local function hl(name)
 	local ok, value = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
 	if ok then
@@ -147,6 +259,7 @@ function M.apply(theme, opts)
 	opts = opts or {}
 	theme = theme or saved_theme()
 
+	load_theme_plugin(theme)
 	local ok, err = pcall(vim.cmd.colorscheme, theme)
 	if not ok then
 		vim.notify("Theme konnte nicht geladen werden: " .. theme .. "\n" .. err, vim.log.levels.ERROR)
@@ -159,11 +272,41 @@ function M.apply(theme, opts)
 	end
 end
 
-function M.pick()
+local function theme_entries(only_favorites)
+	local entries = {}
+	local used = {}
+
+	for _, colorscheme in ipairs(M.favorites) do
+		for _, theme in ipairs(M.themes) do
+			if theme.colorscheme == colorscheme then
+				table.insert(entries, theme)
+				used[theme.colorscheme] = true
+				break
+			end
+		end
+	end
+
+	if only_favorites then
+		return entries
+	end
+
+	for _, theme in ipairs(M.themes) do
+		if not used[theme.colorscheme] then
+			table.insert(entries, theme)
+		end
+	end
+	return entries
+end
+
+function M.pick(opts)
+	opts = opts or {}
+	local entries = theme_entries(opts.favorites)
+	local title = "Change Theme"
+
 	local ok, pickers = pcall(require, "telescope.pickers")
 	if not ok then
-		vim.ui.select(M.themes, {
-			prompt = "Theme",
+		vim.ui.select(entries, {
+			prompt = title,
 			format_item = function(item)
 				return item.name
 			end,
@@ -181,18 +324,19 @@ function M.pick()
 	local conf = require("telescope.config").values
 	local dropdown = require("telescope.themes").get_dropdown({
 		previewer = false,
-		prompt_title = "Change Theme",
+		prompt_title = title,
 		width = 0.45,
 	})
 
 	pickers
 		.new(dropdown, {
 			finder = finders.new_table({
-				results = M.themes,
+				results = entries,
 				entry_maker = function(entry)
+					local favorite = favorite_lookup[entry.colorscheme] and "* " or "  "
 					return {
 						value = entry,
-						display = entry.name .. "  " .. entry.colorscheme,
+						display = favorite .. entry.name .. "  " .. entry.colorscheme,
 						ordinal = entry.name .. " " .. entry.colorscheme,
 					}
 				end,
@@ -242,9 +386,7 @@ function M.setup()
 	end
 
 	vim.api.nvim_create_user_command("Theme", M.pick, { desc = "Change colorscheme" })
-	vim.keymap.set("n", "<C-c>t", M.pick, { desc = "Change theme" })
 	vim.keymap.set("n", "<C-t>", M.pick, { desc = "Change theme" })
-	vim.keymap.set("n", "<leader>ct", M.pick, { desc = "Change theme" })
 end
 
 return M

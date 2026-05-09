@@ -4,6 +4,7 @@ return {
 		"stevearc/conform.nvim",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
@@ -26,6 +27,16 @@ return {
 
 		require("fidget").setup()
 		require("mason").setup()
+		require("mason-tool-installer").setup({
+			ensure_installed = {
+				"black",
+				"google-java-format",
+				"stylua",
+			},
+			auto_update = false,
+			run_on_start = true,
+			start_delay = 3000,
+		})
 
 		-- mason update -> installiert alles
 		-- wichtig dass man selber immer die dependencies runterläd.
@@ -35,12 +46,19 @@ return {
 		--
 		--
 		require("mason-lspconfig").setup({
+			-- Rust is handled by rustaceanvim. Do not let mason-lspconfig
+			-- auto-enable a second rust_analyzer client.
 			ensure_installed = {
 				"lua_ls",
 				"jdtls",
 				"pyright",
 				"gopls",
 				"clangd",
+			},
+			automatic_enable = {
+				exclude = {
+					"rust_analyzer",
+				},
 			},
 			handlers = {
 				function(server_name)
@@ -126,11 +144,10 @@ return {
 			},
 			signs = {
 				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
-            },
-            underline = {
+			},
+			underline = {
 				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
-            },
-
+			},
 
 			update_in_insert = false, -- nach :w oder wenn du Insert verlässt
 			severity_sort = true, -- sortiert nach Error > Warn > Hint > Info

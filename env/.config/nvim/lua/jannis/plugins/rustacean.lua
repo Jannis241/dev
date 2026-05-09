@@ -1,7 +1,7 @@
 return {
 	"mrcjkb/rustaceanvim",
 	version = "^6",
-	lazy = false,
+	ft = { "rust" },
 	config = function()
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "rust",
