@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"stevearc/conform.nvim",
 		"williamboman/mason.nvim",
@@ -7,11 +8,16 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
 		"hrsh7th/nvim-cmp",
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
+		{
+			"onsails/lspkind.nvim",
+			opts = {
+				mode = "symbol_text",
+				preset = "codicons",
+			},
+		},
 		"j-hui/fidget.nvim",
 	},
 
@@ -25,54 +31,66 @@ return {
 			cmp_lsp.default_capabilities()
 		)
 
-		require("fidget").setup()
-		require("mason").setup()
-		require("mason-tool-installer").setup({
-			ensure_installed = {
-				"black",
-				"google-java-format",
-				"prettier",
-				"rust-analyzer",
-				"stylua",
-			},
-			auto_update = false,
-			run_on_start = true,
-			start_delay = 3000,
-		})
+		local interactive = #vim.api.nvim_list_uis() > 0
 
-		-- mason update -> installiert alles
-		-- wichtig dass man selber immer die dependencies runterläd.
-		-- bsp: für c und c++: clang
-		-- rust-analyzer mti rustup usw sollte man auch haben damit alles gut funktoiniert
-		-- sonst gibt es einen error
-		--
-		--
-		require("mason-lspconfig").setup({
-			-- Rust is handled by rustaceanvim. Do not let mason-lspconfig
-			-- auto-enable a second rust_analyzer client.
-			ensure_installed = {
-				"lua_ls",
-				"jdtls",
-				"pyright",
-				"gopls",
-				"clangd",
-			},
-			automatic_enable = {
-				exclude = {
-					"rust_analyzer",
+		require("fidget").setup()
+		if interactive then
+			require("mason").setup()
+			require("mason-tool-installer").setup({
+				ensure_installed = {
+					"black",
+					"google-java-format",
+					"prettier",
+					"rust-analyzer",
+					"stylua",
 				},
-			},
-			handlers = {
-				function(server_name)
-					if server_name == "rust_analyzer" then
-						return
-					end
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-			},
-		})
+				auto_update = false,
+				run_on_start = true,
+				start_delay = 3000,
+			})
+		end
+
+		local servers = {
+			"lua_ls",
+			"jdtls",
+			"pyright",
+			"gopls",
+			"clangd",
+		}
+
+		local function setup_server(server_name)
+			if vim.lsp.config and vim.lsp.enable then
+				vim.lsp.config(server_name, {
+					capabilities = capabilities,
+				})
+				vim.lsp.enable(server_name)
+			else
+				require("lspconfig")[server_name].setup({
+					capabilities = capabilities,
+				})
+			end
+		end
+
+		if interactive then
+			require("mason-lspconfig").setup({
+				-- Rust is handled by rustaceanvim. Do not let mason-lspconfig
+				-- auto-enable a second rust_analyzer client.
+				ensure_installed = servers,
+				automatic_enable = {
+					exclude = {
+						"rust_analyzer",
+					},
+				},
+				handlers = {
+					function(server_name)
+						if server_name == "rust_analyzer" then
+							return
+						end
+						setup_server(server_name)
+					end,
+				},
+			})
+		end
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 		local lspkind = require("lspkind")
@@ -123,7 +141,6 @@ return {
 			},
 
 			sources = cmp.config.sources({
-				{ name = "copilot", group_index = 2 },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" }, -- For luasnip users.
 			}, {

@@ -20,6 +20,7 @@ Der Einstiegspunkt ist `init.lua`, der nur `require("jannis")` ausfuehrt. Die ei
 - `plugins.md`: Jedes Plugin mit Zweck, Lazy-Loading und wichtigen Features.
 - `lsp-formatting-diagnostics.md`: LSP, Completion, Diagnostics, Formatting und Sprachsupport.
 - `themes.md`: Theme-System, Favoriten, transparente Hintergruende und Theme-Plugins.
+- `fresh-install.md`: Was auf einem neuen Linux-System automatisch geht und welche Systempakete vorher da sein muessen.
 - `default-neovim-keybinds.md`: Sinnvolle Default-Vim/Neovim-Keybinds, die man kennen sollte.
 
 ## Grundidee

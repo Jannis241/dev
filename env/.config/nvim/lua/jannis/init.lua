@@ -1,6 +1,10 @@
 vim.g.mapleader = " "
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
+	if vim.fn.executable("git") ~= 1 then
+		error("lazy.nvim fehlt und git ist nicht installiert. Installiere git und starte Neovim erneut.")
+	end
+
 	vim.fn.system({
 		"git",
 		"clone",

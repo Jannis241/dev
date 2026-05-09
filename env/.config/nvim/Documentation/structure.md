@@ -32,7 +32,7 @@ Die Config ist so ausgelegt, dass sie auf einem frischen Linux-PC nach dem Clone
 - Fehlende Plugins werden durch Lazy automatisch installiert (`install.missing = true`).
 - Lazy macht keine automatischen Update-Checks beim Start (`checker.enabled = false`), damit der normale Start schnell bleibt.
 - Mason stellt die konfigurierten LSP-Server und Tools sicher.
-- Mason-Tools laufen verzögert und ohne Auto-Update; bereits installierte Tools werden nicht neu installiert.
+- Mason LSP-/Tool-Installation laeuft nur bei interaktiven Starts, nicht in Headless/CI. Tools laufen verzögert und ohne Auto-Update; bereits installierte Tools werden nicht neu installiert. In Headless wird Mason/LSP-Autostart nicht gestartet, damit CI- oder Script-Aufrufe nicht versuchen, fehlende Server zu installieren oder zu starten.
 - Treesitter installiert nur Parser, die lokal noch fehlen.
 
 Nach dem ersten Start sind die Plugins, LSP-Server, Formatter und Parser lokal installiert. Danach bleibt der normale Start schnell, weil nichts neu installiert wird, solange nichts fehlt.
@@ -44,9 +44,13 @@ Neovim kann ueber Lazy und Mason viel selbst installieren, aber keine distro-spe
 - `git`
 - `make` und ein C/C++ Compiler fuer native Builds und Treesitter Parser
 - `curl`, `unzip`, `tar`, `gzip`
+- `ripgrep` fuer Telescope Live Grep; optional `fd` fuer schnellere Dateisuche
+- `python3`, weil Python-basierte Mason-Tools wie `black` eine Python-Laufzeit brauchen
 - Java Runtime fuer `jdtls` und Java-Formatting
 - Rust Toolchain via `rustup`, wenn Rust inklusive `rustfmt` genutzt werden soll
 - Node/npm, falls Mason npm-basierte Tools wie `prettier` installieren soll
+
+Nicht benoetigt ist ein separates `lua`-Paket: Neovim bringt die Lua/LuaJIT-Runtime fuer die Config selbst mit.
 
 ## Autocommands
 

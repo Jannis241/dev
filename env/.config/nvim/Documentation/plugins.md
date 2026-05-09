@@ -16,17 +16,18 @@ Config:
 
 ### `plenary.nvim`
 
-Hilfsbibliothek fuer viele Plugins. In `plugins/init.lua` als `plenary` benannt.
-
-### `cellular-automaton.nvim`
-
-Plugin von `eandrju/cellular-automaton.nvim`. Es ist installiert, aber in der Config nicht weiter mit Keymaps versehen.
+Hilfsbibliothek fuer viele Plugins. In `plugins/init.lua` als `plenary` benannt und lazy geladen, wenn ein Plugin es als Dependency braucht.
 
 ## UI und Navigation
 
 ### `telescope.nvim`
 
 Zentrale Suchoberflaeche.
+
+Lazy Loading:
+
+- Command `:Telescope`
+- Telescope-Keymaps wie `<leader>pf`, `<leader>ps`, `<leader>fb`
 
 Dependencies:
 
@@ -93,6 +94,10 @@ Neo-tree interne Mappings:
 
 Statusline.
 
+Lazy Loading:
+
+- `VeryLazy`
+
 Features:
 
 - Theme: `auto`
@@ -103,6 +108,7 @@ Features:
 ### `nvim-web-devicons`
 
 Icon-Unterstuetzung fuer Neo-tree, Lualine, Trouble und andere Plugins.
+Wird lazy als Dependency geladen.
 
 ### `dressing.nvim`
 
@@ -119,6 +125,11 @@ Features:
 ### `nvim-lspconfig`
 
 Zentrale LSP-Konfiguration. Siehe `lsp-formatting-diagnostics.md`.
+
+Lazy Loading:
+
+- `BufReadPre`
+- `BufNewFile`
 
 ### `mason.nvim`
 
@@ -138,17 +149,15 @@ Installiert automatisch:
 - `rust-analyzer`
 - `stylua`
 
-`run_on_start = true` ist aktiv, aber mit `start_delay = 3000` und `auto_update = false`. Das blockiert den Start nicht und installiert nur fehlende Tools, statt bei jedem Start alles neu zu installieren.
+`run_on_start` ist nur in interaktiven Neovim-UIs aktiv, nicht in Headless/CI. Mit `start_delay = 3000` und `auto_update = false` blockiert das den Start nicht und installiert nur fehlende Tools, statt bei jedem Start alles neu zu installieren.
 
 ### `nvim-cmp`
 
 Completion-Engine mit Sources fuer LSP, Snippets und Buffer.
 
-### `cmp-nvim-lsp`, `cmp-buffer`, `cmp-path`, `cmp-cmdline`, `cmp_luasnip`
+### `cmp-nvim-lsp`, `cmp-buffer`, `cmp_luasnip`
 
-Completion-Sources fuer LSP, Buffer, Pfade, Cmdline und LuaSnip.
-
-Hinweis: `cmp-path` und `cmp-cmdline` sind installiert, aber aktuell nicht explizit in `cmp.setup` als aktive Sources eingetragen.
+Completion-Sources fuer LSP, Buffer und LuaSnip.
 
 ### `LuaSnip`
 
@@ -177,6 +186,10 @@ Zeigt LSP-Progress, z. B. Rust Analyzer Ladefortschritt.
 
 Formatter-Integration und Auto-Format on Save fuer Rust, Python und Java. Siehe `lsp-formatting-diagnostics.md`.
 
+Lazy Loading:
+
+- `BufWritePre`
+
 ### `rustaceanvim`
 
 Rust-spezifischer LSP-Wrapper und Rust-Tools. Wird nur fuer Rust-Dateien geladen.
@@ -196,6 +209,10 @@ Feature:
 ### `php.nvim`
 
 PHP-Support von `tjdevries/php.nvim`. Haengt an Treesitter.
+
+Lazy Loading:
+
+- Nur fuer Filetype `php`.
 
 ## Syntax und Treesitter
 
@@ -230,6 +247,11 @@ Beim `VeryLazy`-Event werden nur fehlende Parser installiert. Bei jedem Filetype
 
 Sticky Context am oberen Fensterrand.
 
+Lazy Loading:
+
+- `BufReadPost`
+- `BufNewFile`
+
 Config:
 
 - Aktiviert.
@@ -242,6 +264,11 @@ Config:
 ### `vim-fugitive`
 
 Git-Integration in Vim.
+
+Lazy Loading:
+
+- Command `:Git` / `:G`
+- Keymaps `<leader>gs`, `gu`, `gh`
 
 Keymaps:
 

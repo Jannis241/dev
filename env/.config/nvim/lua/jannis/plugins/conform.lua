@@ -1,5 +1,6 @@
 return {
 	"stevearc/conform.nvim",
+	event = { "BufWritePre" },
 	opts = {},
 	config = function()
 		local format_on_save_filetypes = {

@@ -1,5 +1,43 @@
 return {
 	"nvim-telescope/telescope.nvim",
+	cmd = "Telescope",
+	keys = {
+		{
+			"<leader>pf",
+			function()
+				require("telescope.builtin").find_files()
+			end,
+			desc = "Find files",
+		},
+		{
+			"<leader>pws",
+			function()
+				require("telescope.builtin").current_buffer_fuzzy_find()
+			end,
+			desc = "Buffer fuzzy find",
+		},
+		{
+			"<leader>ps",
+			function()
+				require("telescope.builtin").live_grep()
+			end,
+			desc = "Live grep",
+		},
+		{
+			"<leader>fb",
+			function()
+				require("telescope.builtin").buffers()
+			end,
+			desc = "Buffers",
+		},
+		{
+			"<leader>fh",
+			function()
+				require("telescope.builtin").help_tags()
+			end,
+			desc = "Help tags",
+		},
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -8,7 +46,8 @@ return {
 
 	config = function()
 		-- Compatibility shim for older Telescope versions on newer Neovim APIs.
-		if vim.treesitter
+		if
+			vim.treesitter
 			and vim.treesitter.language
 			and vim.treesitter.language.ft_to_lang == nil
 			and vim.treesitter.language.get_lang
@@ -17,13 +56,12 @@ return {
 		end
 
 		local telescope = require("telescope")
-		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
 
 		telescope.setup({
 			defaults = {
 				prompt_prefix = "   ",
-	 			selection_caret = " ",
+				selection_caret = " ",
 				entry_prefix = " ",
 				sorting_strategy = "ascending",
 				layout_config = {
@@ -65,12 +103,5 @@ return {
 		-- Extensions laden
 		telescope.load_extension("fzf")
 		telescope.load_extension("ui-select")
-
-		-- Keymaps
-		vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Find files" })
-		vim.keymap.set("n", "<leader>pws", builtin.current_buffer_fuzzy_find, { desc = "Buffer fuzzy find" })
-		vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "Live grep" })
-		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
-		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
 	end,
 }

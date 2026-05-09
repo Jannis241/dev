@@ -118,12 +118,9 @@ Completion nutzt `nvim-cmp`.
 
 Sources:
 
-- `copilot`
 - `nvim_lsp`
 - `luasnip`
 - `buffer`
-
-Hinweis: In dieser Config ist `copilot` als Source eingetragen, aber kein Copilot-Plugin in den Plugin-Specs definiert. Wenn kein Copilot-Completion-Plugin installiert ist, liefert diese Source einfach nichts.
 
 Completion-Fenster:
 
