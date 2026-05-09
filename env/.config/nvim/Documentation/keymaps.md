@@ -134,24 +134,18 @@ Nur in Rust-Buffern:
 | `<C-s>,` | Insert/Select | Zum vorherigen Snippet-Jump |
 | `<C-E>` | Insert/Select | Naechste Snippet-Choice |
 
-## Debugging
-
-DAP ist lazy und wird erst ueber diese Keys geladen.
+## Harpoon
 
 | Key | Mode | Aktion |
 | --- | --- | --- |
-| `<F8>` | Normal | Debug Continue |
-| `<F10>` | Normal | Step Over |
-| `<F11>` | Normal | Step Into |
-| `<F12>` | Normal | Step Out |
-| `<leader>b` | Normal | Breakpoint togglen |
-| `<leader>B` | Normal | Conditional Breakpoint setzen |
-| `<leader>dr` | Normal | DAP REPL UI togglen |
-| `<leader>ds` | Normal | DAP Stacks UI togglen |
-| `<leader>dw` | Normal | DAP Watches UI togglen |
-| `<leader>db` | Normal | DAP Breakpoints UI togglen |
-| `<leader>dS` | Normal | DAP Scopes UI togglen |
-| `<leader>dc` | Normal | DAP Console UI togglen |
+| `<leader>ma` | Normal | Aktuelle Datei zu Harpoon hinzufuegen |
+| `<leader>mm` | Normal | Harpoon-Menue oeffnen/schliessen |
+| `<leader>1` | Normal | Zu Harpoon-Datei 1 springen |
+| `<leader>2` | Normal | Zu Harpoon-Datei 2 springen |
+| `<leader>3` | Normal | Zu Harpoon-Datei 3 springen |
+| `<leader>4` | Normal | Zu Harpoon-Datei 4 springen |
+| `<leader>mn` | Normal | Naechste Harpoon-Datei |
+| `<leader>mp` | Normal | Vorherige Harpoon-Datei |
 
 ## Allgemein
 
@@ -167,4 +161,3 @@ DAP ist lazy und wird erst ueber diese Keys geladen.
 | `<leader>d` | Normal/Visual | Loeschen ohne Yank-Register zu ueberschreiben |
 | `<leader><leader>` | Normal | Aktuelle Datei sourcen |
 | `<leader>u` | Normal | Undotree togglen |
-

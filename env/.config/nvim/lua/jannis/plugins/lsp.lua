@@ -31,6 +31,8 @@ return {
 			ensure_installed = {
 				"black",
 				"google-java-format",
+				"prettier",
+				"rust-analyzer",
 				"stylua",
 			},
 			auto_update = false,

@@ -87,7 +87,17 @@ autocmd("LspAttach", {
 	end,
 })
 
-require("lazy").setup("jannis.plugins")
+require("lazy").setup("jannis.plugins", {
+	install = {
+		missing = true,
+	},
+	checker = {
+		enabled = false,
+	},
+	change_detection = {
+		notify = false,
+	},
+})
 require("jannis.theme").setup()
 
 require("jannis.remap")

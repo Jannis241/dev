@@ -27,6 +27,7 @@ Der Einstiegspunkt ist `init.lua`, der nur `require("jannis")` ausfuehrt. Die ei
 Die Config ist auf schnelles Starten und spaeteres Nachladen ausgelegt:
 
 - Themes werden lazy geladen. Nur das aktive Theme wird beim Start geladen.
+- Fehlende Plugins werden automatisch installiert, aber Lazy macht keine Update-Checks beim normalen Start.
 - Rust wird ueber `rustaceanvim` behandelt, nicht noch einmal ueber `mason-lspconfig`.
 - Diagnostics zeigen im normalen Code nur Errors prominent an.
 - Trouble dient als Error-Uebersicht fuer File oder Projekt.
@@ -39,5 +40,3 @@ Die Config ist auf schnelles Starten und spaeteres Nachladen ausgelegt:
 - `:Mason`: LSP-Server und Tools verwalten.
 - `:Theme`: Theme-Auswahl oeffnen.
 - `:Neotree`: File-Tree oeffnen.
-- `:PeekOpen` / `:PeekClose`: Markdown-Preview steuern, falls `deno` installiert ist.
-

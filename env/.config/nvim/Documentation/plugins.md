@@ -8,6 +8,12 @@ Alle Plugins werden ueber `lazy.nvim` geladen. Die Specs liegen in `lua/jannis/p
 
 Wird in `lua/jannis/init.lua` gebootstrapped. Falls Lazy noch nicht in `stdpath("data") .. "/lazy/lazy.nvim"` liegt, wird es per Git geklont.
 
+Config:
+
+- `install.missing = true`: Fehlende Plugins werden automatisch installiert.
+- `checker.enabled = false`: Keine automatischen Update-Checks beim Start.
+- `change_detection.notify = false`: Keine Stoer-Meldungen bei Plugin-Spec-Aenderungen.
+
 ### `plenary.nvim`
 
 Hilfsbibliothek fuer viele Plugins. In `plugins/init.lua` als `plenary` benannt.
@@ -128,7 +134,11 @@ Installiert automatisch:
 
 - `black`
 - `google-java-format`
+- `prettier`
+- `rust-analyzer`
 - `stylua`
+
+`run_on_start = true` ist aktiv, aber mit `start_delay = 3000` und `auto_update = false`. Das blockiert den Start nicht und installiert nur fehlende Tools, statt bei jedem Start alles neu zu installieren.
 
 ### `nvim-cmp`
 
@@ -214,7 +224,7 @@ Custom Parser:
 
 - `templ` von `https://github.com/vrischmann/tree-sitter-templ.git`
 
-Bei jedem Filetype wird versucht, Treesitter zu starten und Treesitter-Indent zu setzen.
+Beim `VeryLazy`-Event werden nur fehlende Parser installiert. Bei jedem Filetype wird versucht, Treesitter zu starten und Treesitter-Indent zu setzen.
 
 ### `nvim-treesitter-context`
 
@@ -306,70 +316,22 @@ Keymap:
 
 - `<leader>u`
 
-### `cloak.nvim`
+### `harpoon`
 
-Maskiert Secrets mit `*`.
-
-Aktive Dateien:
-
-- `.env*`
-- `wrangler.toml`
-- `.dev.vars`
-
-Pattern:
-
-- Alles nach `=` wird maskiert.
-
-## Markdown
-
-### `peek.nvim`
-
-Markdown Preview.
+Schnelle Projekt-Navigation ueber eine kleine Liste wichtiger Dateien.
+Harpoon ist praktisch fuer Dateien, zwischen denen du oft wechselst, ohne jedes Mal Telescope oder Neo-tree zu oeffnen.
 
 Lazy Loading:
 
-- Commands `PeekOpen`, `PeekClose`
-- Filetype `markdown`
-
-Build:
-
-- Fuehrt `deno task --quiet build:fast` nur aus, wenn `deno` installiert ist.
-
-Commands:
-
-- `:PeekOpen`
-- `:PeekClose`
-
-Wenn `deno` fehlt, zeigt `:PeekOpen` eine Warnung statt zu crashen.
-
-## Debugging
-
-### `nvim-dap`
-
-Debug Adapter Protocol Client.
-
-Lazy Loading:
-
-- Ueber Debug-Keymaps.
+- Ueber Harpoon-Keymaps.
 
 Keymaps:
 
-- `<F8>`, `<F10>`, `<F11>`, `<F12>`, `<leader>b`, `<leader>B`
-
-### `nvim-dap-ui`
-
-UI fuer DAP.
-
-Dependencies:
-
-- `nvim-dap`
-- `nvim-nio`
-
-Features:
-
-- Separate Toggle-Keymaps fuer REPL, Stacks, Watches, Breakpoints, Scopes und Console.
-- DAP UI schliesst bei `event_terminated` und `event_exited`.
-- Console Output wird an DAP UI Console weitergegeben.
+- `<leader>ma`: Aktuelle Datei zur Harpoon-Liste hinzufuegen.
+- `<leader>mm`: Harpoon-Menue oeffnen.
+- `<leader>1` bis `<leader>4`: Direkt zu den ersten vier Harpoon-Dateien springen.
+- `<leader>mn`: Naechste Harpoon-Datei.
+- `<leader>mp`: Vorherige Harpoon-Datei.
 
 ## Themes
 
@@ -380,8 +342,3 @@ Alle Theme-Plugins sind in `themes.lua` lazy. Details stehen in `themes.md`.
 ### `fzf.lua`
 
 Enthaelt absichtlich keine eigene Plugin-Spec. `telescope-fzf-native.nvim` ist als Dependency von Telescope definiert.
-
-### `harpoon.lua`
-
-Gibt aktuell `{}` zurueck. Harpoon ist also nicht aktiv.
-

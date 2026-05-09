@@ -20,9 +20,33 @@ Diese Datei macht die zentrale Initialisierung:
 4. Setzt einen Compatibility-Shim fuer `vim.lsp.get_buffers_by_client_id`.
 5. Definiert Autocommands.
 6. Definiert LSP-Keymaps in `LspAttach`.
-7. Laedt alle Plugins mit `require("lazy").setup("jannis.plugins")`.
+7. Laedt alle Plugins mit `require("lazy").setup("jannis.plugins", opts)`.
 8. Initialisiert das Theme-System mit `require("jannis.theme").setup()`.
 9. Laedt globale Remaps aus `jannis.remap`.
+
+## Fresh-Install-Verhalten
+
+Die Config ist so ausgelegt, dass sie auf einem frischen Linux-PC nach dem Clonen selbst bootstrapped:
+
+- `lazy.nvim` wird automatisch geklont, falls es fehlt.
+- Fehlende Plugins werden durch Lazy automatisch installiert (`install.missing = true`).
+- Lazy macht keine automatischen Update-Checks beim Start (`checker.enabled = false`), damit der normale Start schnell bleibt.
+- Mason stellt die konfigurierten LSP-Server und Tools sicher.
+- Mason-Tools laufen verzögert und ohne Auto-Update; bereits installierte Tools werden nicht neu installiert.
+- Treesitter installiert nur Parser, die lokal noch fehlen.
+
+Nach dem ersten Start sind die Plugins, LSP-Server, Formatter und Parser lokal installiert. Danach bleibt der normale Start schnell, weil nichts neu installiert wird, solange nichts fehlt.
+
+## System-Voraussetzungen
+
+Neovim kann ueber Lazy und Mason viel selbst installieren, aber keine distro-spezifischen Systempakete ohne Paketmanager/root-Rechte. Auf einem neuen Linux-System sollten mindestens vorhanden sein:
+
+- `git`
+- `make` und ein C/C++ Compiler fuer native Builds und Treesitter Parser
+- `curl`, `unzip`, `tar`, `gzip`
+- Java Runtime fuer `jdtls` und Java-Formatting
+- Rust Toolchain via `rustup`, wenn Rust inklusive `rustfmt` genutzt werden soll
+- Node/npm, falls Mason npm-basierte Tools wie `prettier` installieren soll
 
 ## Autocommands
 
@@ -78,7 +102,5 @@ Eigenes Theme-System:
 Lazy findet alle Plugin-Specs in diesem Ordner. Die Dateinamen sind organisatorisch:
 
 - Manche Dateien enthalten genau ein Plugin.
-- Manche Dateien enthalten mehrere zusammengehoerende Plugins, z. B. `dap.lua`.
 - `fzf.lua` ist leer, weil `telescope-fzf-native.nvim` als Telescope-Dependency definiert ist.
-- `harpoon.lua` gibt aktuell `{}` zurueck, also ist Harpoon nicht aktiv konfiguriert.
-
+- `harpoon.lua` konfiguriert schnelle Projekt-Navigation ueber Harpoon.

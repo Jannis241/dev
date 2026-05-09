@@ -5,6 +5,7 @@ return {
 		lazy = false,
 		config = function()
 			local ts = require("nvim-treesitter")
+			local ts_config = require("nvim-treesitter.config")
 			local parsers = require("nvim-treesitter.parsers")
 
 			ts.setup({})
@@ -39,7 +40,11 @@ return {
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "VeryLazy",
 				callback = function()
-					ts.install(ensure_installed)
+					local missing = ts_config.norm_languages(ensure_installed, { installed = true })
+
+					if #missing > 0 then
+						ts.install(missing)
+					end
 				end,
 			})
 

@@ -26,6 +26,7 @@ Mason stellt diese LSP-Server sicher:
 - `clangd`
 
 `rust_analyzer` ist absichtlich ausgeschlossen. Rust wird ueber `rustaceanvim` gesteuert, damit Rust Analyzer nicht doppelt attached.
+Der `rust-analyzer`-Binary wird trotzdem ueber `mason-tool-installer` installiert, damit Rust auf einem frischen System direkt nutzbar ist.
 
 ## Rust
 
@@ -95,6 +96,14 @@ Formatter pro Filetype:
 | `rust` | `rustfmt` |
 | `typescript` | `prettier` |
 
+Mason installiert automatisch:
+
+- `black`
+- `google-java-format`
+- `prettier`
+- `rust-analyzer`
+- `stylua`
+
 Auto-Format on Save ist nur fuer diese Filetypes aktiv:
 
 - `rust`
@@ -146,4 +155,3 @@ Trouble oeffnet rechts, fokussiert direkt die Error-Liste und `Enter` springt zu
 ## LSP-Keymaps
 
 Siehe `keymaps.md`, Abschnitt `LSP`.
-
