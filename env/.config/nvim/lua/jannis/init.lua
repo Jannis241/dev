@@ -14,6 +14,24 @@ vim.opt.rtp:prepend(lazypath)
 
 require("jannis.set")
 
+if vim.lsp and vim.lsp.get_buffers_by_client_id then
+	vim.lsp.get_buffers_by_client_id = function(client_id)
+		local client = vim.lsp.get_client_by_id(client_id)
+		if not client then
+			return {}
+		end
+
+		local buffers = {}
+		for bufnr in pairs(client.attached_buffers or {}) do
+			if vim.api.nvim_buf_is_valid(bufnr) then
+				table.insert(buffers, bufnr)
+			end
+		end
+		table.sort(buffers)
+		return buffers
+	end
+end
+
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
@@ -39,9 +57,11 @@ autocmd("LspAttach", {
 	group = g,
 	callback = function(e)
 		local opts = { buffer = e.buf }
-		vim.keymap.set("n", "gd", function()
+		vim.keymap.set("n", "<leader>gd", function()
 			vim.lsp.buf.definition()
-		end, opts)
+		end, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+		vim.keymap.set("n", "<leader>gb", "<C-o>", vim.tbl_extend("force", opts, { desc = "Go back" }))
+		vim.keymap.set("n", "<leader>gf", "<C-i>", vim.tbl_extend("force", opts, { desc = "Go forward" }))
 		vim.keymap.set("n", "K", function()
 			vim.lsp.buf.hover({ border = "rounded" })
 		end, opts)
@@ -69,6 +89,12 @@ autocmd("LspAttach", {
 		vim.keymap.set("n", "[d", function()
 			vim.diagnostic.goto_prev()
 		end, opts)
+		vim.keymap.set("n", "<leader>ne", function()
+			vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+		end, vim.tbl_extend("force", opts, { desc = "Next error" }))
+		vim.keymap.set("n", "<leader>pe", function()
+			vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+		end, vim.tbl_extend("force", opts, { desc = "Previous error" }))
 		vim.keymap.set({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, {})
 	end,
 })

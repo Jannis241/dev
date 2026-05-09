@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-
-update_script
 get-dependencies
 # Prüfen, ob DEV_ENV gesetzt ist
 if [ -z "$DEV_ENV" ]; then
