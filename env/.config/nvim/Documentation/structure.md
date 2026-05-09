@@ -56,6 +56,7 @@ Nicht benoetigt ist ein separates `lua`-Paket: Neovim bringt die Lua/LuaJIT-Runt
 
 - `BufWritePre *`: Entfernt trailing whitespace vor dem Speichern nur in normalen, editierbaren Buffern.
 - `LspAttach`: Setzt buffer-lokale LSP-Keymaps, sobald ein LSP-Client an einen Buffer attached.
+- `<leader>e` ist absichtlich kein Prefix fuer weitere Mappings. Error-Listen liegen unter `<leader>x...`, damit der Diagnostic-Float direkt reagiert.
 
 ## Filetypes
 
@@ -89,7 +90,7 @@ Rust Analyzer wird absichtlich nicht ueber `mason-lspconfig` automatisch enabled
 
 ## `lua/jannis/remap.lua`
 
-Globale Keymaps, die nicht direkt an einen Plugin-Spec gekoppelt sind. Plugin-spezifische Keymaps liegen ueberwiegend in den jeweiligen Plugin-Dateien.
+Globale Keymaps, die nicht direkt an einen Plugin-Spec gekoppelt sind. Plugin-spezifische Keymaps liegen ueberwiegend in den jeweiligen Plugin-Dateien. Prefix-Mappings werden vermieden, wenn sie haeufige normale Tasten verzoegern wuerden, zum Beispiel `p`.
 
 ## `lua/jannis/theme.lua`
 

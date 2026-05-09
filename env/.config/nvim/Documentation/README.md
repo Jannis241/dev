@@ -32,7 +32,7 @@ Die Config ist auf schnelles Starten und spaeteres Nachladen ausgelegt:
 - `mason.nvim` und `mason-tool-installer.nvim` laufen nur in interaktiven Neovim-Instanzen und blockieren den Start nicht mit Full-Install-Checks.
 - Rust wird ueber `rustaceanvim` behandelt, nicht noch einmal ueber `mason-lspconfig`.
 - Diagnostics zeigen im normalen Code nur Errors prominent an.
-- Trouble dient als Error-Uebersicht fuer File oder Projekt.
+- `<leader>e` oeffnet direkt den Diagnostic-Float. Trouble-Error-Uebersichten liegen unter `<leader>x...`, damit `<leader>e` kein Mapping-Prefix ist und ohne Timeout reagiert.
 - `nvim-cmp` zeigt Completion und Dokumentation in bordered Float-Fenstern.
 - Telescope ist die zentrale Such-/Picker-Oberflaeche.
 - Conform formatiert Rust, Python und Java automatisch beim Speichern.

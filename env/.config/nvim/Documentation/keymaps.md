@@ -43,6 +43,8 @@ Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
 
 ## Errors und Quickfix
 
+`<leader>e` bleibt bewusst ein einzelnes Mapping. Die Trouble-Uebersichten liegen unter `<leader>x...`, damit Neovim nach `<leader>e` nicht auf weitere Tasten wartet.
+
 | Key | Mode | Aktion |
 | --- | --- | --- |
 | `<leader>xf` | Normal | Alle Errors im aktuellen File in Trouble anzeigen, ohne Trouble zu fokussieren |
@@ -119,6 +121,8 @@ Nur in Rust-Buffern:
 | `<leader>od` | Normal | Rust Docs oeffnen |
 
 ## Todo Comments
+
+Todo-Navigation nutzt bracket-style Mappings. Es gibt bewusst kein `pt`/`nt`, weil `pt` normales `p` verzoegern wuerde.
 
 | Key | Mode | Aktion |
 | --- | --- | --- |

@@ -149,6 +149,7 @@ Trouble zeigt Error-Uebersichten:
 - `<leader>xp`: Errors im Projekt.
 
 Trouble oeffnet rechts, bleibt aber ohne Fokuswechsel im Editor. `Enter` springt zum ausgewaehlten Error und schliesst die Liste.
+Die Trouble-Mappings liegen bewusst nicht unter `<leader>e`, damit der Diagnostic-Float auf `<leader>e` ohne Mapping-Timeout sofort aufgeht.
 
 ## LSP-Keymaps
 

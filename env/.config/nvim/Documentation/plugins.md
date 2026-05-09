@@ -309,6 +309,8 @@ Keymaps:
 - `<leader>xp`: Project Errors.
 - `<leader>qf`: Quickfix in Trouble.
 
+Die Error-Uebersichten liegen unter `<leader>x...`, nicht unter `<leader>e...`. Dadurch bleibt `<leader>e` ein vollstaendiges Mapping fuer den Diagnostic-Float und Neovim wartet dort nicht auf weitere Tasten.
+
 Config:
 
 - Oeffnet rechts.
@@ -332,6 +334,8 @@ Keywords:
 Keymaps:
 
 - `]T`, `[T`, `<leader>ft`, `<leader>xt`
+
+Die Todo-Jumps nutzen keine `pt`/`nt`-Mappings. Ein `pt`-Mapping wuerde normales Paste mit `p` verzoegern, weil Neovim dann auf ein moegliches zweites Zeichen wartet.
 
 ## Editing
 
