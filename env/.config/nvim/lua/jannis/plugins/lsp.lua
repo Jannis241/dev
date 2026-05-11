@@ -58,16 +58,24 @@ return {
 			"clangd",
 		}
 
-		local function setup_server(server_name)
-			if vim.lsp.config and vim.lsp.enable then
-				vim.lsp.config(server_name, {
-					capabilities = capabilities,
-				})
-				vim.lsp.enable(server_name)
-			else
-				require("lspconfig")[server_name].setup({
-					capabilities = capabilities,
-				})
+		local server_configs = {
+			jdtls = {
+				root_markers = {
+					{ "mvnw", "gradlew", "settings.gradle", "settings.gradle.kts", ".git" },
+					{ "build.xml", "pom.xml", "build.gradle", "build.gradle.kts" },
+					"src",
+				},
+			},
+		}
+
+		if vim.lsp.config then
+			for _, server_name in ipairs(servers) do
+				vim.lsp.config(
+					server_name,
+					vim.tbl_deep_extend("force", {
+						capabilities = capabilities,
+					}, server_configs[server_name] or {})
+				)
 			end
 		end
 
@@ -80,14 +88,6 @@ return {
 					exclude = {
 						"rust_analyzer",
 					},
-				},
-				handlers = {
-					function(server_name)
-						if server_name == "rust_analyzer" then
-							return
-						end
-						setup_server(server_name)
-					end,
 				},
 			})
 		end
