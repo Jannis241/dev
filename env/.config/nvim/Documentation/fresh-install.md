@@ -42,4 +42,4 @@ Nach dem ersten erfolgreichen Start sind Plugins, Mason-Pakete und Treesitter Pa
 - PHP-Support nur bei PHP-Dateien
 - Snippets erst im Insert Mode
 - Lualine erst `VeryLazy`
-- `nvim-cmp` und die LSP-Doku-Floats laden mit dem ersten Buffer-/LSP-Bedarf und erscheinen dann in bordered Boxen.
+- `nvim-cmp` und die LSP-Doku-Floats laden mit dem ersten Buffer-/LSP-Bedarf und erscheinen dann in bordered Boxen mit transparentem Hintergrund.

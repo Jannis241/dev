@@ -157,9 +157,11 @@ Completion-Engine mit Sources fuer LSP, Snippets und Buffer.
 
 UI:
 
-- Completion und Dokumentation nutzen bordered Float-Fenster.
+- Completion und Dokumentation nutzen bordered Float-Fenster mit transparentem Hintergrund.
 - Completion ist breiter konfiguriert als die alte 20-Spalten-Ansicht.
-- Hover- und Signature-Help-Infos folgen dem gleichen Float-Stil.
+- Nur der aktuelle Completion-Eintrag hat einen gefuellten Selection-Hintergrund.
+- Completion-Dokumentation kann mit `<C-f>`/`<C-b>` gescrollt werden.
+- Hover- und Signature-Help-Infos folgen dem gleichen transparenten Float-Stil.
 
 ### `cmp-nvim-lsp`, `cmp-buffer`, `cmp_luasnip`
 

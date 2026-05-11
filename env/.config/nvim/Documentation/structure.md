@@ -101,7 +101,7 @@ Eigenes Theme-System:
 - Theme-Auswahl ueber Telescope oder fallback `vim.ui.select`.
 - Favoriten stehen in der Auswahl oben.
 - Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt.
-- Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt, inklusive Neo-tree-Indent-Markern.
+- Floating Windows bleiben dabei standardmaessig transparent; Completion/Pmenu markieren nur die aktive Auswahl mit eigenem Hintergrund.
 
 ## `lua/jannis/plugins`
 

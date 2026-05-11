@@ -50,6 +50,15 @@ Die Zuordnung passiert in `plugin_by_colorscheme` und `plugin_prefixes`.
 - `LineNr`
 - `CursorLineNr`
 - `LspInfoBorder`
+- `Pmenu`
+- `PmenuSel`
+- `PmenuSbar`
+- `PmenuThumb`
+- `CmpNormal`
+- `CmpBorder`
+- `CmpSel`
+- `CmpDocNormal`
+- `CmpDocBorder`
 - `CmpDocumentation`
 - `CmpDocumentationBorder`
 - `NeoTreeNormal`
@@ -58,8 +67,12 @@ Die Zuordnung passiert in `plugin_by_colorscheme` und `plugin_prefixes`.
 - `NeoTreeFloatBorder`
 - `NeoTreeIndentMarker`
 - `NeoTreeExpander`
+- Diagnostic-Floating-Gruppen
+- Telescope-Floating-Gruppen
+- Dressing-Floating-Gruppen
+- Lazy-, Mason-, WhichKey- und Notify-Floating-Gruppen
 
-Ziel: Hover-Docs, Completion-Doku und andere Floating Windows sollen bei allen Themes lesbare Borders haben.
+Ziel: Hover-Docs, Completion-Doku und andere Floating Windows sollen bei allen Themes transparente Hintergruende und lesbare Borders haben. Die Completion- und Pmenu-Auswahl (`CmpSel`, `PmenuSel`) ist die Ausnahme: Sie bekommt einen eigenen Hintergrund, damit der aktuell ausgewaehlte Eintrag sichtbar bleibt.
 
 ## LSP-Float-Konfiguration
 

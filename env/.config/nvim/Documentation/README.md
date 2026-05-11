@@ -33,7 +33,7 @@ Die Config ist auf schnelles Starten und spaeteres Nachladen ausgelegt:
 - Rust wird ueber `rustaceanvim` behandelt, nicht noch einmal ueber `mason-lspconfig`.
 - Diagnostics zeigen im normalen Code nur Errors prominent an.
 - `<leader>e` oeffnet direkt den Diagnostic-Float. Trouble-Error-Uebersichten liegen unter `<leader>x...`, damit `<leader>e` kein Mapping-Prefix ist und ohne Timeout reagiert.
-- `nvim-cmp` zeigt Completion und Dokumentation in bordered Float-Fenstern.
+- `nvim-cmp` zeigt Completion und Dokumentation in bordered Float-Fenstern mit transparentem Hintergrund; die aktive Auswahl bleibt als Zeile markiert und die Doku kann mit `<C-f>`/`<C-b>` gescrollt werden.
 - Telescope ist die zentrale Such-/Picker-Oberflaeche.
 - Conform formatiert Rust, Python und Java automatisch beim Speichern.
 

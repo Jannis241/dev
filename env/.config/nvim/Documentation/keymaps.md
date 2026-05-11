@@ -68,8 +68,10 @@ Diese Mappings gelten im Completion-Menue von `nvim-cmp`.
 | `<Tab>` | Insert | Completion bestaetigen |
 | `<Enter>` | Insert | Completion bestaetigen |
 | `<C-Space>` | Insert | Completion manuell oeffnen |
+| `<C-f>` | Insert | Completion-Dokumentation nach unten scrollen |
+| `<C-b>` | Insert | Completion-Dokumentation nach oben scrollen |
 
-Die Completion-Vorschlaege und die Dokumentation erscheinen jeweils in bordered Float-Fenstern. Die Completion-Box ist breiter als frueher, damit Eintraege lesbar bleiben, und die Dokumentation hat ebenfalls mehr Platz. Hover- und Signature-Help-Floats folgen demselben Stil.
+Die Completion-Vorschlaege und die Dokumentation erscheinen jeweils in bordered Float-Fenstern mit transparentem Hintergrund. Nur der aktuell ausgewaehlte Completion-Eintrag bekommt einen eigenen Highlight-Hintergrund, damit die Auswahl klar sichtbar bleibt. Die Completion-Box ist breiter als frueher, damit Eintraege lesbar bleiben, und die Dokumentation kann mit `<C-f>`/`<C-b>` gescrollt werden.
 
 ## Formatierung
 

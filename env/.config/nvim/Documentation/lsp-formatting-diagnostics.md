@@ -124,9 +124,11 @@ Sources:
 
 Completion-Fenster:
 
-- Completion und Dokumentation haben Borders.
+- Completion und Dokumentation haben Borders und transparente Hintergruende.
 - Completion-Fenster: Max Height 12, Max Width 60
 - Dokumentations-Fenster: Max Height 14, Max Width 80
+- Die aktive Completion-Auswahl bleibt als ganze Zeile gehighlighted.
+- Die Dokumentation kann im Completion-Menue mit `<C-f>` nach unten und `<C-b>` nach oben gescrollt werden.
 - Hover und Signature Help erscheinen ebenfalls in grossen rounded Floats.
 - Icons/Text kommen ueber `lspkind`.
 
