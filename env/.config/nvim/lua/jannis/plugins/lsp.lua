@@ -94,8 +94,12 @@ return {
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 		local lspkind = require("lspkind")
+		local cmp_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 		cmp.setup({
+			completion = {
+				completeopt = "menu,menuone,noinsert",
+			},
 			formatting = {
 				format = lspkind.cmp_format({
 					mode = "symbol_text", -- show only symbol annotations
@@ -128,17 +132,21 @@ return {
 				["<tab>"] = cmp.mapping.confirm({ select = true }),
 				["<enter>"] = cmp.mapping.confirm({ select = true }),
 				["<C-Space>"] = cmp.mapping.complete(),
+				["<C-m>"] = cmp.mapping.scroll_docs(4),
+				["<C-n>"] = cmp.mapping.scroll_docs(-4),
 			}),
 			window = {
 				completion = cmp.config.window.bordered({
-					max_height = 12, -- max Zeilen
-					max_width = 60, -- max Spalten
-					winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+					border = cmp_border,
+					side_padding = 1,
+					scrollbar = false,
+					winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
 				}),
 				documentation = cmp.config.window.bordered({
-					max_height = 14,
-					max_width = 80,
-					winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+					border = cmp_border,
+					side_padding = 1,
+					scrollbar = false,
+					winhighlight = "Normal:CmpDocNormal,FloatBorder:CmpDocBorder",
 				}),
 			},
 

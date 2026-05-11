@@ -220,15 +220,19 @@ end
 
 function M.apply_float_highlights()
 	local normal = hl("Normal")
-	local pmenu = hl("Pmenu")
 	local diagnostic_info = hl("DiagnosticInfo")
+	local diagnostic_warn = hl("DiagnosticWarn")
 	local type_hl = hl("Type")
+	local warning_msg = hl("WarningMsg")
+	local special = hl("Special")
 	local comment = hl("Comment")
 
-	local bg = color(pmenu.bg, vim.o.background == "light" and "#f0f0f0" or "#1f2335")
 	local fg = color(normal.fg, vim.o.background == "light" and "#1f1f1f" or "#dcdcdc")
 	local border =
 		color(diagnostic_info.fg or type_hl.fg or comment.fg, vim.o.background == "light" and "#5f5f87" or "#7aa2f7")
+	local selection =
+		color(diagnostic_warn.fg or warning_msg.fg or special.fg, vim.o.background == "light" and "#8a5a00" or "#ffcc66")
+	local selection_bg = vim.o.background == "light" and "#d9e2f2" or "#2f3a4a"
 	local line_nr = color(comment.fg or type_hl.fg, vim.o.background == "light" and "#707070" or "#7c7c7c")
 
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = fg })
@@ -237,14 +241,54 @@ function M.apply_float_highlights()
 	vim.api.nvim_set_hl(0, "LineNr", { bg = "none", fg = line_nr })
 	vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "none", fg = border, bold = true })
 	vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
-	vim.api.nvim_set_hl(0, "CmpDocumentation", { link = "NormalFloat" })
-	vim.api.nvim_set_hl(0, "CmpDocumentationBorder", { link = "FloatBorder" })
+	vim.api.nvim_set_hl(0, "Pmenu", { bg = "none", fg = fg })
+	vim.api.nvim_set_hl(0, "PmenuSel", { bg = selection_bg, fg = selection, bold = true })
+	vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "none" })
+	vim.api.nvim_set_hl(0, "PmenuThumb", { bg = border })
+	vim.api.nvim_set_hl(0, "CmpNormal", { bg = "none", fg = fg })
+	vim.api.nvim_set_hl(0, "CmpBorder", { bg = "none", fg = border })
+	vim.api.nvim_set_hl(0, "CmpSel", { bg = selection_bg, fg = selection, bold = true })
+	vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = "none", fg = fg })
+	vim.api.nvim_set_hl(0, "CmpDocBorder", { bg = "none", fg = border })
+	vim.api.nvim_set_hl(0, "CmpDocumentation", { link = "CmpDocNormal" })
+	vim.api.nvim_set_hl(0, "CmpDocumentationBorder", { link = "CmpDocBorder" })
 	vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "none", fg = fg })
 	vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "none", fg = fg })
 	vim.api.nvim_set_hl(0, "NeoTreeFloatNormal", { bg = "none", fg = fg })
 	vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = "none", fg = border })
 	vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { bg = "none", fg = line_nr })
 	vim.api.nvim_set_hl(0, "NeoTreeExpander", { bg = "none", fg = line_nr })
+
+	for _, name in ipairs({
+		"DiagnosticFloatingError",
+		"DiagnosticFloatingWarn",
+		"DiagnosticFloatingInfo",
+		"DiagnosticFloatingHint",
+		"DiagnosticFloatingOk",
+		"TelescopeNormal",
+		"TelescopeBorder",
+		"TelescopePromptNormal",
+		"TelescopePromptBorder",
+		"TelescopeResultsNormal",
+		"TelescopeResultsBorder",
+		"TelescopePreviewNormal",
+		"TelescopePreviewBorder",
+		"DressingInput",
+		"DressingInputBorder",
+		"LazyNormal",
+		"LazyBorder",
+		"MasonNormal",
+		"MasonBorder",
+		"WhichKeyNormal",
+		"WhichKeyBorder",
+		"NotifyBackground",
+		"NormalFloat",
+		"FloatBorder",
+		"FloatTitle",
+	}) do
+		local existing = hl(name)
+		vim.api.nvim_set_hl(0, name, vim.tbl_extend("force", existing, { bg = "none" }))
+	end
 end
 
 local function saved_theme()
