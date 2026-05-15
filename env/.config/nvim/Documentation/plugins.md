@@ -147,6 +147,8 @@ Installiert automatisch:
 - `google-java-format`
 - `prettier`
 - `rust-analyzer`
+- `shellcheck`
+- `shfmt`
 - `stylua`
 
 `run_on_start` ist nur in interaktiven Neovim-UIs aktiv, nicht in Headless/CI. Mit `start_delay = 3000` und `auto_update = false` blockiert das den Start nicht und installiert nur fehlende Tools, statt bei jedem Start alles neu zu installieren.
@@ -191,6 +193,10 @@ Icons und Text fuer Completion-Eintraege. Nutzt `codicons` Preset plus eigene Sy
 
 Zeigt LSP-Progress, z. B. Rust Analyzer Ladefortschritt.
 
+### `lazydev.nvim`
+
+Verbessert LuaLS fuer die eigene Neovim-Konfiguration. Das Plugin wird nur fuer Lua-Dateien geladen und stellt Neovim-/luv-Libraries fuer Completion, Diagnostics und Signaturen bereit.
+
 ### `conform.nvim`
 
 Formatter-Integration und Auto-Format on Save fuer Rust, Python und Java. Siehe `lsp-formatting-diagnostics.md`.
@@ -198,6 +204,20 @@ Formatter-Integration und Auto-Format on Save fuer Rust, Python und Java. Siehe 
 Lazy Loading:
 
 - `BufWritePre`
+
+### `nvim-lint`
+
+Asynchrones Linting neben LSP. Aktuell ist `shellcheck` fuer `sh`, `bash` und `zsh` konfiguriert.
+
+Lazy Loading:
+
+- `BufReadPost`
+- `BufNewFile`
+- `BufWritePost`
+
+Keymap:
+
+- `<leader>ll`: Linting fuer den aktuellen Buffer manuell starten.
 
 ### `rustaceanvim`
 

@@ -1,36 +1,185 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Prüfen, ob DEV_ENV gesetzt ist
-if [[ -z "$DEV_ENV" ]]; then
-  echo "❌ DEV_ENV ist nicht gesetzt"
-  exit 1
-fi
+OUT_DIR="${DEV_ENV:?DEV_ENV ist nicht gesetzt}/dependencies"
 
-OUT_DIR="$DEV_ENV/dependencies"
+required_base=(
+    base
+    base-devel
+    git
+    networkmanager
+    pacman-contrib
+    sudo
+    unzip
+    wget
+    zsh
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
 
-rm -rf "$OUT_DIR"
+required_desktop=(
+    brightnessctl
+    ghostty
+    grim
+    hyprland
+    hyprlock
+    hyprpaper
+    playerctl
+    rofi
+    slurp
+    swaync
+    waybar
+    wl-clipboard
+    xdg-desktop-portal-hyprland
+)
 
-mkdir -p "$OUT_DIR"
+required_dev=(
+    fd
+    fzf
+    jq
+    neovim
+    ripgrep
+    rustup
+    shellcheck
+    shfmt
+    stylua
+    tree-sitter-cli
+)
 
-echo "📦 Exportiere installierte Pakete nach: $OUT_DIR"
+required_fonts=(
+    noto-fonts
+    noto-fonts-emoji
+    ttf-jetbrains-mono-nerd
+)
 
-# Pacman (nur explizit installierte Pakete)
-pacman -Qqe | awk '{print $1}' > "$OUT_DIR/pacman.txt"
+required_aur=(
+    ttf-meslo
+    wlogout
+)
 
-# Paru AUR Pakete
-if command -v paru &> /dev/null; then
-    paru -Qqe | awk '{print $1}' > "$OUT_DIR/paru.txt"
+log() {
+    printf '%s\n' "$*"
+}
+
+write_sorted() {
+    local output_file="$1"
+    shift
+
+    printf '%s\n' "$@" | sed '/^$/d' | sort -u > "$output_file"
+}
+
+category_for() {
+    local package="$1"
+
+    case "$package" in
+        base|base-devel|linux|linux-*|linux-firmware|amd-ucode|efibootmgr|networkmanager|network-manager-applet|dhcpcd|iwd|wireless_tools|sudo|zsh|zram-generator|smartmontools|pacman-contrib|unzip|wget|xdg-utils)
+            printf 'base'
+            ;;
+        *font*|ttf-*|woff2-font-awesome|nerd-fonts-*|hack-font-ligature-nerd-font-git)
+            printf 'fonts'
+            ;;
+        hyprland|hyprland-protocols|hyprlock|hyprpaper|uwsm|waybar|wlogout|rofi|wofi|tofi|ghostty|kitty|dunst|swaync|grim|slurp|wl-clipboard|wlr-randr|brightnessctl|playerctl|pipewire|pipewire-*|wireplumber|pavucontrol|libpulse|gst-plugin-pipewire|polkit-kde-agent|qt5-wayland|qt6-wayland|xdg-desktop-portal-hyprland|sddm|sddm-kcm|thunar|thunar-volman|tumbler|kdeglobals|dolphin|gwenview|loupe|imv|feh|blueman|bluez)
+            printf 'desktop'
+            ;;
+        bat|clang|cloc|cmake|cuda|cudnn|dkms|fd|fzf|git|gnu-netcat|go|graphviz|htop|jdk-openjdk|jq|lua51|luarocks|nasm|neovim|nodejs|npm|python-pip|ripgrep|rust|rustup|shellcheck|shfmt|stylua|tesseract|tesseract-data-*|tmate|tmux|tree-sitter-cli|vim)
+            printf 'dev'
+            ;;
+        *)
+            printf 'apps'
+            ;;
+    esac
+}
+
+append_package() {
+    local category="$1"
+    local package="$2"
+
+    case "$category" in
+        base) base_packages+=("$package") ;;
+        desktop) desktop_packages+=("$package") ;;
+        dev) dev_packages+=("$package") ;;
+        fonts) fonts_packages+=("$package") ;;
+        apps) apps_packages+=("$package") ;;
+        *)
+            log "Unbekannte Kategorie fuer $package: $category"
+            apps_packages+=("$package")
+            ;;
+    esac
+}
+
+log "Exportiere Paketlisten nach: $OUT_DIR"
+mkdir -p -- "$OUT_DIR"
+rm -f -- \
+    "$OUT_DIR/base.txt" \
+    "$OUT_DIR/desktop.txt" \
+    "$OUT_DIR/dev.txt" \
+    "$OUT_DIR/fonts.txt" \
+    "$OUT_DIR/apps.txt" \
+    "$OUT_DIR/aur.txt" \
+    "$OUT_DIR/pacman.txt" \
+    "$OUT_DIR/paru.txt" \
+    "$OUT_DIR/flatpak.txt"
+
+native_file="$(mktemp)"
+aur_file="$(mktemp)"
+trap 'rm -f -- "$native_file" "$aur_file"' EXIT
+
+pacman -Qqen | sort -u > "$native_file"
+pacman -Qqem | sed '/-debug$/d' | sort -u > "$aur_file"
+
+mapfile -t native_packages < "$native_file"
+mapfile -t aur_packages < "$aur_file"
+
+base_packages=()
+desktop_packages=()
+dev_packages=()
+fonts_packages=()
+apps_packages=()
+
+for package in "${native_packages[@]}"; do
+    append_package "$(category_for "$package")" "$package"
+done
+
+for package in "${required_base[@]}"; do
+    append_package base "$package"
+done
+
+for package in "${required_desktop[@]}"; do
+    append_package desktop "$package"
+done
+
+for package in "${required_dev[@]}"; do
+    append_package dev "$package"
+done
+
+for package in "${required_fonts[@]}"; do
+    append_package fonts "$package"
+done
+
+aur_packages+=("${required_aur[@]}")
+
+write_sorted "$OUT_DIR/base.txt" "${base_packages[@]}"
+write_sorted "$OUT_DIR/desktop.txt" "${desktop_packages[@]}"
+write_sorted "$OUT_DIR/dev.txt" "${dev_packages[@]}"
+write_sorted "$OUT_DIR/fonts.txt" "${fonts_packages[@]}"
+write_sorted "$OUT_DIR/apps.txt" "${apps_packages[@]}"
+write_sorted "$OUT_DIR/aur.txt" "${aur_packages[@]}"
+
+{
+    cat "$OUT_DIR/base.txt"
+    cat "$OUT_DIR/desktop.txt"
+    cat "$OUT_DIR/dev.txt"
+    cat "$OUT_DIR/fonts.txt"
+    cat "$OUT_DIR/apps.txt"
+} | sort -u > "$OUT_DIR/pacman.txt"
+
+cp "$OUT_DIR/aur.txt" "$OUT_DIR/paru.txt"
+
+if command -v flatpak >/dev/null 2>&1; then
+    flatpak list --app --columns=application | sort -u > "$OUT_DIR/flatpak.txt"
 else
-    echo "⚠️ paru nicht gefunden"
+    : > "$OUT_DIR/flatpak.txt"
+    log "flatpak nicht gefunden, flatpak.txt bleibt leer."
 fi
 
-
-# Flatpak Pakete
-if command -v flatpak &> /dev/null; then
-    flatpak list --app --columns=application > "$OUT_DIR/flatpak.txt"
-else
-    echo "⚠️ flatpak nicht gefunden"
-fi
-
-echo "✅ Fertig! Paketlisten sind in $OUT_DIR"
-
+log "Fertig. Kategorien: base, desktop, dev, fonts, apps, aur."

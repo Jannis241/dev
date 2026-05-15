@@ -81,6 +81,12 @@ Die Completion-Vorschlaege und die Dokumentation erscheinen jeweils in bordered 
 
 Rust, Python und Java werden zusaetzlich automatisch beim Speichern formatiert.
 
+## Linting
+
+| Key | Mode | Aktion |
+| --- | --- | --- |
+| `<leader>ll` | Normal | Aktuellen Buffer mit nvim-lint linten |
+
 ## Git
 
 ### Fugitive

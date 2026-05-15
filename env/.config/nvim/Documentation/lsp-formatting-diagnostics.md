@@ -14,6 +14,8 @@ Verwendete Bausteine:
 - `nvim-cmp`: Completion-Engine mit bordered Completion- und Dokumentations-Floats.
 - `LuaSnip` und `cmp_luasnip`: Snippet-Expansion in Completion.
 - `fidget.nvim`: LSP-Fortschritt rechts im Editor.
+- `lazydev.nvim`: LuaLS-Unterstuetzung fuer Neovim-Config-Entwicklung.
+- `nvim-lint`: Asynchrones Linting neben LSP.
 
 ## Installierte LSP-Server
 
@@ -67,7 +69,16 @@ Lua nutzt:
 
 - LSP: `lua_ls`
 - Formatter: `stylua` ist per Mason-Tool-Installer installiert.
+- `lazydev.nvim` stellt Neovim-/luv-Libraries fuer bessere LuaLS-Completion und Diagnostics bereit.
 - Kein Auto-Format on Save in der aktuellen Config, aber manuelles Formatieren ueber `<leader>f` geht, wenn Conform fuer den Filetype einen Formatter kennt.
+
+## Shell
+
+Shell-Dateien nutzen:
+
+- Formatter: `shfmt`
+- Linter: `shellcheck` ueber `nvim-lint`
+- Manuelles Linting: `<leader>ll`
 
 ## Go, C und C++
 
@@ -94,6 +105,7 @@ Formatter pro Filetype:
 | `lua` | `stylua` |
 | `python` | `black` |
 | `rust` | `rustfmt` |
+| `sh` / `bash` / `zsh` | `shfmt` |
 | `typescript` | `prettier` |
 
 Mason installiert automatisch:
@@ -102,6 +114,8 @@ Mason installiert automatisch:
 - `google-java-format`
 - `prettier`
 - `rust-analyzer`
+- `shellcheck`
+- `shfmt`
 - `stylua`
 
 Auto-Format on Save ist nur fuer diese Filetypes aktiv:
@@ -111,6 +125,20 @@ Auto-Format on Save ist nur fuer diese Filetypes aktiv:
 - `java`
 
 Manuelles Formatieren geht mit `<leader>f`.
+
+## Linting
+
+Linting liegt in `lua/jannis/plugins/lint.lua`.
+
+Aktuell konfiguriert:
+
+| Filetype | Linter |
+| --- | --- |
+| `sh` | `shellcheck` |
+| `bash` | `shellcheck` |
+| `zsh` | `shellcheck` |
+
+`nvim-lint` laeuft bei `BufReadPost`, `BufWritePost` und `InsertLeave`. Manuelles Linting geht mit `<leader>ll`.
 
 ## Completion
 

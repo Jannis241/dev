@@ -1,79 +1,211 @@
-#!/bin/bash
-# Arch Linux Cleanup & Update Script
-# Achtung: Führt Systemupdates und Reinigung aus. Prüfe vor Ausführung!
+#!/usr/bin/env bash
+set -euo pipefail
 
-# -----------------------
-# 2. Systemupdate
-# -----------------------
-echo "==> System wird aktualisiert..."
-sudo pacman -Syu --noconfirm
+mode="update"
+dry_run=0
+assume_yes=0
 
-# -----------------------
-# 3. AUR Update (falls yay installiert)
-# -----------------------
-if command -v paru &> /dev/null; then
-    echo "==> AUR-Pakete werden aktualisiert..."
-    sudo paru -Syu --noconfirm
-fi
+usage() {
+    cat <<'EOF'
+Usage: update_script [update|cleanup|full] [--dry-run] [--yes]
 
-# -----------------------
-# 4. Unnötige Pakete entfernen
-# -----------------------
-echo "==> Unbenutzte Abhängigkeiten werden entfernt..."
-orphans="$(pacman -Qtdq 2>/dev/null || true)"
-if [[ -n "$orphans" ]]; then
-    sudo pacman -Rns $orphans --noconfirm
-else
-    echo "Keine unbenutzten Pakete gefunden"
-fi
+Modes:
+  update   Update pacman, AUR, Flatpak, rustup and optional Oh My Zsh.
+  cleanup  Remove orphan packages, prune caches conservatively and vacuum logs.
+  full     Run update and cleanup.
 
-# -----------------------
-# 5. Cache aufräumen
-# -----------------------
-echo "==> Pacman Cache wird bereinigt..."
-paccache -r -k 3  # behält die letzten 3 Versionen
-echo "==> Paru Cache wird bereinigt..."
-[ -f /usr/bin/paru ] && sudo paru -Sc --noconfirm
+Options:
+  --dry-run  Print commands without running them.
+  --yes      Skip confirmations and pass non-interactive flags where supported.
+  -h, --help Show this help.
+EOF
+}
 
-# -----------------------
-# 6. Flatpak Update & Cleanup
-# -----------------------
-if command -v flatpak &> /dev/null; then
-    echo "==> Flatpak Pakete aktualisieren..."
-    sudo flatpak update -y
-    echo "==> Flatpak Cleanup..."
-    sudo flatpak uninstall --unused -y
-fi
+run() {
+    if [[ "$dry_run" -eq 1 ]]; then
+        printf '[DRY RUN]'
+        printf ' %q' "$@"
+        printf '\n'
+        return
+    fi
 
-# -----------------------
-# 7. Snap Update & Cleanup
-# -----------------------
-if command -v snap &> /dev/null; then
-    echo "==> Snap Pakete aktualisieren..."
-    sudo snap refresh
-    echo "==> Snap alte Revisionen entfernen..."
-    sudo snap set system refresh.retain=2
-fi
+    "$@"
+}
 
-# -----------------------
-# 8. System Cleanup
-# -----------------------
-echo "==> Temporäre Dateien und Logs werden gelöscht..."
-if [[ -d "$HOME/.cache" ]]; then
-    find "$HOME/.cache" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
-fi
-sudo journalctl --vacuum-time=7d
+confirm() {
+    local prompt="$1"
+    local answer
 
-# -----------------------
-# 9. Fertig
-# -----------------------
-rustup update
-rustup component add rust-analyzer
+    if [[ "$assume_yes" -eq 1 ]]; then
+        return 0
+    fi
 
-if command -v omz >/dev/null 2>&1; then
-    omz update
-else
-    echo "==> omz nicht gefunden, überspringe Update."
-fi
+    if [[ "$dry_run" -eq 1 ]]; then
+        return 0
+    fi
 
-echo "==> Cleanup & Update abgeschlossen!"
+    read -r -p "$prompt [y/N] " answer
+    [[ "$answer" == "y" || "$answer" == "Y" || "$answer" == "yes" || "$answer" == "YES" ]]
+}
+
+pacman_update() {
+    echo "==> Pacman update"
+    if [[ "$assume_yes" -eq 1 ]]; then
+        run sudo pacman -Syu --noconfirm
+    else
+        run sudo pacman -Syu
+    fi
+}
+
+aur_update() {
+    if ! command -v paru >/dev/null 2>&1; then
+        echo "==> paru nicht gefunden, AUR update wird uebersprungen."
+        return
+    fi
+
+    echo "==> AUR update"
+    if [[ "$assume_yes" -eq 1 ]]; then
+        run paru -Syu --noconfirm
+    else
+        run paru -Syu
+    fi
+}
+
+flatpak_update() {
+    if ! command -v flatpak >/dev/null 2>&1; then
+        echo "==> flatpak nicht gefunden, Flatpak update wird uebersprungen."
+        return
+    fi
+
+    echo "==> Flatpak update"
+    if [[ "$assume_yes" -eq 1 ]]; then
+        run flatpak update -y
+    else
+        run flatpak update
+    fi
+}
+
+rust_update() {
+    if ! command -v rustup >/dev/null 2>&1; then
+        echo "==> rustup nicht gefunden, Rust update wird uebersprungen."
+        return
+    fi
+
+    echo "==> Rust toolchain update"
+    run rustup update
+    run rustup component add rust-analyzer
+}
+
+omz_update() {
+    if command -v omz >/dev/null 2>&1; then
+        echo "==> Oh My Zsh update"
+        run omz update
+    fi
+}
+
+remove_orphans() {
+    local orphans
+
+    orphans="$(pacman -Qtdq 2>/dev/null || true)"
+    if [[ -z "$orphans" ]]; then
+        echo "==> Keine unbenutzten Pacman-Abhaengigkeiten gefunden."
+        return
+    fi
+
+    echo "==> Unbenutzte Pacman-Abhaengigkeiten:"
+    printf '%s\n' "$orphans"
+    if confirm "Diese Pakete mit pacman -Rns entfernen?"; then
+        # shellcheck disable=SC2086
+        run sudo pacman -Rns $orphans
+    else
+        echo "==> Orphan-Removal uebersprungen."
+    fi
+}
+
+clean_pacman_cache() {
+    if ! command -v paccache >/dev/null 2>&1; then
+        echo "==> paccache nicht gefunden. Installiere pacman-contrib fuer Cache-Pflege."
+        return
+    fi
+
+    echo "==> Pacman cache: behalte die letzten 3 installierten Versionen."
+    run sudo paccache -rk3
+
+    if confirm "Nicht mehr installierte Paketversionen bis auf 1 Version bereinigen?"; then
+        run sudo paccache -ruk1
+    fi
+}
+
+clean_flatpak() {
+    if ! command -v flatpak >/dev/null 2>&1; then
+        return
+    fi
+
+    if confirm "Ungenutzte Flatpak-Runtimes entfernen?"; then
+        if [[ "$assume_yes" -eq 1 ]]; then
+            run flatpak uninstall --unused -y
+        else
+            run flatpak uninstall --unused
+        fi
+    fi
+}
+
+vacuum_journal() {
+    if confirm "Systemd-Journal auf 14 Tage begrenzen?"; then
+        run sudo journalctl --vacuum-time=14d
+    fi
+}
+
+cleanup() {
+    remove_orphans
+    clean_pacman_cache
+    clean_flatpak
+    vacuum_journal
+}
+
+update_all() {
+    pacman_update
+    aur_update
+    flatpak_update
+    rust_update
+    omz_update
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        update|cleanup|full)
+            mode="$1"
+            ;;
+        --dry-run)
+            dry_run=1
+            ;;
+        --yes|-y)
+            assume_yes=1
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unbekannte Option: $1" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+    shift
+done
+
+case "$mode" in
+    update)
+        update_all
+        ;;
+    cleanup)
+        cleanup
+        ;;
+    full)
+        update_all
+        cleanup
+        ;;
+esac
+
+echo "==> Fertig."

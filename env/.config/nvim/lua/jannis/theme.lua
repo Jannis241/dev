@@ -102,6 +102,8 @@ M.themes = {
 }
 
 local state_file = vim.fn.stdpath("state") .. "/jannis-theme"
+local shared_state_file = (os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state"))
+	.. "/theme-switcher/current"
 
 local builtin_themes = {
 	desert = true,
@@ -230,8 +232,10 @@ function M.apply_float_highlights()
 	local fg = color(normal.fg, vim.o.background == "light" and "#1f1f1f" or "#dcdcdc")
 	local border =
 		color(diagnostic_info.fg or type_hl.fg or comment.fg, vim.o.background == "light" and "#5f5f87" or "#7aa2f7")
-	local selection =
-		color(diagnostic_warn.fg or warning_msg.fg or special.fg, vim.o.background == "light" and "#8a5a00" or "#ffcc66")
+	local selection = color(
+		diagnostic_warn.fg or warning_msg.fg or special.fg,
+		vim.o.background == "light" and "#8a5a00" or "#ffcc66"
+	)
 	local selection_bg = vim.o.background == "light" and "#d9e2f2" or "#2f3a4a"
 	local context_bg = vim.o.background == "light" and "#eef2f7" or "#141b24"
 	local line_nr = color(comment.fg or type_hl.fg, vim.o.background == "light" and "#707070" or "#7c7c7c")
@@ -297,18 +301,45 @@ function M.apply_float_highlights()
 	end
 end
 
-local function saved_theme()
-	local ok, lines = pcall(vim.fn.readfile, state_file)
+local function first_line(path)
+	local ok, lines = pcall(vim.fn.readfile, path)
 	if ok and lines[1] and lines[1] ~= "" then
 		return lines[1]
 	end
+	return nil
+end
+
+local function saved_theme()
+	local shared_theme = first_line(shared_state_file)
+	if shared_theme then
+		return shared_theme
+	end
+
+	local local_theme = first_line(state_file)
+	if local_theme then
+		return local_theme
+	end
+
 	return M.default
 end
 
-local function persist(theme)
-	local dir = vim.fn.fnamemodify(state_file, ":h")
+local function write_state(path, theme)
+	local dir = vim.fn.fnamemodify(path, ":h")
 	pcall(vim.fn.mkdir, dir, "p")
-	pcall(vim.fn.writefile, { theme }, state_file)
+	pcall(vim.fn.writefile, { theme }, path)
+end
+
+local function persist(theme)
+	write_state(state_file, theme)
+	write_state(shared_state_file, theme)
+end
+
+local function sync_external_theme(theme)
+	if vim.fn.executable("theme-switch") ~= 1 then
+		return
+	end
+
+	vim.fn.jobstart({ "theme-switch", "--quiet", "--no-nvim-state", theme }, { detach = true })
 end
 
 function M.apply(theme, opts)
@@ -325,6 +356,7 @@ function M.apply(theme, opts)
 	M.apply_float_highlights()
 	if opts.persist ~= false then
 		persist(theme)
+		sync_external_theme(theme)
 	end
 end
 

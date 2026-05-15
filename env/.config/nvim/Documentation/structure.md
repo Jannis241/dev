@@ -98,6 +98,8 @@ Eigenes Theme-System:
 
 - Default Theme: `ayu`
 - Aktives Theme wird in `stdpath("state") .. "/jannis-theme"` gespeichert.
+- Das Theme-System liest und schreibt zusaetzlich `~/.local/state/theme-switcher/current`, damit es mit dem externen `theme-switch` synchron bleibt.
+- Bei einem Themewechsel aus Neovim wird `theme-switch --quiet --no-nvim-state <theme>` gestartet, sofern der Befehl verfuegbar ist.
 - Theme-Auswahl ueber Telescope oder fallback `vim.ui.select`.
 - Favoriten stehen in der Auswahl oben.
 - Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt.

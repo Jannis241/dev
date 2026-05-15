@@ -1,4 +1,7 @@
 .codex
 env/.config/nvim/.codex
 env/.config/nvim/nvim.log
+*.log
+ssh.txt
+env/.config/opencode/.opencode.json
 env/.config/ghostty/ttf-meslo/

@@ -9,15 +9,15 @@ Persönliche Dotfiles, Shell-Konfigurationen und Utility-Skripte für ein Linux-
   - `env/.local/scripts/`: Eigene Shell-Helfer
   - `env/.zshenv`, `env/.zprofile`, `env/.zshrc`, `env/.profile`: Shell-Setup
 - `dev-env`: Sync-Skript, das Dateien aus diesem Repo nach `$HOME` kopiert.
-- `dependencies/`: Exportierte Paketlisten (`pacman`, `paru`, `flatpak`).
+- `dependencies/`: Exportierte Paketlisten, aufgeteilt in `base`, `desktop`, `dev`, `fonts`, `apps`, `aur` und `flatpak`.
 - `wallpaper.png`: Desktop-Wallpaper.
-- `ssh.txt`: SSH-Notizen.
+- `ssh.example.txt`: Template fuer SSH-Notizen ohne private Daten.
 
 ## Voraussetzungen
 
 - Linux-System (Arch-basiert empfohlen)
 - `bash`, `find`, `cp`, `rm`
-- Optional je nach Skript: `pacman`, `paru`, `flatpak`, `snap`, `rustup`, `fd`, `jq`, `rofi`
+- Optional je nach Skript: `pacman`, `paru`, `flatpak`, `rustup`, `fd`, `jq`, `rofi`, `fzf`
 
 ## Setup
 
@@ -50,31 +50,68 @@ Was passiert:
 - Einzeldateien wie `~/.zshenv`, `~/.zprofile`, `~/.zshrc`, `~/.profile`
 - `dev-env` nach `~/.local/scripts/dev-env`
 - `wallpaper.png` nach `~/wallpaper.png`
+- `~/.config/hypr-host.conf` wird angelegt, falls es noch fehlt. Diese Datei bleibt ausserhalb des synchronisierten Hyprland-Ordners und ist fuer host-spezifische Monitor-/Workspace-Overrides gedacht.
+- `theme-switch --current --quiet` regeneriert nach dem Sync die gemeinsamen Theme-Dateien fuer Waybar, Rofi, Wlogout, Ghostty und Neovim.
 - Hyprland wird neu geladen und Waybar sowie Hyprpaper werden nach dem Sync neu gestartet, damit das Desktop-Setup aktiv bleibt.
 
 ## Skripte (`env/.local/scripts`)
 
 - `cmt`: `git add -A`, Commit mit Message, dann `pull --rebase` und `push`
 - `dev-git`: führt `update_script` und `get-dependencies` aus, committed/pusht anschließend dieses Repo
-- `get-dependencies`: exportiert installierte Pakete nach `dependencies/`
+- `get-dependencies`: exportiert native Pakete mit `pacman -Qqen`, AUR-Pakete mit `pacman -Qqem` und schreibt Kategorien nach `dependencies/`
 - `jnew`: erstellt Java-Projektgerüst (`src/Main.java`)
 - `jrun`: kompiliert und startet eine Java-Datei (`fd`-basiert)
 - `search`: öffnet Browser-Suche (optional via `rofi` Prompt)
-- `update_script`: System-Update/Cleanup (paketmanager- und cache-lastig, teils mit `sudo`)
+- `theme-switch`: gemeinsamer Theme-Switcher fuer `colors.css`, `colors.rasi`, Ghostty, Wlogout und Neovim-State
+- `update_script`: vorsichtiges System-Update/Cleanup mit Modi `update`, `cleanup`, `full`, `--dry-run` und `--yes`
 
 ## Paketlisten wiederherstellen (manuell)
 
 ```bash
-sudo pacman -S --needed - < dependencies/pacman.txt
-paru -S --needed - < dependencies/paru.txt
+sudo pacman -S --needed - < dependencies/base.txt
+sudo pacman -S --needed - < dependencies/desktop.txt
+sudo pacman -S --needed - < dependencies/dev.txt
+sudo pacman -S --needed - < dependencies/fonts.txt
+sudo pacman -S --needed - < dependencies/apps.txt
+paru -S --needed - < dependencies/aur.txt
 xargs -a dependencies/flatpak.txt -r flatpak install -y flathub
 ```
+
+## Hyprland-Struktur
+
+`env/.config/hypr/hyprland.conf` ist nur noch ein Einstiegspunkt und sourced:
+
+- `programs.conf`: Terminal, Dateimanager, Launcher
+- `env.conf`: Session-Umgebungsvariablen
+- `monitors.conf`: Default-Monitorlayout
+- `autostart.conf`: Autostart-Programme
+- `look.conf`: Gaps, Blur, Animationen, Layout
+- `input.conf`: Tastatur, Maus, Touchpad
+- `workspaces.conf`: Workspace-Zuordnung
+- `binds.conf`: Tastenkombinationen
+- `windowrules.conf`: Window Rules
+
+Host-spezifische Anpassungen gehoeren nach `~/.config/hypr-host.conf`. `dev-env` legt diese Datei an, ueberschreibt sie aber nicht.
+
+## Gemeinsames Theme
+
+Die Theme-Daten stehen in `env/.config/theme-switcher/themes.tsv`. Anwenden:
+
+```bash
+theme-switch ayu
+theme-switch catppuccin-mocha
+theme-switch --list
+```
+
+Der Switcher generiert `colors.css`, `colors.rasi`, `wlogout/colors.css`, `ghostty/theme.conf` und den Neovim-State. In Neovim aktualisiert `:Theme` bzw. `<C-t>` ebenfalls die externen Theme-Dateien, sofern `theme-switch` im `PATH` liegt.
 
 ## Hinweise
 
 - `dev-env` überschreibt Zielinhalte bewusst (vorher ggf. Backups machen).
-- Einige Skripte sind absichtlich "aggressiv" (z. B. Cleanup). Vor Nutzung prüfen.
-- Meslo wird als Paket `ttf-meslo` ueber `dependencies/pacman.txt` installiert; lokale AUR-/Build-Verzeichnisse gehoeren nicht in `env/.config/ghostty`.
+- `dependencies/pacman.txt` und `dependencies/paru.txt` bleiben als Kompatibilitaets-Aggregate erhalten. Die kategorisierten Listen sind die bevorzugte Quelle.
+- Meslo wird ueber `dependencies/aur.txt` als `ttf-meslo` installiert; lokale AUR-/Build-Verzeichnisse gehoeren nicht in `env/.config/ghostty`.
+- Logs, lokale AI-Tool-Konfigurationen und echte SSH-Notizen bleiben ungetrackt. Nutze `ssh.example.txt` als Vorlage.
+- Die Zsh-Konfiguration ist plain Zsh. `zsh-autosuggestions` und `zsh-syntax-highlighting` werden genutzt, wenn die Pakete installiert sind; Oh My Zsh ist nicht mehr erforderlich.
 
 ## Komplette Neuinstallation (Arch) - Schritt für Schritt
 
@@ -255,7 +292,11 @@ export DEV_ENV="$HOME/dev"
 Pacman-Pakete:
 
 ```bash
-sudo pacman -S --needed - < dependencies/pacman.txt
+sudo pacman -S --needed - < dependencies/base.txt
+sudo pacman -S --needed - < dependencies/desktop.txt
+sudo pacman -S --needed - < dependencies/dev.txt
+sudo pacman -S --needed - < dependencies/fonts.txt
+sudo pacman -S --needed - < dependencies/apps.txt
 ```
 
 Paru installieren (falls noch nicht vorhanden):
@@ -271,7 +312,7 @@ AUR-Pakete:
 
 ```bash
 cd "$DEV_ENV"
-paru -S --needed - < dependencies/paru.txt
+paru -S --needed - < dependencies/aur.txt
 ```
 
 Flatpak (falls genutzt):
@@ -312,6 +353,7 @@ echo $SHELL
 - Wichtige Tools vorhanden:
 ```bash
 command -v nvim hyprland waybar rofi ghostty flatpak paru
+command -v theme-switch rg shellcheck shfmt
 ```
 - Dotfiles liegen am Ziel:
 ```bash

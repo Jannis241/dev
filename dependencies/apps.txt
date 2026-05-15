@@ -1,0 +1,14 @@
+chromium
+discord
+fastfetch
+firefox
+flatpak
+gimp
+libva-nvidia-driver
+mousepad
+nano
+nvidia-open
+nvidia-settings
+spotify-launcher
+xorg-server
+xorg-xinit

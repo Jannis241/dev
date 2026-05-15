@@ -16,6 +16,7 @@ font-size =18
 theme = ayu
 # theme = GruvboxDarkHard
 #theme = tokyonight
+config-file = theme.conf
 
 background = 101010
 background-opacity = 1
@@ -28,6 +29,5 @@ shell-integration = zsh
 shell-integration-features = no-cursor,sudo,no-title
 gtk-titlebar = false
 mouse-scroll-multiplier = 2
-
 
 

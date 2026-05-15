@@ -17,6 +17,9 @@ return {
 				lua = { "stylua" },
 				python = { "black" },
 				rust = { "rustfmt" },
+				sh = { "shfmt" },
+				bash = { "shfmt" },
+				zsh = { "shfmt" },
 				typescript = { "prettier" },
 			},
 			format_on_save = function(bufnr)

@@ -42,6 +42,8 @@ return {
 					"google-java-format",
 					"prettier",
 					"rust-analyzer",
+					"shellcheck",
+					"shfmt",
 					"stylua",
 				},
 				auto_update = false,
@@ -59,6 +61,18 @@ return {
 		}
 
 		local server_configs = {
+			lua_ls = {
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
+			},
 			jdtls = {
 				root_markers = {
 					{ "mvnw", "gradlew", "settings.gradle", "settings.gradle.kts", ".git" },

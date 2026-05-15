@@ -22,6 +22,7 @@ Wenn auf einem Linux-System wirklich gar nichts installiert ist, kann Neovim nic
 - `curl`, `unzip`, `tar`, `gzip`, weil Mason viele Pakete damit entpackt/laedt
 - `ripgrep`, damit Telescope Live Grep (`<leader>ps`) funktioniert
 - optional `fd`, damit Telescope Dateisuche schneller ist
+- `shellcheck` und `shfmt`, damit Shell-Linting und Shell-Formatierung funktionieren
 - `make` und ein C/C++ Compiler fuer native Plugins und Treesitter Parser
 - `python3`, weil Tools wie `black` Python brauchen
 - `node`/`npm`, weil Tools wie `pyright` und `prettier` aus dem Node/NPM-Umfeld kommen
