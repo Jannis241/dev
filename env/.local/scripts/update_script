@@ -65,9 +65,9 @@ aur_update() {
 
     echo "==> AUR update"
     if [[ "$assume_yes" -eq 1 ]]; then
-        run paru -Syu --noconfirm
+        run paru -Sua --noconfirm
     else
-        run paru -Syu
+        run paru -Sua
     fi
 }
 
