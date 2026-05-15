@@ -35,7 +35,7 @@ Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
 | `K` | Normal | Hover-Dokumentation mit rounded Border |
 | `<C-k>` | Normal | Hover-Dokumentation mit rounded Border |
 | `<leader>vws` | Normal | Workspace Symbol suchen |
-| `<leader>e` | Normal | Diagnostic-Float an Cursorposition oeffnen, ohne den Fokus zu stehlen |
+| `<leader>e` | Normal | Error-Float fuer die aktuelle Zeile oeffnen, ohne den Fokus zu stehlen |
 | `<leader>vca` | Normal | Code Action |
 | `<leader>fr` | Normal | References anzeigen |
 | `<leader>rn` | Normal | LSP Rename |
@@ -43,19 +43,19 @@ Diese Keymaps werden nur gesetzt, wenn ein LSP am Buffer haengt.
 
 ## Errors und Quickfix
 
-`<leader>e` bleibt bewusst ein einzelnes Mapping. Die Trouble-Uebersichten liegen unter `<leader>x...`, damit Neovim nach `<leader>e` nicht auf weitere Tasten wartet.
+`<leader>e` zeigt den Error-Float fuer die aktuelle Zeile und ist kein Prefix, damit der Float ohne Mapping-Timeout aufgeht. Die Trouble-Uebersichten liegen unter `<leader>fe` und `<leader>pe`.
 
 | Key | Mode | Aktion |
 | --- | --- | --- |
-| `<leader>xf` | Normal | Alle Errors im aktuellen File in Trouble anzeigen, ohne Trouble zu fokussieren |
-| `<leader>xp` | Normal | Alle Errors im Projekt in Trouble anzeigen, ohne Trouble zu fokussieren |
+| `<leader>fe` | Normal | Alle Errors im aktuellen File in Trouble anzeigen und Trouble fokussieren |
+| `<leader>pe` | Normal | Alle Errors im Projekt in Trouble anzeigen und Trouble fokussieren |
 | `<leader>qf` | Normal | Quickfix-Liste in Trouble anzeigen |
 | `]q` | Normal | Naechster Quickfix-Eintrag und zentrieren |
 | `[q` | Normal | Vorheriger Quickfix-Eintrag und zentrieren |
 | `<leader>k` | Normal | Naechster Location-List-Eintrag und zentrieren |
 | `<leader>j` | Normal | Vorheriger Location-List-Eintrag und zentrieren |
 
-In Trouble kannst du mit `j`/`k` navigieren. `Enter` springt zum ausgewaehlten Error und schliesst Trouble. Trouble laeuft jetzt ohne Fokuswechsel, damit du im Editor bleiben kannst.
+In Trouble kannst du mit `j`/`k` durch die Error-Eintraege gehen. Die Code-Preview springt dabei jeweils zur passenden Stelle. `Enter` springt final zum ausgewaehlten Error und schliesst Trouble.
 
 ## Completion
 
@@ -71,7 +71,7 @@ Diese Mappings gelten im Completion-Menue von `nvim-cmp`.
 | `<C-f>` | Insert | Completion-Dokumentation nach unten scrollen |
 | `<C-b>` | Insert | Completion-Dokumentation nach oben scrollen |
 
-Die Completion-Vorschlaege und die Dokumentation erscheinen jeweils in bordered Float-Fenstern mit transparentem Hintergrund. Nur der aktuell ausgewaehlte Completion-Eintrag bekommt einen eigenen Highlight-Hintergrund, damit die Auswahl klar sichtbar bleibt. Die Completion-Box ist breiter als frueher, damit Eintraege lesbar bleiben, und die Dokumentation kann mit `<C-f>`/`<C-b>` gescrollt werden.
+Die Completion-Vorschlaege und die Dokumentation erscheinen jeweils in bordered Float-Fenstern mit transparentem Hintergrund. Die Dokumentation ist seitlich neben der Completion konfiguriert und die Completion liegt im Z-Index ueber der Dokumentation, damit die Auswahl nicht von Docs verdeckt wird. Die Dokumentation kann mit `<C-f>`/`<C-b>` gescrollt werden.
 
 ## Formatierung
 
@@ -124,12 +124,12 @@ Nur in Rust-Buffern:
 
 ## Todo Comments
 
-Todo-Navigation nutzt bracket-style Mappings. Es gibt bewusst kein `pt`/`nt`, weil `pt` normales `p` verzoegern wuerde.
+Todo-Kommentare erkennen `TODO`, `Todo` und `todo`. Der Doppelpunkt ist optional, also werden sowohl `todo:` als auch `todo` erkannt.
 
 | Key | Mode | Aktion |
 | --- | --- | --- |
-| `]T` | Normal | Naechster Todo-Kommentar |
-| `[T` | Normal | Vorheriger Todo-Kommentar |
+| `<leader>nt` | Normal | Naechster Todo-Kommentar |
+| `<leader>pt` | Normal | Vorheriger Todo-Kommentar |
 | `<leader>ft` | Normal | Todos in Telescope suchen |
 | `<leader>xt` | Normal | Todos in Trouble anzeigen |
 

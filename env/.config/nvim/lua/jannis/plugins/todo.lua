@@ -6,23 +6,32 @@ return {
 		signs = true,
 		keywords = {
 			FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-			TODO = { icon = " ", color = "info" },
+			TODO = { icon = " ", color = "info", alt = { "todo", "Todo" } },
 			HACK = { icon = " ", color = "warning" },
 			WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
 			PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
 			NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
 		},
+		highlight = {
+			pattern = {
+				[[.*<(KEYWORDS)\s*:]],
+				[[.*<(KEYWORDS)>]],
+			},
+		},
+		search = {
+			pattern = [[\b(KEYWORDS)\b:?]],
+		},
 	},
 	keys = {
 		{
-			"]T",
+			"<leader>nt",
 			function()
 				require("todo-comments").jump_next()
 			end,
 			desc = "Next todo comment",
 		},
 		{
-			"[T",
+			"<leader>pt",
 			function()
 				require("todo-comments").jump_prev()
 			end,

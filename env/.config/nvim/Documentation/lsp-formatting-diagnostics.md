@@ -125,9 +125,10 @@ Sources:
 Completion-Fenster:
 
 - Completion und Dokumentation haben Borders und transparente Hintergruende.
-- Completion-Fenster: Max Height 12, Max Width 60
-- Dokumentations-Fenster: Max Height 14, Max Width 80
+- Completion-Fenster: Max Height 12, dynamisch begrenzte Eintragsbreite.
+- Dokumentations-Fenster: dynamische Max Height und Max Width anhand der aktuellen Editor-Groesse.
 - Die aktive Completion-Auswahl bleibt als ganze Zeile gehighlighted.
+- Die Dokumentation wird seitlich neben der Completion platziert; die Completion liegt im Z-Index hoeher, damit Docs die aktuelle Auswahl nicht verdecken.
 - Die Dokumentation kann im Completion-Menue mit `<C-f>` nach unten und `<C-b>` nach oben gescrollt werden.
 - Hover und Signature Help erscheinen ebenfalls in grossen rounded Floats.
 - Icons/Text kommen ueber `lspkind`.
@@ -139,6 +140,7 @@ Diagnostics sind bewusst auf Errors fokussiert:
 - Virtual Text zeigt nur Errors.
 - Signs zeigen nur Errors.
 - Underlines zeigen nur Errors.
+- `<leader>e` oeffnet einen nicht fokussierbaren Error-Float fuer die aktuelle Zeile.
 - `update_in_insert = false`, also werden Diagnostics nicht waehrend des Tippens staendig aktualisiert.
 - Diagnostic-Floats haben rounded Border.
 - Diagnostics werden nach Severity sortiert.
@@ -147,11 +149,10 @@ Diagnostics sind bewusst auf Errors fokussiert:
 
 Trouble zeigt Error-Uebersichten:
 
-- `<leader>xf`: Errors im aktuellen File.
-- `<leader>xp`: Errors im Projekt.
+- `<leader>fe`: Errors im aktuellen File.
+- `<leader>pe`: Errors im Projekt.
 
-Trouble oeffnet rechts, bleibt aber ohne Fokuswechsel im Editor. `Enter` springt zum ausgewaehlten Error und schliesst die Liste.
-Die Trouble-Mappings liegen bewusst nicht unter `<leader>e`, damit der Diagnostic-Float auf `<leader>e` ohne Mapping-Timeout sofort aufgeht.
+Trouble oeffnet rechts und bekommt den Fokus. `j`/`k` gehen durch die Error-Eintraege und zeigen jeweils die passende Code-Stelle als Preview im Hauptfenster. `Enter` springt final zum ausgewaehlten Error und schliesst die Liste.
 
 ## LSP-Keymaps
 

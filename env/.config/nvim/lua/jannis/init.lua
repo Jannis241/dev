@@ -96,9 +96,15 @@ autocmd("LspAttach", {
 })
 
 vim.keymap.set("n", "<leader>e", function()
-	vim.diagnostic.open_float(nil, {
+	vim.diagnostic.open_float({
+		border = "rounded",
 		focus = false,
-		scope = "cursor",
+		focusable = false,
+		header = "",
+		prefix = "",
+		scope = "line",
+		severity = vim.diagnostic.severity.ERROR,
+		source = "if_many",
 	})
 end, { desc = "Open diagnostics float" })
 

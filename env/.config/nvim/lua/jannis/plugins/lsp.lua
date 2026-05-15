@@ -95,10 +95,36 @@ return {
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 		local lspkind = require("lspkind")
 		local cmp_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+		local function completion_widths()
+			return {
+				abbr = math.max(16, math.min(42, math.floor(vim.o.columns * 0.26))),
+				menu = math.max(8, math.min(24, math.floor(vim.o.columns * 0.14))),
+			}
+		end
+		local function doc_width()
+			return math.max(24, math.min(70, math.floor(vim.o.columns * 0.40)))
+		end
+		local function doc_height()
+			return math.max(8, math.min(18, math.floor(vim.o.lines * 0.35)))
+		end
+		local function bordered_window(opts, extra)
+			return vim.tbl_extend("force", cmp.config.window.bordered(opts), extra or {})
+		end
 
 		cmp.setup({
 			completion = {
 				completeopt = "menu,menuone,noinsert",
+			},
+			view = {
+				entries = {
+					name = "custom",
+					selection_order = "top_down",
+					vertical_positioning = "below",
+					follow_cursor = false,
+				},
+				docs = {
+					auto_open = true,
+				},
 			},
 			formatting = {
 				format = lspkind.cmp_format({
@@ -107,8 +133,12 @@ return {
 						-- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 						-- can also be a function to dynamically calculate max width such as
 						-- menu = function() return math.floor(0.45 * vim.o.columns) end,
-						menu = 50, -- leading text (labelDetails)
-						abbr = 50, -- actual suggestion item
+						menu = function()
+							return completion_widths().menu
+						end, -- leading text (labelDetails)
+						abbr = function()
+							return completion_widths().abbr
+						end, -- actual suggestion item
 					},
 					ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 					show_labelDetails = true, -- show labelDetails in menu. Disabled by default
@@ -132,21 +162,27 @@ return {
 				["<tab>"] = cmp.mapping.confirm({ select = true }),
 				["<enter>"] = cmp.mapping.confirm({ select = true }),
 				["<C-Space>"] = cmp.mapping.complete(),
-				["<C-m>"] = cmp.mapping.scroll_docs(4),
-				["<C-n>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			}),
 			window = {
-				completion = cmp.config.window.bordered({
+				completion = bordered_window({
 					border = cmp_border,
+					max_height = 12,
 					side_padding = 1,
 					scrollbar = false,
 					winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
+					zindex = 1002,
 				}),
-				documentation = cmp.config.window.bordered({
+				documentation = bordered_window({
 					border = cmp_border,
+					max_height = doc_height(),
 					side_padding = 1,
 					scrollbar = false,
 					winhighlight = "Normal:CmpDocNormal,FloatBorder:CmpDocBorder",
+					zindex = 1001,
+				}, {
+					max_width = doc_width(),
 				}),
 			},
 

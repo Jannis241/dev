@@ -4,11 +4,11 @@ return {
 		cmd = "Trouble",
 		keys = {
 			{
-				"<leader>xf",
+				"<leader>fe",
 				function()
-					require("trouble").toggle({
+					require("trouble").open({
 						mode = "diagnostics",
-						focus = false,
+						focus = true,
 						pinned = true,
 						filter = {
 							buf = 0,
@@ -23,11 +23,11 @@ return {
 				desc = "File errors",
 			},
 			{
-				"<leader>xp",
+				"<leader>pe",
 				function()
-					require("trouble").toggle({
+					require("trouble").open({
 						mode = "diagnostics",
-						focus = false,
+						focus = true,
 						filter = {
 							severity = vim.diagnostic.severity.ERROR,
 						},
@@ -45,8 +45,10 @@ return {
 		config = function()
 			require("trouble").setup({
 				auto_preview = true,
-				focus = false,
+				focus = true,
 				keys = {
+					j = "next",
+					k = "prev",
 					["<cr>"] = "jump_close",
 				},
 				win = {

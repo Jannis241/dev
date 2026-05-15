@@ -158,8 +158,9 @@ Completion-Engine mit Sources fuer LSP, Snippets und Buffer.
 UI:
 
 - Completion und Dokumentation nutzen bordered Float-Fenster mit transparentem Hintergrund.
-- Completion ist breiter konfiguriert als die alte 20-Spalten-Ansicht.
+- Completion-Eintraege werden dynamisch begrenzt, damit neben der Completion Platz fuer die Dokumentation bleibt.
 - Nur der aktuelle Completion-Eintrag hat einen gefuellten Selection-Hintergrund.
+- Die Dokumentation wird seitlich neben der Completion platziert; falls Floats auf engem Raum konkurrieren, liegt die Completion ueber der Dokumentation.
 - Completion-Dokumentation kann mit `<C-f>`/`<C-b>` gescrollt werden.
 - Hover- und Signature-Help-Infos folgen dem gleichen transparenten Float-Stil.
 
@@ -307,16 +308,17 @@ Listenansicht fuer Diagnostics und Quickfix.
 
 Keymaps:
 
-- `<leader>xf`: File Errors.
-- `<leader>xp`: Project Errors.
+- `<leader>fe`: File Errors.
+- `<leader>pe`: Project Errors.
 - `<leader>qf`: Quickfix in Trouble.
 
-Die Error-Uebersichten liegen unter `<leader>x...`, nicht unter `<leader>e...`. Dadurch bleibt `<leader>e` ein vollstaendiges Mapping fuer den Diagnostic-Float und Neovim wartet dort nicht auf weitere Tasten.
+`<leader>e` bleibt ein vollstaendiges Mapping fuer den Error-Float der aktuellen Zeile; `<leader>fe` und `<leader>pe` oeffnen die fokussierte Trouble-Liste.
 
 Config:
 
 - Oeffnet rechts.
-- Bleibt ohne Fokuswechsel im Editor.
+- Fokussiert die Trouble-Liste.
+- `j`/`k` gehen durch die Error-Eintraege und zeigen die jeweilige Code-Stelle als Preview.
 - `Enter` springt zum Eintrag und schliesst Trouble.
 - Auto Preview ist aktiv.
 
@@ -327,17 +329,17 @@ Hebt TODO/FIXME/HACK/WARN/PERF/NOTE hervor.
 Keywords:
 
 - `FIX`, `FIXME`, `BUG`, `FIXIT`, `ISSUE`
-- `TODO`
+- `TODO`, `Todo`, `todo`
 - `HACK`
 - `WARN`, `WARNING`, `XXX`
 - `PERF`, `OPTIM`, `PERFORMANCE`, `OPTIMIZE`
 - `NOTE`, `INFO`
 
+Todo-Kommentare werden mit und ohne Doppelpunkt erkannt.
+
 Keymaps:
 
-- `]T`, `[T`, `<leader>ft`, `<leader>xt`
-
-Die Todo-Jumps nutzen keine `pt`/`nt`-Mappings. Ein `pt`-Mapping wuerde normales Paste mit `p` verzoegern, weil Neovim dann auf ein moegliches zweites Zeichen wartet.
+- `<leader>nt`, `<leader>pt`, `<leader>ft`, `<leader>xt`
 
 ## Editing
 

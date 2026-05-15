@@ -19,7 +19,7 @@ Diese Datei macht die zentrale Initialisierung:
 3. Laedt `jannis.set`.
 4. Setzt einen Compatibility-Shim fuer `vim.lsp.get_buffers_by_client_id`.
 5. Definiert Autocommands.
-6. Definiert buffer-lokale LSP-Keymaps in `LspAttach` und den globalen Diagnostic-Shortcut `<leader>e`.
+6. Definiert buffer-lokale LSP-Keymaps in `LspAttach` und den globalen Error-Float-Shortcut `<leader>e`.
 7. Laedt alle Plugins mit `require("lazy").setup("jannis.plugins", opts)`.
 8. Initialisiert das Theme-System mit `require("jannis.theme").setup()`.
 9. Laedt globale Remaps aus `jannis.remap`.
@@ -56,7 +56,7 @@ Nicht benoetigt ist ein separates `lua`-Paket: Neovim bringt die Lua/LuaJIT-Runt
 
 - `BufWritePre *`: Entfernt trailing whitespace vor dem Speichern nur in normalen, editierbaren Buffern.
 - `LspAttach`: Setzt buffer-lokale LSP-Keymaps, sobald ein LSP-Client an einen Buffer attached.
-- `<leader>e` ist absichtlich kein Prefix fuer weitere Mappings. Error-Listen liegen unter `<leader>x...`, damit der Diagnostic-Float direkt reagiert.
+- `<leader>e` oeffnet den Error-Float fuer die aktuelle Zeile und bleibt ein vollstaendiges Mapping. Error-Listen liegen unter `<leader>fe` und `<leader>pe`.
 
 ## Filetypes
 
@@ -74,7 +74,7 @@ Diese Datei enthaelt Editor-Optionen:
 - Persistent Undo ist aktiv unter `~/.vim/undodir`.
 - Suche: `hlsearch` aus, `incsearch` an.
 - Truecolor ist aktiv.
-- `scrolloff = 8`, damit beim Scrollen immer Kontext bleibt.
+- `scrolloff = 10`, damit beim Scrollen immer Kontext bleibt.
 - `signcolumn = "yes"`, damit Diagnostic/Git-Zeichen die Textspalten nicht verschieben.
 - `updatetime = 50`, damit UI-Reaktionen schneller sind.
 
