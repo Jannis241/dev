@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+build_dir="$(mktemp -d)"
+keep_build_dir=0
+
+cleanup() {
+    if [[ "$keep_build_dir" -eq 0 ]]; then
+        rm -rf -- "$build_dir"
+    fi
+}
+trap cleanup EXIT
+
+makepkg_args=(-si)
+if [[ "${1:-}" == "-y" || "${1:-}" == "--yes" || "${1:-}" == "--noconfirm" ]]; then
+    makepkg_args+=(--noconfirm)
+fi
+
+echo "==> Rebuilding paru against the current pacman/libalpm"
+git clone https://aur.archlinux.org/paru.git "$build_dir/paru"
+cd "$build_dir/paru"
+
+if makepkg "${makepkg_args[@]}"; then
+    echo "==> paru installed"
+    paru --version
+    exit 0
+fi
+
+package="$(find "$build_dir/paru" -maxdepth 1 -type f -name 'paru-*.pkg.tar.*' ! -name '*-debug-*' | head -n 1 || true)"
+if [[ -n "$package" ]]; then
+    keep_build_dir=1
+    echo "==> Build succeeded but install failed."
+    echo "==> Install manually with:"
+    printf 'sudo pacman -U --noconfirm %q\n' "$package"
+else
+    echo "==> paru build failed before creating a package." >&2
+fi
+
+exit 1

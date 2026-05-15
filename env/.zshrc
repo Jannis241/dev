@@ -1,38 +1,18 @@
+export ZSH="$HOME/.oh-my-zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+ZSH_THEME="robbyrussell"
+# ZSH_THEME="awesomepanda"
 unset PROMPT_EOL_MARK
 
-HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
-HISTSIZE=50000
-SAVEHIST=50000
+plugins=(git)
 
-setopt autocd
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-setopt hist_reduce_blanks
-setopt inc_append_history
-setopt share_history
-
-autoload -Uz colors compinit vcs_info
-colors
-compinit
-
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':vcs_info:git:*' formats ' %F{blue}git:(%F{red}%b%F{blue})%f'
-
-precmd() {
-	vcs_info
-	PROMPT="%F{green}➜%f  %F{cyan}%1~%f${vcs_info_msg_0_} "
-}
 
 alias x='chmod +x'
-alias ll='ls -lah'
 
-if [[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-	source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
-if [[ -f "$HOME/.fzf.zsh" ]]; then
-	source "$HOME/.fzf.zsh"
+if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
+	source "$ZSH/oh-my-zsh.sh"
 fi
 
 if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
@@ -64,8 +44,4 @@ if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
 	}
 	zle -N fzf-cd-current
 	bindkey '^F' fzf-cd-current
-fi
-
-if [[ -r /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi

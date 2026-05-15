@@ -119,5 +119,3 @@ xorg-server
 xorg-xinit
 zram-generator
 zsh
-zsh-autosuggestions
-zsh-syntax-highlighting

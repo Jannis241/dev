@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+set -u
+
+failures=0
+warnings=0
+
+ok() {
+    printf 'OK   %s\n' "$*"
+}
+
+warn() {
+    warnings=$((warnings + 1))
+    printf 'WARN %s\n' "$*"
+}
+
+fail() {
+    failures=$((failures + 1))
+    printf 'FAIL %s\n' "$*"
+}
+
+has_cmd() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+check_cmd() {
+    if has_cmd "$1"; then
+        ok "command: $1"
+    else
+        fail "missing command: $1"
+    fi
+}
+
+check_optional_cmd() {
+    if has_cmd "$1"; then
+        ok "optional command: $1"
+    else
+        warn "optional command missing: $1"
+    fi
+}
+
+check_file() {
+    if [[ -e "$1" ]]; then
+        ok "file exists: $1"
+    else
+        fail "missing file: $1"
+    fi
+}
+
+check_repo_file_synced() {
+    local repo_file="$1"
+    local target_file="$2"
+
+    [[ -f "$repo_file" ]] || return
+    if [[ ! -e "$target_file" ]]; then
+        warn "not synced: $target_file missing"
+    elif cmp -s "$repo_file" "$target_file"; then
+        ok "synced: $target_file"
+    else
+        warn "differs from repo: $target_file"
+    fi
+}
+
+repo="${DEV_ENV:-$HOME/dev}"
+config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+printf 'Repo: %s\n' "$repo"
+printf 'Config: %s\n' "$config_home"
+
+[[ -d "$repo/env" ]] && ok "DEV_ENV repo found" || fail "DEV_ENV repo not found: $repo"
+[[ "$config_home" == "$HOME/.config" || -d "$config_home" ]] && ok "XDG_CONFIG_HOME usable" || fail "XDG_CONFIG_HOME missing: $config_home"
+
+for cmd in git zsh nvim hyprland waybar rofi ghostty rg fd fzf jq; do
+    check_cmd "$cmd"
+done
+
+for cmd in shellcheck shfmt stylua flatpak rustup hyprctl; do
+    check_optional_cmd "$cmd"
+done
+
+if has_cmd paru; then
+    if paru --version >/dev/null 2>&1; then
+        ok "paru starts"
+    else
+        fail "paru is installed but does not start"
+        if [[ -x /usr/bin/paru ]] && has_cmd ldd; then
+            ldd /usr/bin/paru 2>/dev/null | grep -E 'alpm|not found' || true
+        fi
+    fi
+else
+    fail "missing command: paru"
+fi
+
+if has_cmd faillock; then
+    faillock_output="$(faillock --user "$USER" 2>/dev/null || true)"
+    if [[ -n "$faillock_output" ]]; then
+        warn "faillock has entries for $USER:"
+        printf '%s\n' "$faillock_output"
+    else
+        ok "no faillock entries for $USER"
+    fi
+fi
+
+check_file "$HOME/.oh-my-zsh/oh-my-zsh.sh"
+check_file "$config_home/hypr-host.conf"
+check_file "$HOME/wallpaper.png"
+
+if [[ -d "$repo" ]]; then
+    check_repo_file_synced "$repo/env/.zshrc" "$HOME/.zshrc"
+    check_repo_file_synced "$repo/env/.config/ghostty/config" "$config_home/ghostty/config"
+    check_repo_file_synced "$repo/env/.config/nvim/lua/jannis/theme.lua" "$config_home/nvim/lua/jannis/theme.lua"
+fi
+
+broken_symlinks="$(
+    find "$HOME/.config" "$HOME/.local" -xtype l -print 2>/dev/null \
+        | grep -Ev '/Singleton(Cookie|Socket|Lock)$' \
+        || true
+)"
+if [[ -n "$broken_symlinks" ]]; then
+    warn "broken symlinks found:"
+    printf '%s\n' "$broken_symlinks"
+else
+    ok "no broken symlinks in ~/.config or ~/.local"
+fi
+
+if [[ -d "$repo/env/.config/nvim" ]] && has_cmd nvim; then
+    if env \
+        XDG_CONFIG_HOME="$repo/env/.config" \
+        XDG_STATE_HOME=/tmp/dev-doctor-nvim-state \
+        XDG_CACHE_HOME=/tmp/dev-doctor-nvim-cache \
+        nvim --headless '+lua require("jannis.theme").setup()' '+qa' >/tmp/dev-doctor-nvim.log 2>&1; then
+        ok "nvim config loads"
+    else
+        fail "nvim config failed to load"
+        sed -n '1,20p' /tmp/dev-doctor-nvim.log
+    fi
+fi
+
+printf '\nSummary: %s failure(s), %s warning(s)\n' "$failures" "$warnings"
+[[ "$failures" -eq 0 ]]

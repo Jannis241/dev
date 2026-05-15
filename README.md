@@ -6,7 +6,7 @@ Persoenliche Dotfiles fuer ein Arch/Hyprland-Setup mit Zsh, Neovim, Ghostty, Way
 
 - `env/`: Home-Overlay, das durch `dev-env` nach `$HOME` kopiert wird.
 - `env/.config/`: App-Konfigurationen fuer `nvim`, `hypr`, `waybar`, `rofi`, `ghostty`, `wlogout` usw.
-- `env/.local/scripts/`: Eigene Skripte wie `dev-env`, `get-dependencies`, `update_script`, `jnew`, `jrun`, `search`.
+- `env/.local/scripts/`: Eigene Skripte wie `dev-env`, `dev-doctor`, `fix-paru`, `get-dependencies`, `update_script`, `jnew`, `jrun`, `search`.
 - `env/.zshenv`, `env/.zprofile`, `env/.zshrc`, `env/.profile`: Shell- und PATH-Setup.
 - `dependencies/`: Paketlisten fuer Pacman, AUR und Flatpak.
 - `dev-env`: Kopiert die Dotfiles aus `env/` ins Home-Verzeichnis.
@@ -93,6 +93,15 @@ Themes werden nicht zentral gekoppelt. Aendere das Theme direkt in der Config de
 - `~/.config/hypr-host.conf`
 
 `dev-env` legt `~/.config/hypr-host.conf` an, wenn die Datei fehlt. Dort gehoeren lokale Overrides rein, zum Beispiel andere Monitor-Namen, Aufloesungen, Skalierung, Workspace-Zuordnung oder host-spezifische Autostarts.
+
+Eine Vorlage liegt unter `env/.config/hypr/host.example.conf`.
+
+## Skripte
+
+- `dev-doctor`: Prueft wichtige Tools, Sync-Status, `paru`, Oh My Zsh, lokale Hyprland-Overrides und ob Neovim headless laedt.
+- `fix-paru`: Baut `paru` neu gegen die aktuelle Pacman/`libalpm`-Version.
+- `get-dependencies`: Ueberschreibt die Paketlisten mit dem aktuellen Systemzustand plus Pflichtpaketen.
+- `update_script`: Aktualisiert System, AUR, Flatpak, Rust und optional Oh My Zsh; Cleanup ist separat.
 
 ## Manuelle Anpassungen
 

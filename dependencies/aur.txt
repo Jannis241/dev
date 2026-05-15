@@ -2,6 +2,7 @@ ascii-image-converter-bin
 gnu-netcat
 hack-font-ligature-nerd-font-git
 nerd-fonts-git
+oh-my-zsh-git
 opencode-bin
 paru
 ttf-hackgen

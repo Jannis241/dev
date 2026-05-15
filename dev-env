@@ -5,12 +5,7 @@ set -euo pipefail
 dry_run=0
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-if [[ -z "${XDG_CONFIG_HOME:-}" ]]; then
-    echo "no xdg config home"
-    echo "using ~/.config"
-    XDG_CONFIG_HOME="$HOME/.config"
-fi
-
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 if [[ -z "${DEV_ENV:-}" ]]; then
     if [[ -d "$script_dir/env" ]]; then
         DEV_ENV="$script_dir"
@@ -22,13 +17,23 @@ fi
 
 if [[ ${1:-} == "--dry" ]]; then
     dry_run=1
+elif [[ $# -gt 0 ]]; then
+    echo "Usage: dev-env [--dry]" >&2
+    exit 2
 fi
 
 log() {
     if [[ $dry_run -eq 1 ]]; then
-        echo "[DRY_RUN]: $1"
+        printf '[dry] %s\n' "$*"
     else
-        echo "$1"
+        printf '%s\n' "$*"
+    fi
+}
+
+run() {
+    log "$*"
+    if [[ $dry_run -eq 0 ]]; then
+        "$@"
     fi
 }
 
@@ -36,10 +41,7 @@ log "env: $DEV_ENV"
 log "config: $XDG_CONFIG_HOME"
 log "home: $HOME"
 
-log "ensuring target dirs exist"
-if [[ $dry_run -eq 0 ]]; then
-    mkdir -p "$XDG_CONFIG_HOME" "$HOME/.local" "$HOME/.local/scripts"
-fi
+run mkdir -p "$XDG_CONFIG_HOME" "$HOME/.local" "$HOME/.local/scripts" "$HOME/.local/bin"
 
 update_files() {
     local source_dir="$1"
@@ -50,23 +52,15 @@ update_files() {
         return
     fi
 
-    log "copying over files from: $source_dir"
+    log "sync dir: $source_dir -> $target_root"
     pushd "$source_dir" &> /dev/null
     (
         while IFS= read -r -d '' entry; do
             local local_name="${entry#./}"
             local destination="${target_root%/}/$local_name"
 
-            log "    removing: rm -rf $destination"
-
-            if [[ $dry_run -eq 0 ]]; then
-                rm -rf -- "$destination"
-            fi
-
-            log "    copying env: cp -a $entry $target_root/"
-            if [[ $dry_run -eq 0 ]]; then
-                cp -a -- "$entry" "$target_root/"
-            fi
+            run rm -rf -- "$destination"
+            run cp -a -- "$entry" "$target_root/"
         done < <(find . -mindepth 1 -maxdepth 1 -print0)
     )
     popd &> /dev/null
@@ -81,25 +75,15 @@ copy_file() {
         return
     fi
 
-    log "removing: $destination_file"
-    if [[ $dry_run -eq 0 ]]; then
-        rm -f -- "$destination_file"
-    fi
-
-    log "copying: $source_file to $destination_file"
-    if [[ $dry_run -eq 0 ]]; then
-        cp -f -- "$source_file" "$destination_file"
-    fi
+    run rm -f -- "$destination_file"
+    run cp -f -- "$source_file" "$destination_file"
 }
 
 remove_stale_path() {
     local stale_path="$1"
 
     if [[ -e "$stale_path" || -L "$stale_path" ]]; then
-        log "removing stale path: $stale_path"
-        if [[ $dry_run -eq 0 ]]; then
-            rm -rf -- "$stale_path"
-        fi
+        run rm -rf -- "$stale_path"
     fi
 }
 
@@ -110,7 +94,6 @@ update_files "$DEV_ENV/env/.local" "$HOME/.local"
 copy_file "$DEV_ENV/env/.zshenv" "$HOME/.zshenv"
 copy_file "$DEV_ENV/env/.zprofile" "$HOME/.zprofile"
 copy_file "$DEV_ENV/env/.zshrc" "$HOME/.zshrc"
-copy_file "$DEV_ENV/env/.fzf_config" "$HOME/.fzf_config"
 copy_file "$DEV_ENV/env/.profile" "$HOME/.profile"
 copy_file "$DEV_ENV/dev-env" "$HOME/.local/scripts/dev-env"
 copy_file "$DEV_ENV/wallpaper.png" "$HOME/wallpaper.png"
@@ -120,12 +103,6 @@ remove_stale_path "$HOME/.local/scripts/theme-switch"
 remove_stale_path "$XDG_CONFIG_HOME/ghostty/theme.conf"
 remove_stale_path "$XDG_CONFIG_HOME/jannis/themes.conf"
 
-log "ensuring local bin dir exists"
-if [[ $dry_run -eq 0 ]]; then
-    mkdir -p "$HOME/.local/bin"
-fi
-
-log "ensuring local Hyprland override exists"
 hypr_host_config="$XDG_CONFIG_HOME/hypr-host.conf"
 if [[ $dry_run -eq 0 ]]; then
     if [[ ! -e "$hypr_host_config" ]]; then
@@ -135,7 +112,7 @@ if [[ $dry_run -eq 0 ]]; then
         } > "$hypr_host_config"
     fi
 else
-    log "would create if missing: $XDG_CONFIG_HOME/hypr-host.conf"
+    log "ensure file exists: $hypr_host_config"
 fi
 
 if [[ $dry_run -eq 0 ]] && command -v hyprctl >/dev/null 2>&1; then
@@ -146,6 +123,11 @@ restart_background_app() {
     local process_name="$1"
     shift
 
+    if [[ $dry_run -eq 1 ]]; then
+        log "would restart/start: $process_name"
+        return
+    fi
+
     if ! command -v "$process_name" >/dev/null 2>&1; then
         log "skip missing binary: $process_name"
         return
@@ -153,17 +135,13 @@ restart_background_app() {
 
     if pgrep -x "$process_name" >/dev/null 2>&1; then
         log "restarting: $process_name"
-        if [[ $dry_run -eq 0 ]]; then
-            pkill -x "$process_name" >/dev/null 2>&1 || true
-        fi
+        pkill -x "$process_name" >/dev/null 2>&1 || true
         sleep 0.2
     else
         log "starting: $process_name"
     fi
 
-    if [[ $dry_run -eq 0 ]]; then
-        nohup "$process_name" "$@" >/dev/null 2>&1 &
-    fi
+    nohup "$process_name" "$@" >/dev/null 2>&1 &
 }
 
 restart_background_app waybar

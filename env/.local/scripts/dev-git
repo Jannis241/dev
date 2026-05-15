@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-get-dependencies
-# Prüfen, ob DEV_ENV gesetzt ist
-if [ -z "$DEV_ENV" ]; then
-    echo "❌ DEV_ENV ist nicht gesetzt!"
+if [[ -z "${DEV_ENV:-}" ]]; then
+    echo "DEV_ENV ist nicht gesetzt." >&2
     exit 1
 fi
 
-# Wechsle ins DEV_ENV Verzeichnis
+get-dependencies
+
 pushd "$DEV_ENV" > /dev/null || exit 1
 
-# Git-Änderungen committen und pushen
 git add -A
 if git diff --cached --quiet; then
-    echo "ℹ️ Keine Änderungen für DEV_ENV gefunden."
+    echo "Keine Aenderungen fuer DEV_ENV gefunden."
     popd > /dev/null
     exit 0
 fi
@@ -23,5 +21,4 @@ git commit -m "chore(dev): automated snapshot $(date +%F)"
 git pull --rebase --autostash
 git push
 
-# Zurück wechseln
 popd > /dev/null

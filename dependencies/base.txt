@@ -21,5 +21,3 @@ wireless_tools
 xdg-utils
 zram-generator
 zsh
-zsh-autosuggestions
-zsh-syntax-highlighting

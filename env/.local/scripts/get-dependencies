@@ -13,8 +13,6 @@ required_base=(
     unzip
     wget
     zsh
-    zsh-autosuggestions
-    zsh-syntax-highlighting
 )
 
 required_desktop=(
@@ -53,13 +51,10 @@ required_fonts=(
 )
 
 required_aur=(
+    oh-my-zsh-git
     ttf-meslo
     wlogout
 )
-
-log() {
-    printf '%s\n' "$*"
-}
 
 write_sorted() {
     local output_file="$1"
@@ -101,13 +96,13 @@ append_package() {
         fonts) fonts_packages+=("$package") ;;
         apps) apps_packages+=("$package") ;;
         *)
-            log "Unbekannte Kategorie fuer $package: $category"
+            printf 'Unbekannte Kategorie fuer %s: %s\n' "$package" "$category"
             apps_packages+=("$package")
             ;;
     esac
 }
 
-log "Exportiere Paketlisten nach: $OUT_DIR"
+printf 'Exportiere Paketlisten nach: %s\n' "$OUT_DIR"
 mkdir -p -- "$OUT_DIR"
 rm -f -- \
     "$OUT_DIR/base.txt" \
@@ -120,15 +115,8 @@ rm -f -- \
     "$OUT_DIR/paru.txt" \
     "$OUT_DIR/flatpak.txt"
 
-native_file="$(mktemp)"
-aur_file="$(mktemp)"
-trap 'rm -f -- "$native_file" "$aur_file"' EXIT
-
-pacman -Qqen | sort -u > "$native_file"
-pacman -Qqem | sed '/-debug$/d' | sort -u > "$aur_file"
-
-mapfile -t native_packages < "$native_file"
-mapfile -t aur_packages < "$aur_file"
+mapfile -t native_packages < <(pacman -Qqen | sort -u)
+mapfile -t aur_packages < <(pacman -Qqem | sed '/-debug$/d' | sort -u)
 
 base_packages=()
 desktop_packages=()
@@ -179,7 +167,7 @@ if command -v flatpak >/dev/null 2>&1; then
     flatpak list --app --columns=application | sort -u > "$OUT_DIR/flatpak.txt"
 else
     : > "$OUT_DIR/flatpak.txt"
-    log "flatpak nicht gefunden, flatpak.txt bleibt leer."
+    printf '%s\n' "flatpak nicht gefunden, flatpak.txt bleibt leer."
 fi
 
-log "Fertig. Kategorien: base, desktop, dev, fonts, apps, aur."
+printf '%s\n' "Fertig. Kategorien: base, desktop, dev, fonts, apps, aur."
