@@ -101,7 +101,7 @@ if has_cmd faillock; then
 fi
 
 check_file "$HOME/.oh-my-zsh/oh-my-zsh.sh"
-check_file "$config_home/hypr-host.conf"
+check_file "$config_home/hypr/custom_settings.conf"
 check_file "$HOME/wallpaper.png"
 
 if [[ -d "$repo" ]]; then

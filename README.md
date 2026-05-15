@@ -81,24 +81,20 @@ Themes werden nicht zentral gekoppelt. Aendere das Theme direkt in der Config de
 
 `env/.config/hypr/hyprland.conf` ist der Einstiegspunkt und sourced:
 
-- `programs.conf`
+- `custom_settings.conf`: Programme, Monitorlayout, Workspace-Zuordnung und Tastaturlayout; das ist die Datei, die du auf neuer Hardware zuerst anpasst.
 - `env.conf`
-- `monitors.conf`
 - `autostart.conf`
 - `look.conf`
 - `input.conf`
 - `workspaces.conf`
 - `binds.conf`
 - `windowrules.conf`
-- `~/.config/hypr-host.conf`
 
-`dev-env` legt `~/.config/hypr-host.conf` an, wenn die Datei fehlt. Dort gehoeren lokale Overrides rein, zum Beispiel andere Monitor-Namen, Aufloesungen, Skalierung, Workspace-Zuordnung oder host-spezifische Autostarts.
-
-Eine Vorlage liegt unter `env/.config/hypr/host.example.conf`.
+Alles liegt im Repo unter `env/.config/hypr`. Nach Aenderungen kopiert `dev-env` die komplette Hyprland-Config nach `~/.config/hypr`.
 
 ## Skripte
 
-- `dev-doctor`: Prueft wichtige Tools, Sync-Status, `paru`, Oh My Zsh, lokale Hyprland-Overrides und ob Neovim headless laedt.
+- `dev-doctor`: Prueft wichtige Tools, Sync-Status, `paru`, Oh My Zsh, Hyprland-Custom-Settings und ob Neovim headless laedt.
 - `fix-paru`: Baut `paru` neu gegen die aktuelle Pacman/`libalpm`-Version.
 - `get-dependencies`: Ueberschreibt die Paketlisten mit dem aktuellen Systemzustand plus Pflichtpaketen.
 - `update_script`: Aktualisiert System, AUR, Flatpak, Rust und optional Oh My Zsh; Cleanup ist separat.
@@ -107,7 +103,7 @@ Eine Vorlage liegt unter `env/.config/hypr/host.example.conf`.
 
 Diese Punkte kann das Repo nicht sicher automatisch wissen:
 
-- Monitor-Namen und Layouts (`hyprctl monitors`, dann `~/.config/hypr-host.conf` anpassen).
+- Monitor-Namen und Layouts (`hyprctl monitors`, dann `env/.config/hypr/custom_settings.conf` anpassen).
 - Hostname, Git-Identitaet und SSH-Keys.
 - Hardware-spezifische Pakete wie `nvidia-open`, `amd-ucode`, CUDA oder Drucker/Bluetooth-Setup.
 - Private Pfade, Tokens, AI-Tool-Konfigurationen und echte SSH-Notizen.

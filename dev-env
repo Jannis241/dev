@@ -79,15 +79,6 @@ copy_file() {
     run cp -f -- "$source_file" "$destination_file"
 }
 
-remove_stale_path() {
-    local stale_path="$1"
-
-    if [[ -e "$stale_path" || -L "$stale_path" ]]; then
-        run rm -rf -- "$stale_path"
-    fi
-}
-
-
 update_files "$DEV_ENV/env/.config" "$XDG_CONFIG_HOME"
 update_files "$DEV_ENV/env/.local" "$HOME/.local"
 
@@ -98,22 +89,6 @@ copy_file "$DEV_ENV/env/.profile" "$HOME/.profile"
 copy_file "$DEV_ENV/dev-env" "$HOME/.local/scripts/dev-env"
 copy_file "$DEV_ENV/wallpaper.png" "$HOME/wallpaper.png"
 
-remove_stale_path "$XDG_CONFIG_HOME/theme-switcher"
-remove_stale_path "$HOME/.local/scripts/theme-switch"
-remove_stale_path "$XDG_CONFIG_HOME/ghostty/theme.conf"
-remove_stale_path "$XDG_CONFIG_HOME/jannis/themes.conf"
-
-hypr_host_config="$XDG_CONFIG_HOME/hypr-host.conf"
-if [[ $dry_run -eq 0 ]]; then
-    if [[ ! -e "$hypr_host_config" ]]; then
-        {
-            echo "# Local Hyprland overrides."
-            echo "# This file is intentionally outside ~/.config/hypr so dev-env syncs do not overwrite it."
-        } > "$hypr_host_config"
-    fi
-else
-    log "ensure file exists: $hypr_host_config"
-fi
 
 if [[ $dry_run -eq 0 ]] && command -v hyprctl >/dev/null 2>&1; then
     hyprctl reload >/dev/null 2>&1 || true

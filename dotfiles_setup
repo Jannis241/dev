@@ -251,4 +251,4 @@ if [[ "$enable_services" -eq 1 ]]; then
     enable_service sddm.service
 fi
 
-log "Done. Review ~/.config/hypr-host.conf for monitor and host-specific overrides."
+log "Done. Review env/.config/hypr/custom_settings.conf for machine-specific Hyprland settings."
