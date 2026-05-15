@@ -12,21 +12,12 @@ Der Picker nutzt Telescope. Falls Telescope nicht geladen werden kann, faellt er
 ## Default und Persistenz
 
 - Default Theme: `ayu`
-- Das aktive Neovim-Theme steht in `~/.config/jannis/themes.conf` unter `nvim_theme`.
-- Zusaetzlich wird das zuletzt gewaehlte Theme kompatibel in `stdpath("state") .. "/jannis-theme"` gespeichert.
-- Beim Start liest Neovim zuerst `nvim_theme`, danach den lokalen State und faellt dann auf `ayu` zurueck.
+- Das zuletzt gewaehlte Neovim-Theme wird in `stdpath("state") .. "/jannis-theme"` gespeichert.
+- Beim Start liest Neovim diesen lokalen State und faellt dann auf `ayu` zurueck.
 
 ## Unabhaengige Programm-Themes
 
-`~/.config/jannis/themes.conf` ist eine zentrale manuelle Uebersicht:
-
-- `nvim_theme`
-- `ghostty_theme`
-- `rofi_theme`
-- `waybar_theme`
-- `wlogout_theme`
-
-Ein Neovim-Themewechsel ueber `<C-t>` oder `:Theme` aktualisiert ausschliesslich `nvim_theme`. Ghostty, Rofi, Waybar und Wlogout werden dadurch nicht geaendert.
+Ein Neovim-Themewechsel ueber `<C-t>` oder `:Theme` aktualisiert nur den Neovim-State. Ghostty, Rofi, Waybar und Wlogout werden direkt in ihren eigenen Config-Dateien angepasst.
 
 ## Favoriten
 

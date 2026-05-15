@@ -118,6 +118,7 @@ copy_file "$DEV_ENV/wallpaper.png" "$HOME/wallpaper.png"
 remove_stale_path "$XDG_CONFIG_HOME/theme-switcher"
 remove_stale_path "$HOME/.local/scripts/theme-switch"
 remove_stale_path "$XDG_CONFIG_HOME/ghostty/theme.conf"
+remove_stale_path "$XDG_CONFIG_HOME/jannis/themes.conf"
 
 log "ensuring local bin dir exists"
 if [[ $dry_run -eq 0 ]]; then

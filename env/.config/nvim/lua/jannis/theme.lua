@@ -102,8 +102,6 @@ M.themes = {
 }
 
 local state_file = vim.fn.stdpath("state") .. "/jannis-theme"
-local config_home = os.getenv("XDG_CONFIG_HOME") or (vim.fn.expand("~") .. "/.config")
-local theme_config_file = config_home .. "/jannis/themes.conf"
 
 local builtin_themes = {
 	desert = true,
@@ -309,74 +307,13 @@ local function first_line(path)
 	return nil
 end
 
-local function trim(value)
-	return (value:gsub("^%s+", ""):gsub("%s+$", ""))
-end
-
-local function config_value(key)
-	local ok, lines = pcall(vim.fn.readfile, theme_config_file)
-	if not ok then
-		return nil
-	end
-
-	for _, line in ipairs(lines) do
-		local uncommented = line:gsub("%s*[#;].*$", "")
-		local found_key, value = uncommented:match("^%s*([%w_%-]+)%s*=%s*(.-)%s*$")
-		if found_key == key and trim(value) ~= "" then
-			return trim(value)
-		end
-	end
-
-	return nil
-end
-
 local function write_state(path, theme)
 	local dir = vim.fn.fnamemodify(path, ":h")
 	pcall(vim.fn.mkdir, dir, "p")
 	pcall(vim.fn.writefile, { theme }, path)
 end
 
-local function write_config_value(key, value)
-	local ok, lines = pcall(vim.fn.readfile, theme_config_file)
-	local replaced = false
-
-	if not ok then
-		lines = {
-			"# Manual theme overview. Program themes are independent.",
-			"# Neovim reads and updates only nvim_theme.",
-			"nvim_theme = " .. value,
-			"ghostty_theme = ayu",
-			"rofi_theme = ayu",
-			"waybar_theme = ayu",
-			"wlogout_theme = ayu",
-		}
-		replaced = key == "nvim_theme"
-	else
-		for index, line in ipairs(lines) do
-			if line:match("^%s*" .. key .. "%s*=") then
-				local indent = line:match("^(%s*)") or ""
-				lines[index] = indent .. key .. " = " .. value
-				replaced = true
-				break
-			end
-		end
-	end
-
-	if not replaced then
-		table.insert(lines, key .. " = " .. value)
-	end
-
-	local dir = vim.fn.fnamemodify(theme_config_file, ":h")
-	pcall(vim.fn.mkdir, dir, "p")
-	pcall(vim.fn.writefile, lines, theme_config_file)
-end
-
 local function saved_theme()
-	local configured_theme = config_value("nvim_theme")
-	if configured_theme then
-		return configured_theme
-	end
-
 	local local_theme = first_line(state_file)
 	if local_theme then
 		return local_theme
@@ -387,7 +324,6 @@ end
 
 local function persist(theme)
 	write_state(state_file, theme)
-	write_config_value("nvim_theme", theme)
 end
 
 function M.apply(theme, opts)

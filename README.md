@@ -5,7 +5,7 @@ Persoenliche Dotfiles fuer ein Arch/Hyprland-Setup mit Zsh, Neovim, Ghostty, Way
 ## Struktur
 
 - `env/`: Home-Overlay, das durch `dev-env` nach `$HOME` kopiert wird.
-- `env/.config/`: App-Konfigurationen fuer `nvim`, `hypr`, `waybar`, `rofi`, `ghostty`, `wlogout`, `jannis` usw.
+- `env/.config/`: App-Konfigurationen fuer `nvim`, `hypr`, `waybar`, `rofi`, `ghostty`, `wlogout` usw.
 - `env/.local/scripts/`: Eigene Skripte wie `dev-env`, `get-dependencies`, `update_script`, `jnew`, `jrun`, `search`.
 - `env/.zshenv`, `env/.zprofile`, `env/.zshrc`, `env/.profile`: Shell- und PATH-Setup.
 - `dependencies/`: Paketlisten fuer Pacman, AUR und Flatpak.
@@ -69,28 +69,9 @@ Bestehende Zielpfade werden dabei ersetzt. Lokale, host-spezifische Anpassungen 
 
 ## Themes
 
-Themes sind bewusst nicht automatisch gekoppelt.
+Themes werden nicht zentral gekoppelt. Aendere das Theme direkt in der Config des jeweiligen Programms:
 
-Die zentrale Uebersicht liegt in:
-
-```text
-~/.config/jannis/themes.conf
-```
-
-Beispiel:
-
-```ini
-nvim_theme = ayu
-ghostty_theme = ayu
-rofi_theme = ayu
-waybar_theme = ayu
-wlogout_theme = ayu
-```
-
-Neovim liest `nvim_theme`. Wenn du in Neovim `<C-t>` oder `:Theme` verwendest, wird ausschliesslich `nvim_theme` aktualisiert. Ghostty, Rofi, Waybar, Wlogout und andere Programme werden dadurch nicht geaendert.
-
-Die anderen Programme bleiben manuell in ihren eigenen Dateien konfiguriert:
-
+- Neovim: `<C-t>` oder `:Theme`; gespeichert wird in `stdpath("state") .. "/jannis-theme"`
 - Ghostty: `~/.config/ghostty/config`
 - Rofi: `~/.config/colors/colors.rasi` und `~/.config/rofi/config.rasi`
 - Waybar: `~/.config/colors/colors.css` und `~/.config/waybar/style.css`

@@ -1,4 +1,4 @@
-/* Manual Rofi colors. See ~/.config/jannis/themes.conf for theme labels. */
+/* Rofi colors. Edit this file directly. */
 * {
     background: #0f1419;
     foreground: #e6e1cf;

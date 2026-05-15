@@ -9,7 +9,6 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt inc_append_history
-setopt prompt_subst
 setopt share_history
 
 autoload -Uz colors compinit vcs_info
@@ -18,13 +17,12 @@ compinit
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':vcs_info:git:*' formats ' %F{green}(%b)%f'
+zstyle ':vcs_info:git:*' formats ' %F{blue}git:(%F{red}%b%F{blue})%f'
 
 precmd() {
 	vcs_info
+	PROMPT="%F{green}➜%f  %F{cyan}%1~%f${vcs_info_msg_0_} "
 }
-
-PROMPT='%F{blue}%~%f${vcs_info_msg_0_} %# '
 
 alias x='chmod +x'
 alias ll='ls -lah'
