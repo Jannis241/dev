@@ -233,6 +233,7 @@ function M.apply_float_highlights()
 	local selection =
 		color(diagnostic_warn.fg or warning_msg.fg or special.fg, vim.o.background == "light" and "#8a5a00" or "#ffcc66")
 	local selection_bg = vim.o.background == "light" and "#d9e2f2" or "#2f3a4a"
+	local context_bg = vim.o.background == "light" and "#eef2f7" or "#141b24"
 	local line_nr = color(comment.fg or type_hl.fg, vim.o.background == "light" and "#707070" or "#7c7c7c")
 
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = fg })
@@ -258,6 +259,11 @@ function M.apply_float_highlights()
 	vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { bg = "none", fg = border })
 	vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { bg = "none", fg = line_nr })
 	vim.api.nvim_set_hl(0, "NeoTreeExpander", { bg = "none", fg = line_nr })
+	vim.api.nvim_set_hl(0, "TreesitterContext", { bg = context_bg, fg = fg })
+	vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { bg = context_bg, fg = line_nr })
+	vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { bg = "none", fg = border })
+	vim.api.nvim_set_hl(0, "TreesitterContextBottom", { bg = context_bg, sp = border, underline = true })
+	vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { bg = context_bg, sp = border, underline = true })
 
 	for _, name in ipairs({
 		"DiagnosticFloatingError",

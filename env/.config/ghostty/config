@@ -17,7 +17,7 @@ theme = ayu
 # theme = GruvboxDarkHard
 #theme = tokyonight
 
-background = 010101
+background = 101010
 background-opacity = 1
 background-blur = false
 confirm-close-surface=false

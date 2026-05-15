@@ -102,6 +102,7 @@ Eigenes Theme-System:
 - Favoriten stehen in der Auswahl oben.
 - Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt.
 - Floating Windows bleiben dabei standardmaessig transparent; Completion/Pmenu markieren nur die aktive Auswahl mit eigenem Hintergrund.
+- Sticky Treesitter Context bekommt einen dezenten Hintergrund und eine Unterkante, damit Methodensignaturen am oberen Fensterrand klar vom Code getrennt sind, ohne eine zweite Zeile zu belegen.
 
 ## `lua/jannis/plugins`
 

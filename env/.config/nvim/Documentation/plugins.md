@@ -266,8 +266,10 @@ Lazy Loading:
 Config:
 
 - Aktiviert.
-- Maximal 3 Zeilen.
-- Line Numbers aktiv.
+- Maximal 1 Kontextzeile.
+- Line Numbers aus, damit die Methodensignatur ruhiger wirkt.
+- Multiline-Kontext wird auf 1 sichtbare Kontextzeile begrenzt.
+- Die einzelne Kontextzeile hat eine dezente Unterkante statt einer extra Separator-Zeile.
 - Modus: `cursor`.
 
 ## Git
