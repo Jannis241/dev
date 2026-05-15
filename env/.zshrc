@@ -9,6 +9,7 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt inc_append_history
+setopt prompt_subst
 setopt share_history
 
 autoload -Uz colors compinit vcs_info

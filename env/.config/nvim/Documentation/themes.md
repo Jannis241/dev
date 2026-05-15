@@ -12,21 +12,21 @@ Der Picker nutzt Telescope. Falls Telescope nicht geladen werden kann, faellt er
 ## Default und Persistenz
 
 - Default Theme: `ayu`
-- Das zuletzt gewaehlte Theme wird in `stdpath("state") .. "/jannis-theme"` und im gemeinsamen State `~/.local/state/theme-switcher/current` gespeichert.
-- Beim Start wird dieses gespeicherte Theme wieder angewendet.
-- Wenn `theme-switch` im `PATH` liegt, aktualisiert ein Neovim-Themewechsel auch die externen Theme-Dateien.
+- Das aktive Neovim-Theme steht in `~/.config/jannis/themes.conf` unter `nvim_theme`.
+- Zusaetzlich wird das zuletzt gewaehlte Theme kompatibel in `stdpath("state") .. "/jannis-theme"` gespeichert.
+- Beim Start liest Neovim zuerst `nvim_theme`, danach den lokalen State und faellt dann auf `ayu` zurueck.
 
-## Gemeinsamer Theme-Switcher
+## Unabhaengige Programm-Themes
 
-Das systemweite Theme liegt in `~/.config/theme-switcher/themes.tsv`. Der Befehl `theme-switch` generiert daraus:
+`~/.config/jannis/themes.conf` ist eine zentrale manuelle Uebersicht:
 
-- `~/.config/colors/colors.css` fuer Waybar und andere GTK-CSS-Configs.
-- `~/.config/colors/colors.rasi` fuer Rofi.
-- `~/.config/wlogout/colors.css`.
-- `~/.config/ghostty/theme.conf`.
-- `~/.local/state/nvim/jannis-theme`.
+- `nvim_theme`
+- `ghostty_theme`
+- `rofi_theme`
+- `waybar_theme`
+- `wlogout_theme`
 
-Neovim liest zuerst den gemeinsamen Theme-State und faellt danach auf seinen eigenen State und dann auf `ayu` zurueck. Dadurch koennen `theme-switch ayu` im Terminal und `:Theme` in Neovim dieselbe Quelle aktualisieren.
+Ein Neovim-Themewechsel ueber `<C-t>` oder `:Theme` aktualisiert ausschliesslich `nvim_theme`. Ghostty, Rofi, Waybar und Wlogout werden dadurch nicht geaendert.
 
 ## Favoriten
 

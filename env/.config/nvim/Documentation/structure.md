@@ -97,9 +97,9 @@ Globale Keymaps, die nicht direkt an einen Plugin-Spec gekoppelt sind. Plugin-sp
 Eigenes Theme-System:
 
 - Default Theme: `ayu`
-- Aktives Theme wird in `stdpath("state") .. "/jannis-theme"` gespeichert.
-- Das Theme-System liest und schreibt zusaetzlich `~/.local/state/theme-switcher/current`, damit es mit dem externen `theme-switch` synchron bleibt.
-- Bei einem Themewechsel aus Neovim wird `theme-switch --quiet --no-nvim-state <theme>` gestartet, sofern der Befehl verfuegbar ist.
+- Aktives Neovim-Theme wird aus `~/.config/jannis/themes.conf` gelesen (`nvim_theme`).
+- Als Kompatibilitaets-State wird weiterhin `stdpath("state") .. "/jannis-theme"` geschrieben.
+- Bei einem Themewechsel aus Neovim wird ausschliesslich `nvim_theme` aktualisiert.
 - Theme-Auswahl ueber Telescope oder fallback `vim.ui.select`.
 - Favoriten stehen in der Auswahl oben.
 - Float-/Border-Highlights werden nach jedem Theme-Wechsel neu gesetzt.

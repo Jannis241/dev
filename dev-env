@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 
-set -u
+set -euo pipefail
 
 dry_run=0
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -z "$XDG_CONFIG_HOME" ]; then
+if [[ -z "${XDG_CONFIG_HOME:-}" ]]; then
     echo "no xdg config home"
     echo "using ~/.config"
     XDG_CONFIG_HOME="$HOME/.config"
 fi
 
-
-if [ -z "$DEV_ENV" ]; then
-    echo "env var DEV_ENV needs to be present"
-    exit 1
+if [[ -z "${DEV_ENV:-}" ]]; then
+    if [[ -d "$script_dir/env" ]]; then
+        DEV_ENV="$script_dir"
+    else
+        echo "env var DEV_ENV needs to be present"
+        exit 1
+    fi
 fi
 
 if [[ ${1:-} == "--dry" ]]; then
@@ -32,6 +36,11 @@ log "env: $DEV_ENV"
 log "config: $XDG_CONFIG_HOME"
 log "home: $HOME"
 
+log "ensuring target dirs exist"
+if [[ $dry_run -eq 0 ]]; then
+    mkdir -p "$XDG_CONFIG_HOME" "$HOME/.local" "$HOME/.local/scripts"
+fi
+
 update_files() {
     local source_dir="$1"
     local target_root="$2"
@@ -45,8 +54,8 @@ update_files() {
     pushd "$source_dir" &> /dev/null
     (
         while IFS= read -r -d '' entry; do
-            local_name="${entry#./}"
-            destination="${target_root%/}/$local_name"
+            local local_name="${entry#./}"
+            local destination="${target_root%/}/$local_name"
 
             log "    removing: rm -rf $destination"
 
@@ -83,6 +92,17 @@ copy_file() {
     fi
 }
 
+remove_stale_path() {
+    local stale_path="$1"
+
+    if [[ -e "$stale_path" || -L "$stale_path" ]]; then
+        log "removing stale path: $stale_path"
+        if [[ $dry_run -eq 0 ]]; then
+            rm -rf -- "$stale_path"
+        fi
+    fi
+}
+
 
 update_files "$DEV_ENV/env/.config" "$XDG_CONFIG_HOME"
 update_files "$DEV_ENV/env/.local" "$HOME/.local"
@@ -95,6 +115,9 @@ copy_file "$DEV_ENV/env/.profile" "$HOME/.profile"
 copy_file "$DEV_ENV/dev-env" "$HOME/.local/scripts/dev-env"
 copy_file "$DEV_ENV/wallpaper.png" "$HOME/wallpaper.png"
 
+remove_stale_path "$XDG_CONFIG_HOME/theme-switcher"
+remove_stale_path "$HOME/.local/scripts/theme-switch"
+remove_stale_path "$XDG_CONFIG_HOME/ghostty/theme.conf"
 
 log "ensuring local bin dir exists"
 if [[ $dry_run -eq 0 ]]; then
@@ -102,8 +125,8 @@ if [[ $dry_run -eq 0 ]]; then
 fi
 
 log "ensuring local Hyprland override exists"
+hypr_host_config="$XDG_CONFIG_HOME/hypr-host.conf"
 if [[ $dry_run -eq 0 ]]; then
-    hypr_host_config="$XDG_CONFIG_HOME/hypr-host.conf"
     if [[ ! -e "$hypr_host_config" ]]; then
         {
             echo "# Local Hyprland overrides."
@@ -112,14 +135,6 @@ if [[ $dry_run -eq 0 ]]; then
     fi
 else
     log "would create if missing: $XDG_CONFIG_HOME/hypr-host.conf"
-fi
-
-theme_switch="$HOME/.local/scripts/theme-switch"
-if [[ -x "$theme_switch" ]]; then
-    log "regenerating shared theme files"
-    if [[ $dry_run -eq 0 ]]; then
-        "$theme_switch" --current --quiet || true
-    fi
 fi
 
 if [[ $dry_run -eq 0 ]] && command -v hyprctl >/dev/null 2>&1; then
