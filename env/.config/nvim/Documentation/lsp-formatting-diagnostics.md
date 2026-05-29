@@ -163,24 +163,36 @@ Completion-Fenster:
 
 ## Diagnostics
 
-Diagnostics sind bewusst auf Errors fokussiert:
+Diagnostics werden in `lua/jannis/diagnostics.lua` pro Filetype gefiltert.
+Nicht gelistete Filetypes nutzen `M.default_severity` und zeigen aktuell nur Errors.
 
-- Virtual Text zeigt nur Errors.
-- Signs zeigen nur Errors.
-- Underlines zeigen nur Errors.
-- `<leader>e` oeffnet einen nicht fokussierbaren Error-Float fuer die aktuelle Zeile.
+Aktuell konfiguriert:
+
+- `c`: alle Diagnostics
+- `cpp`: alle Diagnostics
+- `rust`: nur Errors
+
+Weitere Varianten:
+
+- `M.all`: Errors, Warnings, Info und Hints
+- `severity.ERROR`: nur Errors
+- `{ min = severity.WARN }`: Errors und Warnings
+
+Der Filter wird fuer Virtual Text, Signs, Underlines, Diagnostic-Floats, Trouble und Lualine verwendet.
+
+- `<leader>e` oeffnet einen nicht fokussierbaren Diagnostic-Float fuer die aktuelle Zeile.
 - `update_in_insert = false`, also werden Diagnostics nicht waehrend des Tippens staendig aktualisiert.
 - Diagnostic-Floats haben rounded Border.
 - Diagnostics werden nach Severity sortiert.
 
-## Error-Workflow
+## Diagnostic-Workflow
 
-Trouble zeigt Error-Uebersichten:
+Trouble zeigt Diagnostic-Uebersichten mit demselben Filetype-Filter:
 
-- `<leader>fe`: Errors im aktuellen File.
-- `<leader>pe`: Errors im Projekt.
+- `<leader>fe`: Diagnostics im aktuellen File.
+- `<leader>pe`: Diagnostics im Projekt, gefiltert anhand des aktuellen Buffers.
 
-Trouble oeffnet rechts und bekommt den Fokus. `j`/`k` gehen durch die Error-Eintraege und zeigen jeweils die passende Code-Stelle als Preview im Hauptfenster. `Enter` springt final zum ausgewaehlten Error und schliesst die Liste.
+Trouble oeffnet rechts und bekommt den Fokus. `j`/`k` gehen durch die Diagnostic-Eintraege und zeigen jeweils die passende Code-Stelle als Preview im Hauptfenster. `Enter` springt final zum ausgewaehlten Eintrag und schliesst die Liste.
 
 ## LSP-Keymaps
 

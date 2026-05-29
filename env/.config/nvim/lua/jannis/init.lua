@@ -96,16 +96,13 @@ autocmd("LspAttach", {
 })
 
 vim.keymap.set("n", "<leader>e", function()
-	vim.diagnostic.open_float({
-		border = "rounded",
+	local diagnostics = require("jannis.diagnostics")
+
+	vim.diagnostic.open_float(diagnostics.float_opts(0, {
 		focus = false,
 		focusable = false,
-		header = "",
-		prefix = "",
 		scope = "line",
-		severity = vim.diagnostic.severity.ERROR,
-		source = "if_many",
-	})
+	}))
 end, { desc = "Open diagnostics float" })
 
 require("lazy").setup("jannis.plugins", {

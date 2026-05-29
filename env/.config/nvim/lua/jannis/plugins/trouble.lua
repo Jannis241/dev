@@ -6,38 +6,39 @@ return {
 			{
 				"<leader>fe",
 				function()
+					local diagnostics = require("jannis.diagnostics")
+
 					require("trouble").open({
 						mode = "diagnostics",
 						focus = true,
 						pinned = true,
-						filter = {
+						filter = diagnostics.filter({
 							buf = 0,
-							severity = vim.diagnostic.severity.ERROR,
-						},
+						}, 0),
 						win = {
 							position = "right",
 							size = 45,
 						},
 					})
 				end,
-				desc = "File errors",
+				desc = "File diagnostics",
 			},
 			{
 				"<leader>pe",
 				function()
+					local diagnostics = require("jannis.diagnostics")
+
 					require("trouble").open({
 						mode = "diagnostics",
 						focus = true,
-						filter = {
-							severity = vim.diagnostic.severity.ERROR,
-						},
+						filter = diagnostics.filter({}, 0),
 						win = {
 							position = "right",
 							size = 45,
 						},
 					})
 				end,
-				desc = "Project errors",
+				desc = "Project diagnostics",
 			},
 			{ "<leader>qf", "<cmd>Trouble quickfix toggle focus=true<cr>", desc = "Quickfix" },
 		},

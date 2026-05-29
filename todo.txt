@@ -1,0 +1,21 @@
+nvim:
+- java funktioniert nicht
+- bei todo gibt es teilweise error: Direkt nach "Todo" kommt index error oder so
+- config bessser machen: schnell scripts ausführen können und neue dateien erstellen etc wie "magicalbat", besser als dieses tree system
+- vielleicht offene file buffers anzeigen
+- lualine shcöner machen
+- besseres theme suchen
+- neovim hintergrund besser machen
+
+ghostty:
+- bisschen schöner machen (besonders den hintergrund)
+
+waybar:
+- schöner machen
+- bisschen cleaner und moderner
+=> nach inspiration gucken
+
+
+
+hyperland:
+- window size ienstlelen können

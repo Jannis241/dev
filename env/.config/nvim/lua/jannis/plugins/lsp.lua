@@ -24,6 +24,7 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local cmp_lsp = require("cmp_nvim_lsp")
+		local diagnostics = require("jannis.diagnostics")
 		local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
 
 		if not vim.env.PATH:find(mason_bin, 1, true) then
@@ -88,6 +89,11 @@ return {
 					{ "mvnw", "gradlew", "settings.gradle", "settings.gradle.kts", ".git" },
 					{ "build.xml", "pom.xml", "build.gradle", "build.gradle.kts" },
 					"src",
+				},
+			},
+			clangd = {
+				init_options = {
+					fallbackFlags = { "-x", "c", "-std=c17" },
 				},
 			},
 		}
@@ -226,27 +232,13 @@ return {
 
 		-- Diagnostic Config
 		vim.diagnostic.config({
-			virtual_text = {
-				prefix = "", -- kleines Icon statt nur Text
-				spacing = 2, -- Abstand zum Text
-				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
-			},
-			signs = {
-				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
-			},
-			underline = {
-				severity = vim.diagnostic.severity.ERROR, -- nur Errors anzeigen
-			},
+			virtual_text = diagnostics.virtual_text,
+			signs = diagnostics.signs,
+			underline = diagnostics.underline,
 
 			update_in_insert = false, -- nach :w oder wenn du Insert verlässt
 			severity_sort = true, -- sortiert nach Error > Warn > Hint > Info
-			float = {
-				focusable = true,
-				border = "rounded", -- schöne runde Ränder
-				source = "if_many", -- Quelle nur anzeigen, wenn mehrere
-				header = "",
-				prefix = "",
-			},
+			float = diagnostics.float,
 		})
 	end,
 }

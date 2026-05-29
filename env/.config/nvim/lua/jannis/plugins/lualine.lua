@@ -3,6 +3,8 @@ return {
 	event = "VeryLazy",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
+		local diagnostics = require("jannis.diagnostics")
+
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -38,7 +40,7 @@ return {
 			},
 			sections = {
 				lualine_a = { "mode" },
-				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_b = { "branch", "diff", diagnostics.statusline },
 				lualine_c = { { "filename", path = 1 } }, -- Pfad anzeigen
 				lualine_x = { "filetype" },
 				lualine_y = { "progress" },
