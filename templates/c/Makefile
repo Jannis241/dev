@@ -46,24 +46,14 @@ WARNFLAGS ?= \
 	-Wnull-dereference \
 	-Wswitch-enum \
 	-Wimplicit-fallthrough \
-	-Wvla
+	-Wvla \
+	-Wno-unused-variable \
+	-Wno-unused-parameter \
+	-Wno-unused-function \
+	-Wno-unused-but-set-variable
 
-# Keep the most dangerous C footguns as errors without making every warning fatal.
-ERRORFLAGS ?= \
-	-Werror=return-type \
-	-Werror=implicit-int \
-	-Werror=implicit-function-declaration \
-	-Werror=incompatible-pointer-types \
-	-Werror=int-conversion
-
-WERROR ?= 0
-ifeq ($(MODE),strict)
-WERROR := 1
-endif
-
-ifeq ($(WERROR),1)
-ERRORFLAGS += -Werror
-endif
+# Keep warnings visible, but do not treat them as build-stopping errors.
+NOERRORFLAGS ?= -Wno-error
 
 ifeq ($(MODE),debug)
 MODE_CPPFLAGS :=
@@ -77,12 +67,8 @@ else ifeq ($(MODE),sanitize)
 MODE_CPPFLAGS :=
 MODE_CFLAGS := -O1 -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
 MODE_LDFLAGS := -fsanitize=address,undefined
-else ifeq ($(MODE),strict)
-MODE_CPPFLAGS :=
-MODE_CFLAGS := -Og -g3
-MODE_LDFLAGS :=
 else
-$(error Unknown MODE '$(MODE)'. Use debug, release, sanitize, or strict)
+$(error Unknown MODE '$(MODE)'. Use debug, release, or sanitize)
 endif
 
 SRCS_RAW ?= $(shell find $(SRC_DIRS) -type f -name '*.c' \
@@ -95,7 +81,7 @@ OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
 DEPS := $(OBJS:.o=.d)
 
 CPPFLAGS += $(MODE_CPPFLAGS) $(addprefix -I,$(sort $(wildcard $(INC_DIRS)))) $(CPPFLAGS_EXTRA)
-CFLAGS += $(CSTD) $(WARNFLAGS) $(ERRORFLAGS) $(MODE_CFLAGS) $(CFLAGS_EXTRA)
+CFLAGS += $(CSTD) $(WARNFLAGS) $(MODE_CFLAGS) $(CFLAGS_EXTRA) $(NOERRORFLAGS)
 LDFLAGS += $(MODE_LDFLAGS) $(LDFLAGS_EXTRA)
 LDLIBS += $(LDLIBS_EXTRA)
 
@@ -137,10 +123,6 @@ release:
 sanitize:
 	$(Q)$(MAKE) MODE=sanitize all
 
-.PHONY: strict
-strict:
-	$(Q)$(MAKE) MODE=strict all
-
 .PHONY: run
 run: all
 	$(Q)$(RUN_ENV) ./$(TARGET_PATH) $(ARGS)
@@ -163,7 +145,7 @@ distclean: clean
 
 .PHONY: compile_flags.txt
 compile_flags.txt:
-	@printf '%s\n' -x c $(CSTD) $(WARNFLAGS) $(ERRORFLAGS) $(CPPFLAGS) > $@
+	@printf '%s\n' -x c $(CSTD) $(WARNFLAGS) $(CPPFLAGS) $(NOERRORFLAGS) > $@
 	@echo "Wrote $@ for clangd"
 
 .PHONY: compile_commands.json

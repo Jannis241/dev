@@ -6,6 +6,7 @@ nvim:
 - lualine shcöner machen
 - besseres theme suchen
 - neovim hintergrund besser machen
+- für c besser machen: mehr warnings anzeigen
 
 ghostty:
 - bisschen schöner machen (besonders den hintergrund)
@@ -19,3 +20,6 @@ waybar:
 
 hyperland:
 - window size ienstlelen können
+
+
+C makefile optimieren
