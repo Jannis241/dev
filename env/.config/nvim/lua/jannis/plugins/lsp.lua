@@ -24,6 +24,12 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local cmp_lsp = require("cmp_nvim_lsp")
+		local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+
+		if not vim.env.PATH:find(mason_bin, 1, true) then
+			vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+		end
+
 		local capabilities = vim.tbl_deep_extend(
 			"force",
 			{},
@@ -32,6 +38,7 @@ return {
 		)
 
 		local interactive = #vim.api.nvim_list_uis() > 0
+		local jdtls_java_home = vim.env.JDTLS_JAVA_HOME
 
 		require("fidget").setup()
 		if interactive then
@@ -74,6 +81,9 @@ return {
 				},
 			},
 			jdtls = {
+				cmd_env = jdtls_java_home and jdtls_java_home ~= "" and {
+					JAVA_HOME = jdtls_java_home,
+				} or nil,
 				root_markers = {
 					{ "mvnw", "gradlew", "settings.gradle", "settings.gradle.kts", ".git" },
 					{ "build.xml", "pom.xml", "build.gradle", "build.gradle.kts" },

@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Usage:
+# cnew project_name
+
+if [ -z "$1" ]; then
+    echo "Usage: cnew <project_name>"
+    exit 1
+fi
+
+PROJECT_NAME="$1"
+
+if [ -d "$PROJECT_NAME" ]; then
+    echo "Error: directory '$PROJECT_NAME' already exists"
+    exit 1
+fi
+
+mkdir -p "$PROJECT_NAME/src"
+mkdir -p "$PROJECT_NAME/include"
+mkdir -p "$PROJECT_NAME/build"
+
+cat > "$PROJECT_NAME/src/main.c" <<EOF
+#include <stdio.h>
+
+int main(void) {
+    return 0;
+}
+EOF
+
+cat > "$PROJECT_NAME/Makefile" <<EOF
+CC := gcc
+
+TARGET := $PROJECT_NAME
+
+SRC_DIR := src
+BUILD_DIR := build
+INCLUDE_DIR := include
+
+CFLAGS := -Wall -Wextra -std=c11 -I\$(INCLUDE_DIR)
+
+SRCS := \$(shell find \$(SRC_DIR) -name "*.c")
+OBJS := \$(SRCS:\$(SRC_DIR)/%.c=\$(BUILD_DIR)/%.o)
+
+all: \$(TARGET)
+
+\$(TARGET): \$(OBJS)
+	\$(CC) \$(CFLAGS) \$(OBJS) -o \$(TARGET)
+
+\$(BUILD_DIR)/%.o: \$(SRC_DIR)/%.c
+	mkdir -p \$(dir \$@)
+	\$(CC) \$(CFLAGS) -c \$< -o \$@
+
+run: all
+	./\$(TARGET)
+
+clean:
+	rm -rf \$(BUILD_DIR) \$(TARGET)
+
+rebuild: clean all
+
+.PHONY: all run clean rebuild
+EOF
+
+cat > "$PROJECT_NAME/.gitignore" <<EOF
+build/
+$PROJECT_NAME
+*.o
+EOF
+
+echo "Created C project '$PROJECT_NAME'"
+echo

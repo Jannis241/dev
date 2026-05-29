@@ -1,0 +1,3 @@
+bei todo gibt es teilweise error: Direkt nach "Todo" kommt index error oder so
+
+errors sind teilweise bisschen komisch

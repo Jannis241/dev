@@ -1,9 +1,11 @@
 chromium
 discord
+ex-vi-compat
 fastfetch
 firefox
 flatpak
 gimp
+jdk21-openjdk
 libva-nvidia-driver
 mousepad
 nano

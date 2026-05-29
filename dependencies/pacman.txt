@@ -15,6 +15,7 @@ dkms
 dolphin
 dunst
 efibootmgr
+ex-vi-compat
 fastfetch
 fd
 feh
@@ -36,6 +37,7 @@ hyprlock
 hyprpaper
 imv
 iwd
+jdk21-openjdk
 jdk-openjdk
 jq
 kitty
