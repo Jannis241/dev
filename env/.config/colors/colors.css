@@ -4,6 +4,8 @@
 @define-color foreground #e6e1cf;
 @define-color select     #253340;
 
+@define-color second      #ffffff;
+
 @define-color pink       #f07178;
 @define-color purple     #d2a6ff;
 @define-color red        #f07178;

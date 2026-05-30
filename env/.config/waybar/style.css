@@ -2,7 +2,7 @@
 
 * {
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     min-height: 0;
 }
@@ -51,24 +51,24 @@ tooltip label {
 
 #cpu,
 #memory {
-    color: @green;
+    color: @second;
     background: transparent;
     border: none;
     margin: 0 14px 0 0;
     padding: 0;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 800;
 }
 
 #network {
-    color: @green;
+    color: @second;
     background: transparent;
     border-color: transparent;
     padding: 0 10px;
 }
 
 #battery {
-    color: @yellow;
+    color: @second;
     background: transparent;
     border: 1px solid transparent;
     border-radius: 6px;
@@ -85,7 +85,7 @@ tooltip label {
 }
 
 #pulseaudio {
-    color: @foreground;
+    color: @second;
     background: transparent;
     border: none;
     margin: 0 22px 0 0;
@@ -100,7 +100,7 @@ tooltip label {
     border: none;
     margin: 0 14px 0 0;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 20px;
     padding: 0;
 }
 
