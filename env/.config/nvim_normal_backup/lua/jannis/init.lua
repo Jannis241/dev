@@ -1,5 +1,4 @@
-require("jannis.set")
-
+vim.g.mapleader = " "
 pcall(vim.cmd, "language messages C")
 pcall(vim.cmd, "language ctype C.UTF-8")
 
@@ -20,6 +19,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+require("jannis.set")
 
 vim.opt.guicursor = ""
 
@@ -173,7 +173,7 @@ require("lazy").setup("jannis.plugins", {
 		notify = false,
 	},
 })
-
+-- require("jannis.file_commands").setup()
 require("jannis.theme").setup()
 require("jannis.terminal").setup()
 
