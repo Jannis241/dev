@@ -2,21 +2,25 @@ Rofi:
 - schöner machen
 
 Waybar:
-- cleaner machen
+- nicht so langweilig machen => nach inspiration suchen
 
 Ghostty:
 - prompt schöner machen
 - aussehen generell verbessern
 - fzf machen dass man nicht nochmal enter drücken muss
+- font?
+- hintergrund druchsichtig?
 
 nvim:
-- default theme nicht mehr ayu sondern was besseres
 - von dressing zu snacks convertieren
+- neotree irgendwie besser machen / alternative finden
 - gucken dass nichts deprecated ist
 - lualine schöner machen
 - java fixxen
-- gute themes raussuchen
-- noch mehr debloaten => auch remaps usw => alle plugins und files nochmal durchgehen
+- themes debloaten, nur die besten behalten, gute raussuchen, default theme richtig setzten
+    => bei den guten dann auch die font einstellungen richtig machen
+- debloaten, unkomplizierter machen 
+- gucken welche plugins unnötig sind
 
 dev-env:
 - komplette config debloaten => nicht mehr dieses mehr = besser mindset
@@ -24,9 +28,4 @@ dev-env:
 wirklich so gut ist und ob man diese dinge in configs wie nvim oder sowas handeln sollte oder
 ob ich wirklich lieber einfach ein script mache was man halt ausführen kann und dass nvim sich nicht darum
 kümmer muss => gucken wie viel performance das gnaze wirklich kostet
-
-- machen dass der cursor schneller schneller wird (generell das ganze nochmal finalisieren damit man noch mbiler ist)
-
-
-
-- messaging system
+- messaging system cleaner
