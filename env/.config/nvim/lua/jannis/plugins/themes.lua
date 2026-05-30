@@ -412,4 +412,16 @@ return {
 			vim.g.zenbones_transparent_background = true
 		end,
 	},
+	{
+		"slugbyte/lackluster.nvim",
+		name = "lackluster",
+		lazy = true,
+		priority = 1000,
+	},
+	{
+		"aktersnurra/no-clown-fiesta.nvim",
+		name = "no-clown-fiesta",
+		lazy = true,
+		priority = 1000,
+	},
 }

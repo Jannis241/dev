@@ -1,79 +1,52 @@
-/* @import "$HOME/.config/colors/colors.css" */
 @import "../colors/colors.css";
 
 * {
     font-family: "JetBrainsMono Nerd Font";
-
-    font-size: 20px;
-    font-weight: bold;
-    background-color: transparent;
-    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
     min-height: 0;
 }
 
-window,
+window#waybar {
+    background: @background2;
+    color: @foreground;
+    border-bottom: 1px solid @select;
+}
+
 tooltip {
-    background-color: @background;
-}
-
-#waybar {
-    background: alpha(@background2, 1);
-    border-radius: 0;
-}
-
-#workspaces {
-    margin: 1px 0;
+    background: @background;
+    border: 1px solid @select;
 }
 
 #workspaces button {
-    color: @foreground;
-    border: 2px solid transparent; /* border immer vorhanden */
-    padding: 0 5px; /* gleich wie .active */
-    margin: 0 2px;
+    color: @gray;
+    padding: 0 8px;
+    margin: 0;
+    border-bottom: 2px solid transparent;
 }
 
 #workspaces button:hover {
-    color: @select;
-    transition: none;
-    border-bottom: 1px solid @pink;
+    color: @foreground;
+    background: transparent;
 }
 
 #workspaces button.active {
-    color: @blue;
-    border: 2px solid @blue; /* gleiche border wie oben, nur mit Farbe */
+    color: @foreground;
+    border-bottom-color: @blue;
 }
 
 #workspaces button.urgent {
-    background-color: @red;
-    padding: 0 5px; /* angleichen an alle anderen */
-    border: 2px solid transparent; /* angleichen an andere */
+    color: @red;
+    border-bottom-color: @red;
 }
 
-
-#custom-power,
-#tray,
-#bluetooth,
 #network,
 #battery,
 #pulseaudio,
-#clock {
-    color: @foreground;
-    margin: 1px 0;
-    padding: 0 10px;
-}
-
-
-#custom-power:hover,
-#bluetooth:hover,
-#network:hover,
-#battery:hover,
-#pulseaudio:hover,
-#clock:hover {
-    background-color: alpha(@select, 0.6);
-}
-
-#bluetooth {
-    color: @yellow;
+#clock,
+#custom-power {
+    margin: 0 5px;
+    padding: 0 4px;
 }
 
 #network {
@@ -81,27 +54,26 @@ tooltip {
 }
 
 #battery {
-    color: @purple;
+    color: @yellow;
 }
 
-#pulseaudio {
+#battery.warning {
     color: @orange;
 }
 
-#clock {
+#battery.critical {
+    color: @red;
+}
+
+#pulseaudio {
     color: @blue;
-    font-size: 20px;
+}
+
+#clock {
+    color: @foreground;
 }
 
 #custom-power {
+    color: @red;
     margin-right: 10px;
 }
-#cpu,
-#memory {
-    color: @blue;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-
-

@@ -18,6 +18,16 @@ if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
 	source "$ZSH/oh-my-zsh.sh"
 fi
 
+# Prompt: always show the current path. `%~` keeps `$HOME` readable as `~`.
+# Swap `%~` for `%d` if you want the absolute path, or `%c` for only the last directory.
+PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg_bold[white]%}>%{$reset_color%} '
+
+# Prompt experiments:
+# PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%}
+# %{$fg_bold[white]%}>%{$reset_color%} '
+# PROMPT='%{$fg_bold[green]%}%n@%m%{$reset_color%} %{$fg_bold[blue]%}%d%{$reset_color%} $(git_prompt_info)> '
+# RPROMPT='%{$fg[black]%}%*%{$reset_color%}'
+
 if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
 	fzf-cd-to() {
 		local root="$1"
@@ -26,6 +36,7 @@ if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
 		[[ -d "$root" ]] || return
 		dir=$(fd . --type d --hidden --follow --exclude .git "$root" | fzf) || return
 		cd "$dir" || return
+		zle reset-prompt
 	}
 
 	fzf-cd-home() {

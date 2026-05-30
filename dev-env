@@ -37,6 +37,42 @@ run() {
     fi
 }
 
+replace_path() {
+    local source_path="$1"
+    local destination="$2"
+    local copy_mode="$3"
+    local destination_dir
+    local destination_name
+    local stage
+    local backup
+
+    destination_dir="$(dirname -- "$destination")"
+    destination_name="$(basename -- "$destination")"
+    stage="$destination_dir/.dev-env-stage.$destination_name.$$"
+    backup="$destination_dir/.dev-env-backup.$destination_name.$$"
+
+    run rm -rf -- "$stage" "$backup"
+
+    if [[ "$copy_mode" == "archive" ]]; then
+        run cp -a -- "$source_path" "$stage"
+    else
+        run cp -f -- "$source_path" "$stage"
+    fi
+
+    if [[ -e "$destination" || -L "$destination" ]]; then
+        run mv -T -- "$destination" "$backup"
+    fi
+
+    if ! run mv -T -- "$stage" "$destination"; then
+        if [[ $dry_run -eq 0 ]] && [[ -e "$backup" || -L "$backup" ]]; then
+            mv -T -- "$backup" "$destination"
+        fi
+        return 1
+    fi
+
+    run rm -rf -- "$backup"
+}
+
 log "env: $DEV_ENV"
 log "config: $XDG_CONFIG_HOME"
 log "home: $HOME"
@@ -59,8 +95,7 @@ update_files() {
             local local_name="${entry#./}"
             local destination="${target_root%/}/$local_name"
 
-            run rm -rf -- "$destination"
-            run cp -a -- "$entry" "$target_root/"
+            replace_path "$entry" "$destination" archive
         done < <(find . -mindepth 1 -maxdepth 1 -print0)
     )
     popd &> /dev/null
@@ -75,8 +110,7 @@ copy_file() {
         return
     fi
 
-    run rm -f -- "$destination_file"
-    run cp -f -- "$source_file" "$destination_file"
+    replace_path "$source_file" "$destination_file" file
 }
 
 update_files "$DEV_ENV/env/.config" "$XDG_CONFIG_HOME"

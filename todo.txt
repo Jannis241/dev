@@ -19,7 +19,7 @@ nvim:
 - von dressing zu snacks convertieren
 - gucken dass nichts deprecated ist
 - lualine schöner machen
-- gucken ob java jetzt geht
+- java fixxen
 - gute themes raussuchen
 - noch mehr debloaten => auch remaps usw => alle plugins und files nochmal durchgehen
 

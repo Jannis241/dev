@@ -1,29 +1,45 @@
 font-family = "FiraCode Nerd Font Mono"
-#font-family = Iosevka Nerd Font
+# font-family = "JetBrainsMono Nerd Font"
+# font-family = Iosevka Nerd Font
 # font-family = SFMono Nerd Font
-#font-family = BerkeleyMono Nerd Font
+# font-family = BerkeleyMono Nerd Font
 # font-family = Meslo #(hatte ich eigentlich immer)
-#font-family = Square Sans Mono
+# font-family = Square Sans Mono
 
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 
 font-size =23
+# font-size = 20
+# font-size = 24
 
 # theme = rose-pine-moon
 theme = ayu
 # theme = GruvboxDarkHard
-#theme = tokyonight
+# theme = tokyonight
+# theme = catppuccin-mocha
+# theme = Kanagawa Wave
 
 background = 000000
 background-opacity = 1
 background-blur = false
 confirm-close-surface=false
 window-decoration = true
+window-padding-x = 8
+window-padding-y = 6
 cursor-style = block
+# cursor-style = bar
+# cursor-style = underline
+# cursor-style-blink = false
+# selection-background = 264f78
+# selection-foreground = ffffff
 
 shell-integration = zsh
 shell-integration-features = no-cursor,sudo,no-title
 gtk-titlebar = false
 mouse-scroll-multiplier = 2
 
+# Prompt notes:
+# The prompt itself is configured in ../.zshrc because Ghostty only starts the shell.
+# In .zshrc, `%~` shows the current path with `$HOME` shortened to `~`.
+# Try `%d` there for the full absolute path, or `%c` for only the current directory.

@@ -1,8 +1,12 @@
 local M = {}
 
-M.default = "ayu"
+M.default = "vim"
 M.favorites = {
-	"ayu",
+	"vim",
+	"retrobox",
+	"zaibatsu",
+	"lackluster-hack",
+	"no-clown-fiesta",
 	"rose-pine-moon",
 	"catppuccin-mocha",
 	"tokyonight-moon",
@@ -15,6 +19,7 @@ M.favorites = {
 }
 
 M.themes = {
+	{ name = "Vim", colorscheme = "vim" },
 	{ name = "Ayu", colorscheme = "ayu" },
 	{ name = "Ayu Dark", colorscheme = "ayu-dark" },
 	{ name = "Ayu Mirage", colorscheme = "ayu-mirage" },
@@ -85,6 +90,8 @@ M.themes = {
 	{ name = "Vimbones", colorscheme = "vimbones" },
 	{ name = "Seoulbones", colorscheme = "seoulbones" },
 	{ name = "Duckbones", colorscheme = "duckbones" },
+	{ name = "Lackluster Hack", colorscheme = "lackluster-hack" },
+	{ name = "No Clown Fiesta", colorscheme = "no-clown-fiesta" },
 	{ name = "Habamax", colorscheme = "habamax" },
 	{ name = "Retrobox", colorscheme = "retrobox" },
 	{ name = "Wildcharm", colorscheme = "wildcharm" },
@@ -114,6 +121,7 @@ local builtin_themes = {
 	slate = true,
 	sorbet = true,
 	torte = true,
+	vim = true,
 	wildcharm = true,
 	zaibatsu = true,
 }
@@ -153,6 +161,8 @@ local plugin_by_colorscheme = {
 	vimbones = "zenbones",
 	seoulbones = "zenbones",
 	duckbones = "zenbones",
+	["lackluster-hack"] = "lackluster",
+	["no-clown-fiesta"] = "no-clown-fiesta",
 }
 
 local plugin_prefixes = {
