@@ -1,65 +1,65 @@
 return {
-	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function()
-		local diagnostics = require("jannis.diagnostics")
-
-		require("lualine").setup({
-			options = {
-				icons_enabled = true,
-				theme = "auto",
-				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
-				disabled_filetypes = {
-					statusline = {},
-					winbar = {},
-				},
-				ignore_focus = {},
-				always_divide_middle = true,
-				always_show_tabline = true,
-				globalstatus = false,
-				refresh = {
-					statusline = 1000,
-					tabline = 1000,
-					winbar = 1000,
-					refresh_time = 16, -- ~60fps
-					events = {
-						"WinEnter",
-						"BufEnter",
-						"BufWritePost",
-						"SessionLoadPost",
-						"FileChangedShellPost",
-						"VimResized",
-						"Filetype",
-						"CursorMoved",
-						"CursorMovedI",
-						"ModeChanged",
-					},
-				},
-			},
-			sections = {
-				lualine_a = { "mode" },
-				lualine_b = { "branch", "diff", diagnostics.statusline },
-				lualine_c = { { "filename", path = 1 } }, -- Pfad anzeigen
-				lualine_x = { "filetype" },
-				lualine_y = { "progress" },
-				lualine_z = { "location" },
-			},
-			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {},
-				lualine_c = { "filename" },
-				lualine_x = { "location" },
-				lualine_y = {},
-				lualine_z = {},
-			},
-			tabline = {},
-			inactive_winbar = {},
-			winbar = {},
-			extensions = { "fugitive", "nvim-tree", "quickfix" },
-		})
-		vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
-		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
-	end,
+	-- "nvim-lualine/lualine.nvim",
+	-- event = "VeryLazy",
+	-- dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- config = function()
+	-- 	local diagnostics = require("jannis.diagnostics")
+	--
+	-- 	require("lualine").setup({
+	-- 		options = {
+	-- 			icons_enabled = true,
+	-- 			theme = "auto",
+	-- 			component_separators = { left = "", right = "" },
+	-- 			section_separators = { left = "", right = "" },
+	-- 			disabled_filetypes = {
+	-- 				statusline = {},
+	-- 				winbar = {},
+	-- 			},
+	-- 			ignore_focus = {},
+	-- 			always_divide_middle = true,
+	-- 			always_show_tabline = true,
+	-- 			globalstatus = false,
+	-- 			refresh = {
+	-- 				statusline = 1000,
+	-- 				tabline = 1000,
+	-- 				winbar = 1000,
+	-- 				refresh_time = 16, -- ~60fps
+	-- 				events = {
+	-- 					"WinEnter",
+	-- 					"BufEnter",
+	-- 					"BufWritePost",
+	-- 					"SessionLoadPost",
+	-- 					"FileChangedShellPost",
+	-- 					"VimResized",
+	-- 					"Filetype",
+	-- 					"CursorMoved",
+	-- 					"CursorMovedI",
+	-- 					"ModeChanged",
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		sections = {
+	-- 			lualine_a = { "mode" },
+	-- 			lualine_b = { "branch", "diff", diagnostics.statusline },
+	-- 			lualine_c = { { "filename", path = 1 } }, -- Pfad anzeigen
+	-- 			lualine_x = { "filetype" },
+	-- 			lualine_y = { "progress" },
+	-- 			lualine_z = { "location" },
+	-- 		},
+	-- 		inactive_sections = {
+	-- 			lualine_a = {},
+	-- 			lualine_b = {},
+	-- 			lualine_c = { "filename" },
+	-- 			lualine_x = { "location" },
+	-- 			lualine_y = {},
+	-- 			lualine_z = {},
+	-- 		},
+	-- 		tabline = {},
+	-- 		inactive_winbar = {},
+	-- 		winbar = {},
+	-- 		extensions = { "fugitive", "nvim-tree", "quickfix" },
+	-- 	})
+	-- 	vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
+	-- 	vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
+	-- end,
 }
