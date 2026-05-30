@@ -15,12 +15,13 @@ Ghostty:
 - fzf machen dass man nicht nochmal enter drücken muss
 
 nvim:
+- default theme nicht mehr ayu sondern was besseres
+- von dressing zu snacks convertieren
+- gucken dass nichts deprecated ist
 - lualine schöner machen
 - gucken ob java jetzt geht
 - gute themes raussuchen
-- noch mehr debloaten => auch remaps usw
-
-
+- noch mehr debloaten => auch remaps usw => alle plugins und files nochmal durchgehen
 
 dev-env:
 - komplette config debloaten => nicht mehr dieses mehr = besser mindset
