@@ -27,3 +27,6 @@ kümmer muss => gucken wie viel performance das gnaze wirklich kostet
 
 - machen dass der cursor schneller schneller wird (generell das ganze nochmal finalisieren damit man noch mbiler ist)
 
+
+
+- messaging system

@@ -39,8 +39,8 @@ tooltip label {
 }
 
 #workspaces button.active {
-    color: @foreground;
-    background: @select;
+    color: @blue;
+    background: transparent;
     border-color: @blue;
 }
 
@@ -49,25 +49,31 @@ tooltip label {
     border-color: @red;
 }
 
-#network,
-#battery,
-#pulseaudio,
-#clock,
-#custom-power {
-    background: @background;
+#cpu,
+#memory,
+#network {
+    color: @green;
+    background: rgba(170, 217, 76, 0.08);
+    border: 1px solid rgba(170, 217, 76, 0.22);
     border-radius: 6px;
-    margin: 4px 5px;
-    padding: 0 11px;
+    margin: 4px 4px;
+    padding: 0 10px;
 }
 
 #network {
     color: @green;
     background: transparent;
-    padding: 0 9px;
+    border-color: transparent;
+    padding: 0 10px;
 }
 
 #battery {
     color: @yellow;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    margin: 4px 4px;
+    padding: 0 10px;
 }
 
 #battery.warning {
@@ -79,21 +85,31 @@ tooltip label {
 }
 
 #pulseaudio {
-    color: @blue;
+    color: @foreground;
     background: transparent;
-    padding: 0 9px;
+    border: none;
+    margin: 0 22px 0 0;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 800;
 }
 
 #clock {
     color: @foreground;
     background: transparent;
-    font-weight: 800;
-    padding: 0 14px;
+    border: none;
+    margin: 0 14px 0 0;
+    font-weight: 900;
+    font-size: 16px;
+    padding: 0;
 }
 
 #custom-power {
     color: @red;
     background: transparent;
-    margin-right: 12px;
-    padding: 0 10px;
+    border: none;
+    margin: 0 14px 0 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 900;
 }

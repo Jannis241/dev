@@ -6,19 +6,29 @@
 
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "battery", "pulseaudio", "custom/power"],
+    "modules-right": ["pulseaudio", "custom/power"],
 
     "hyprland/workspaces": {
         "format": "{name}"
     },
 
     "network": {
-        "format-wifi": "",
-        "format-ethernet": "󰈀",
-        "format-linked": "",
-        "format-disconnected": "",
+        "format-wifi": "󰤨  {signalStrength}%",
+        "format-ethernet": "󰈀  LAN",
+        "format-linked": "󰌙  LINK",
+        "format-disconnected": "󰤭  OFF",
         "tooltip-format-wifi": "{essid}",
         "tooltip": true
+    },
+
+    "cpu": {
+        "interval": 2,
+        "format": "  {usage}%"
+    },
+
+    "memory": {
+        "interval": 2,
+        "format": "  {percentage}%"
     },
 
     "battery": {
@@ -27,15 +37,15 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-charging": " {capacity}%",
+        "format": "{icon}  {capacity}%",
+        "format-plugged": "󰂄  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
         "format-icons": ["", "", "", "", ""]
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "",
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰝟  MUT",
         "format-icons": {
             "headphone": "",
             "headset": "",
