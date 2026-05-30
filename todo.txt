@@ -1,12 +1,32 @@
-- bei ghostty so machen dass man den ganzen path sieht
-- machen dass man wenn man fzf ntuzt nicht nochmal enter drücken muss sondern direkt da ist
-
-nvim
-- siehe nvim todo liste
-
-waybar:
-- schöner machen
-- bisschen cleaner und moderner
-=> nach inspiration gucken
-
+Scripts:
 - dev env script fixxen dass es manchmal nicht geht
+
+Rofi:
+- schöner machen
+
+Waybar:
+- cleaner machen
+- nach inspiration gucken
+- so im style wie nvim machen
+
+Ghostty:
+- path im prompt anzeigen
+- generell schöner machen
+- fzf machen dass man nicht nochmal enter drücken muss
+
+nvim:
+- lualine schöner machen
+- gucken ob java jetzt geht
+- gute themes raussuchen
+- noch mehr debloaten => auch remaps usw
+
+
+
+dev-env:
+- komplette config debloaten => nicht mehr dieses mehr = besser mindset
+=> wirklich gucken ob auch dieses: config soll runnen auch wenn man nichts installeirt hat
+wirklich so gut ist und ob man diese dinge in configs wie nvim oder sowas handeln sollte oder
+ob ich wirklich lieber einfach ein script mache was man halt ausführen kann und dass nvim sich nicht darum
+kümmer muss => gucken wie viel performance das gnaze wirklich kostet
+
+

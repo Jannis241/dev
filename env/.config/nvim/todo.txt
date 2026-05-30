@@ -1,4 +1,0 @@
-- lual ine schöner machen
-- gucken ob java jetzt geht
-- gute themes raussuchen
-
