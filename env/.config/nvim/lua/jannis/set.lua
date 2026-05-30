@@ -1,3 +1,6 @@
+-- nvim auf englisch setzen
+pcall(vim.cmd, "language messages C")
+pcall(vim.cmd, "language ctype C.UTF-8")
 
 vim.g.mapleader = " "
 vim.opt.guicursor = ""

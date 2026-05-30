@@ -1,9 +1,9 @@
-font-family = "FiraCode Nerd Font Mono"
+# font-family = "FiraCode Nerd Font Mono"
 # font-family = "JetBrainsMono Nerd Font"
 # font-family = Iosevka Nerd Font
 # font-family = SFMono Nerd Font
 # font-family = BerkeleyMono Nerd Font
-# font-family = Meslo #(hatte ich eigentlich immer)
+font-family = Meslo
 # font-family = Square Sans Mono
 
 keybind = ctrl+c=copy_to_clipboard
