@@ -1,10 +1,4 @@
-- auf englisch machen
-- line schöner machen
-- debloaten (plugins und zb auch keybinds)
-- neo tree besser machen
-- terminal bekommen
+- lual ine schöner machen
 - gucken ob java jetzt geht
 - gute themes raussuchen
-- schneller und leichter files erstellen und moven könnten (das mit neotree ist echt ahh)
-- alle unnötigen plugins löschen
-- bei TODO null bug fixxen
+
