@@ -10,6 +10,7 @@ nvim:
 ghostty:
 - bisschen schöner machen (besonders den hintergrund)
 - comic font
+- hintergründ geiler machen
 - font bisschen größer
 
 waybar:
