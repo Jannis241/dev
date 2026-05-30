@@ -2,7 +2,7 @@
 
 * {
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     min-height: 0;
 }
@@ -16,28 +16,37 @@ window#waybar {
 tooltip {
     background: @background;
     border: 1px solid @select;
+    border-radius: 6px;
+}
+
+tooltip label {
+    padding: 6px 10px;
 }
 
 #workspaces button {
     color: @gray;
-    padding: 0 8px;
-    margin: 0;
-    border-bottom: 2px solid transparent;
+    background: transparent;
+    padding: 0 9px;
+    margin: 5px 2px;
+    border-radius: 6px;
+    border: 1px solid transparent;
 }
 
 #workspaces button:hover {
     color: @foreground;
     background: transparent;
+    border-color: @select;
 }
 
 #workspaces button.active {
     color: @foreground;
-    border-bottom-color: @blue;
+    background: @select;
+    border-color: @blue;
 }
 
 #workspaces button.urgent {
     color: @red;
-    border-bottom-color: @red;
+    border-color: @red;
 }
 
 #network,
@@ -45,12 +54,16 @@ tooltip {
 #pulseaudio,
 #clock,
 #custom-power {
-    margin: 0 5px;
-    padding: 0 4px;
+    background: @background;
+    border-radius: 6px;
+    margin: 4px 5px;
+    padding: 0 11px;
 }
 
 #network {
     color: @green;
+    background: transparent;
+    padding: 0 9px;
 }
 
 #battery {
@@ -67,13 +80,20 @@ tooltip {
 
 #pulseaudio {
     color: @blue;
+    background: transparent;
+    padding: 0 9px;
 }
 
 #clock {
     color: @foreground;
+    background: transparent;
+    font-weight: 800;
+    padding: 0 14px;
 }
 
 #custom-power {
     color: @red;
-    margin-right: 10px;
+    background: transparent;
+    margin-right: 12px;
+    padding: 0 10px;
 }

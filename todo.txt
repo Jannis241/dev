@@ -1,17 +1,12 @@
-Scripts:
-- dev env script fixxen dass es manchmal nicht geht
-
 Rofi:
 - schöner machen
 
 Waybar:
 - cleaner machen
-- nach inspiration gucken
-- so im style wie nvim machen
 
 Ghostty:
-- path im prompt anzeigen
-- generell schöner machen
+- prompt schöner machen
+- aussehen generell verbessern
 - fzf machen dass man nicht nochmal enter drücken muss
 
 nvim:
@@ -30,4 +25,5 @@ wirklich so gut ist und ob man diese dinge in configs wie nvim oder sowas handel
 ob ich wirklich lieber einfach ein script mache was man halt ausführen kann und dass nvim sich nicht darum
 kümmer muss => gucken wie viel performance das gnaze wirklich kostet
 
+- machen dass der cursor schneller schneller wird (generell das ganze nochmal finalisieren damit man noch mbiler ist)
 

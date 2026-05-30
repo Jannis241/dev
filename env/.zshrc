@@ -20,7 +20,7 @@ fi
 
 # Prompt: always show the current path. `%~` keeps `$HOME` readable as `~`.
 # Swap `%~` for `%d` if you want the absolute path, or `%c` for only the last directory.
-PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg_bold[white]%}>%{$reset_color%} '
+# PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} $(git_prompt_info)%{$fg_bold[white]%}>%{$reset_color%} '
 
 # Prompt experiments:
 # PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%}
