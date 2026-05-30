@@ -51,6 +51,8 @@ linux-lts-headers
 loupe
 lua51
 luarocks
+man-db
+man-pages
 mousepad
 nano
 nasm

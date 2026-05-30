@@ -203,4 +203,3 @@ $PROJECT_NAME
 EOF
 
 echo "Created C project '$PROJECT_NAME'"
-echo

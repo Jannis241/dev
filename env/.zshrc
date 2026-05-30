@@ -8,6 +8,9 @@ unset PROMPT_EOL_MARK
 
 plugins=(git)
 
+cman() {
+  man -P "less -S" 3 "$@"
+}
 
 alias x='chmod +x'
 
