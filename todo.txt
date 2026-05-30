@@ -1,25 +1,21 @@
 nvim:
-- java funktioniert nicht
-- bei todo gibt es teilweise error: Direkt nach "Todo" kommt index error oder so
-- config bessser machen: schnell scripts ausführen können und neue dateien erstellen etc wie "magicalbat", besser als dieses tree system
-- vielleicht offene file buffers anzeigen
-- lualine shcöner machen
-- besseres theme suchen
-- neovim hintergrund besser machen
-- für c besser machen: mehr warnings anzeigen
+- java fixxen
+- minimalistischer machen => richtung vim => nur das was ich wirklich brauche => nicht so vscode mäßig
+- besseres Theme + Hintergrund
+- Warnings und Errors besser machen (pro Sprache bestimmte anzeigen)
+- terminal leichter öffnen möglich machen (:term) => sodass man nicht immer workspace switchen muss etc
+- schneller leichter files erstellen können durch commands anstatt in diesem kack neotree (der ist eh ahhh)
+- bei "TODO" gibt es teilweise irgendwie so einen null error
 
 ghostty:
 - bisschen schöner machen (besonders den hintergrund)
+- comic font
+- font bisschen größer
 
 waybar:
 - schöner machen
 - bisschen cleaner und moderner
 => nach inspiration gucken
 
-
-
 hyperland:
-- window size ienstlelen können
-
-
-C makefile optimieren
+- window size eisntellen können
