@@ -2,7 +2,6 @@ vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
-vim.opt.showmode = false
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
@@ -27,27 +26,9 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 7
 vim.opt.sidescrolloff = 10
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
-vim.g.rustaceanvim = {
-	server = {
-		on_attach = function(client, bufnr) end,
-		settings = {
-			["rust-analyzer"] = {
-				checkOnSave = true,
-				inlayHints = {
-					lifetimeElisionHints = { enable = true, useParameterNames = true },
-					parameterHints = true,
-					typeHints = true,
-					chainingHints = true,
-				},
-			},
-		},
-	},
-	dap = {},
-	tools = {},
-}

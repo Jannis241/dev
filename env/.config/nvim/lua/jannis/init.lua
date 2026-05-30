@@ -21,6 +21,60 @@ vim.opt.rtp:prepend(lazypath)
 
 require("jannis.set")
 
+vim.opt.guicursor = ""
+
+vim.opt.nu = true
+vim.opt.relativenumber = true
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
+
+vim.opt.wrap = false
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+vim.opt.termguicolors = true
+
+vim.opt.scrolloff = 7
+vim.opt.sidescrolloff = 10
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
+
+vim.opt.updatetime = 50
+vim.g.rustaceanvim = {
+	server = {
+		on_attach = function(client, bufnr) end,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = true,
+				inlayHints = {
+					lifetimeElisionHints = { enable = true, useParameterNames = true },
+					parameterHints = true,
+					typeHints = true,
+					chainingHints = true,
+				},
+			},
+		},
+	},
+	dap = {},
+	tools = {},
+}
+
+
 if vim.lsp and vim.lsp.get_buffers_by_client_id then
 	vim.lsp.get_buffers_by_client_id = function(client_id)
 		local client = vim.lsp.get_client_by_id(client_id)
@@ -119,7 +173,7 @@ require("lazy").setup("jannis.plugins", {
 		notify = false,
 	},
 })
-require("jannis.file_commands").setup()
+-- require("jannis.file_commands").setup()
 require("jannis.theme").setup()
 require("jannis.terminal").setup()
 
