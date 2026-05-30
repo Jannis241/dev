@@ -1,22 +1,12 @@
-nvim:
-- java fixxen
-- minimalistischer machen => richtung vim => nur das was ich wirklich brauche => nicht so vscode mäßig
-- besseres Theme + Hintergrund
-- Warnings und Errors besser machen (pro Sprache bestimmte anzeigen)
-- terminal leichter öffnen möglich machen (:term) => sodass man nicht immer workspace switchen muss etc
-- schneller leichter files erstellen können durch commands anstatt in diesem kack neotree (der ist eh ahhh)
-- bei "TODO" gibt es teilweise irgendwie so einen null error
+- bei ghostty so machen dass man den ganzen path sieht
+- machen dass man wenn man fzf ntuzt nicht nochmal enter drücken muss sondern direkt da ist
 
-ghostty:
-- bisschen schöner machen (besonders den hintergrund)
-- comic font
-- hintergründ geiler machen
-- font bisschen größer
+nvim
+- siehe nvim todo liste
 
 waybar:
 - schöner machen
 - bisschen cleaner und moderner
 => nach inspiration gucken
 
-hyperland:
-- window size eisntellen können
+- dev env script fixxen dass es manchmal nicht geht

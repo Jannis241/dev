@@ -8,7 +8,7 @@ return {
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
-				theme = "ayu_dark",
+				theme = "auto",
 				component_separators = "",
 				section_separators = "",
 				globalstatus = true,
