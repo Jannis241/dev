@@ -1,9 +1,10 @@
--- vim.opt.guicursor = ""
+
+vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.g.rustfmt_autosave = 1
+-- vim.g.rustfmt_autosave = 1
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
@@ -52,3 +53,4 @@ vim.g.rustaceanvim = {
 	dap = {},
 	tools = {},
 }
+
