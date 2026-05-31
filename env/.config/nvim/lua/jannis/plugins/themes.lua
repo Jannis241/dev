@@ -171,7 +171,7 @@ return {
 				},
 				disable_background = true,
 				styles = {
-                    bold = false,
+					bold = false,
 					italic = false,
 					transparency = true,
 				},

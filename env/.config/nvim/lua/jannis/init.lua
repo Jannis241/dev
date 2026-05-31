@@ -17,4 +17,3 @@ require("lazy").setup("jannis.plugins", {
 require("jannis.theme").setup()
 require("jannis.terminal").setup()
 require("jannis.remap")
-

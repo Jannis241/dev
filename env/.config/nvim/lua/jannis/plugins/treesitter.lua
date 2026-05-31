@@ -23,20 +23,8 @@ return {
 		lazy = false,
 		config = function()
 			local ts = require("nvim-treesitter")
-			local ts_config = require("nvim-treesitter.config")
-			local parsers = require("nvim-treesitter.parsers")
 
 			ts.setup({})
-
-			parsers.templ = {
-				install_info = {
-					url = "https://github.com/vrischmann/tree-sitter-templ.git",
-					files = { "src/parser.c", "src/scanner.c" },
-					branch = "master",
-				},
-			}
-
-			vim.treesitter.language.register("templ", "templ")
 
 			local ensure_installed = {
 				"vimdoc",
@@ -48,17 +36,16 @@ return {
 				"go",
 				"java",
 				"cpp",
-				"templ",
 			}
 
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "VeryLazy",
 				callback = function()
-					local missing = ts_config.norm_languages(ensure_installed, { installed = true })
-
-					if #missing > 0 then
-						ts.install(missing)
+					if #vim.api.nvim_list_uis() == 0 then
+						return
 					end
+
+					pcall(ts.install, ensure_installed)
 				end,
 			})
 
@@ -76,7 +63,9 @@ return {
 					end
 
 					pcall(vim.treesitter.start, args.buf, lang)
-					vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					if pcall(require, "nvim-treesitter") then
+						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
 				end,
 			})
 		end,

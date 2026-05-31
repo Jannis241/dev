@@ -37,7 +37,31 @@ return {
 		capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 		local interactive = #vim.api.nvim_list_uis() > 0
-		local jdtls_java_home = vim.env.JDTLS_JAVA_HOME
+		local jdtls_java_home = vim.env.JDTLS_JAVA_HOME ~= "" and vim.env.JDTLS_JAVA_HOME
+			or vim.env.JAVA_HOME ~= "" and vim.env.JAVA_HOME
+			or nil
+
+		local function java_root(bufnr, on_dir)
+			local name = vim.api.nvim_buf_get_name(bufnr)
+			if name == "" then
+				on_dir(vim.uv.cwd())
+				return
+			end
+
+			local root = vim.fs.root(bufnr, {
+				"mvnw",
+				"gradlew",
+				"settings.gradle",
+				"settings.gradle.kts",
+				"build.xml",
+				"pom.xml",
+				"build.gradle",
+				"build.gradle.kts",
+				".git",
+			})
+
+			on_dir(root or vim.fs.dirname(name))
+		end
 
 		require("fidget").setup()
 		if interactive then
@@ -46,6 +70,7 @@ return {
 				ensure_installed = {
 					"black",
 					"google-java-format",
+					"jdtls",
 					"rust-analyzer",
 					"shellcheck",
 					"shfmt",
@@ -82,11 +107,8 @@ return {
 				cmd_env = jdtls_java_home and jdtls_java_home ~= "" and {
 					JAVA_HOME = jdtls_java_home,
 				} or nil,
-				root_markers = {
-					{ "mvnw", "gradlew", "settings.gradle", "settings.gradle.kts", ".git" },
-					{ "build.xml", "pom.xml", "build.gradle", "build.gradle.kts" },
-					"src",
-				},
+				root_dir = java_root,
+				workspace_required = false,
 			},
 			clangd = {
 				init_options = {
@@ -106,16 +128,16 @@ return {
 			end
 		end
 
+		if vim.lsp.enable then
+			vim.lsp.enable(servers)
+		end
+
 		if interactive then
 			require("mason-lspconfig").setup({
 				-- Rust is handled by rustaceanvim. Do not let mason-lspconfig
 				-- auto-enable a second rust_analyzer client.
 				ensure_installed = servers,
-				automatic_enable = {
-					exclude = {
-						"rust_analyzer",
-					},
-				},
+				automatic_enable = false,
 			})
 		end
 

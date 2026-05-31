@@ -9,8 +9,8 @@ function M.setup()
 
 	local function completion_widths()
 		return {
-			abbr = math.max(16, math.min(42, math.floor(vim.o.columns * 0.26))),
-			menu = math.max(8, math.min(24, math.floor(vim.o.columns * 0.14))),
+			abbr = math.max(14, math.min(34, math.floor(vim.o.columns * 0.22))),
+			menu = math.max(7, math.min(16, math.floor(vim.o.columns * 0.10))),
 		}
 	end
 
@@ -38,7 +38,7 @@ function M.setup()
 				follow_cursor = false,
 			},
 			docs = {
-				auto_open = true,
+				auto_open = false,
 			},
 		},
 		formatting = {
@@ -53,7 +53,7 @@ function M.setup()
 					end,
 				},
 				ellipsis_char = "...",
-				show_labelDetails = true,
+				show_labelDetails = false,
 				before = function(_, vim_item)
 					return vim_item
 				end,
@@ -68,13 +68,20 @@ function M.setup()
 			["<tab>"] = cmp.mapping.confirm({ select = true }),
 			["<enter>"] = cmp.mapping.confirm({ select = true }),
 			["<C-Space>"] = cmp.mapping.complete(),
+			["<C-d>"] = cmp.mapping(function()
+				if cmp.visible_docs() then
+					cmp.close_docs()
+				else
+					cmp.open_docs()
+				end
+			end, { "i", "s" }),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		}),
 		window = {
 			completion = bordered_window({
 				border = cmp_border,
-				max_height = 12,
+				max_height = 8,
 				side_padding = 1,
 				scrollbar = false,
 				winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
