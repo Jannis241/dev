@@ -33,7 +33,7 @@ return {
 				"rust",
 				"python",
 				"bash",
-				"go",
+				-- "go",
 				"java",
 				"cpp",
 			}
