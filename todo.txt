@@ -6,7 +6,6 @@ Dev-Env
 - komplette config debloaten und gucken ob es noch unnötige settings gibt
 
 nvim:
-- Oil angucken
 - Mac testen
 - Themes debloaten
     - nur die besten behalten

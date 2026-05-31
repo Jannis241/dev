@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set({ "n", "v" }, "<C-y>", '"+y', { noremap = true, silent = true })
 vim.keymap.set({ "n", "v", "i" }, "<C-a>", "<esc>gg_vG$", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>pv", ":Neotree<CR>")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<leader>f", function()

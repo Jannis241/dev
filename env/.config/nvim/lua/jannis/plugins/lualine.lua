@@ -29,7 +29,7 @@ return {
 	-- 			lualine_y = {},
 	-- 			lualine_z = {},
 	-- 		},
-	-- 		extensions = { "neo-tree", "quickfix" },
+	-- 		extensions = { "quickfix" },
 	-- 	})
 	-- end,
 }
