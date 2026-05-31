@@ -17,7 +17,7 @@ if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
 	source "$ZSH/oh-my-zsh.sh"
 fi
 
-PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} $(git_prompt_info)'
+# PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} $(git_prompt_info)'
 # PROMPT='%{$fg_bold[green]%}%n@%m%{$reset_color%} %{$fg_bold[blue]%}%~%{$reset_color%} $(git_prompt_info)'
 
 if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then

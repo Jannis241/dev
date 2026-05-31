@@ -1,28 +1,39 @@
-Waybar:
+Dev-Env
+- Thunar cleaner machen
+- Bild anzeigen leicher machen
+- Wallpaper leichter zu ändern machen
+- Wlogout raus?
+- komplette config debloaten und gucken ob es noch unnötige settings gibt
+=> generell würde ich sagen Waybar, Rofi, Dunst in so einem modernen, mac style
+=> nvim eher wie vim aber mit nicen features
+
+Rofi
+- cleaner und moderner machen
+
+Dunst
 - besser machen
 
-Ghostty:
-- prompt schöner machen
-- aussehen generell verbessern
-- fzf machen dass man nicht nochmal enter drücken muss
-- font?
-- hintergrund druchsichtig?
+Waybar:
+- Besser machen 
 
 nvim:
-- von dressing zu snacks convertieren
-- neotree irgendwie besser machen / alternative finden
-- gucken dass nichts deprecated ist
-- lualine schöner machen
-- java fixxen
-- themes debloaten, nur die besten behalten, gute raussuchen, default theme richtig setzten
-    => bei den guten dann auch die font einstellungen richtig machen
-- debloaten, unkomplizierter machen 
-- gucken welche plugins unnötig sind
+- Dressing -> Snacks upgraden
+- Neotree verbessern / erstetzen
+- Diesen Balken links weg bekommen
+- Java fixxen
+- Depcrated
+- Treesitter hat auf mac irgendwie nicht funktioniert => gucken ob das ganze wirklich portable ist
+    => Noch nach Fehler suchen von meinem Versuch alles automatisch in neovim zu installieren
+- Autocompletion
+    - minimalistischer
+    - nicht zu groß
+    - Dokumentation nicht automatisch zeigen
+- Debloaten
+    - jede config einmal durchgehen und so komische sachen löschen
+    - plugins gucken ob ich die wirklich brauche
+        => sodass man nicht erstmal 1000 plugins runterladen muss mit weiteren 100 dependencies wenn man die config ausführt
+- Themes debloaten
+    - nur die besten behalten
+    - neue gute raussuchen
+    - jeweils die custom Einstellungen richtig machen
 
-dev-env:
-- komplette config debloaten => nicht mehr dieses mehr = besser mindset
-=> wirklich gucken ob auch dieses: config soll runnen auch wenn man nichts installeirt hat
-wirklich so gut ist und ob man diese dinge in configs wie nvim oder sowas handeln sollte oder
-ob ich wirklich lieber einfach ein script mache was man halt ausführen kann und dass nvim sich nicht darum
-kümmer muss => gucken wie viel performance das gnaze wirklich kostet
-- messaging system cleaner
