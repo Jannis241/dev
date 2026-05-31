@@ -6,36 +6,9 @@ Dev-Env
 - komplette config debloaten und gucken ob es noch unnötige settings gibt
 
 nvim:
-- Dressing -> Snacks upgraden
-- Neotree verbessern / erstetzen
-- Diesen Balken links weg bekommen
-- Java fixxen
-- Depcrated
-- Treesitter hat auf mac irgendwie nicht funktioniert => gucken ob das ganze wirklich portable ist
-    => Noch nach Fehler suchen von meinem Versuch alles automatisch in neovim zu installieren
-- Autocompletion
-    - minimalistischer
-    - nicht zu groß
-    - Dokumentation nicht automatisch zeigen
-- Debloaten
-    - jede config einmal durchgehen und so komische sachen löschen
-    - plugins gucken ob ich die wirklich brauche
-        => sodass man nicht erstmal 1000 plugins runterladen muss mit weiteren 100 dependencies wenn man die config ausführt
+- Oil angucken
+- Mac testen
 - Themes debloaten
     - nur die besten behalten
     - neue gute raussuchen
     - jeweils die custom Einstellungen richtig machen
-
-Erklärungen in text form:
-Verbesser nun außerdem meine Neovim config. Erstelle dafür erneut einen Plan. Ich möchte: Von dem dressing plugin zu dem snacks plugin convetieren (weil das so von dem)
-author von dressing genannt wurde, da dressing archived ist ab jetzt. Dazu möchte ich neotree verbessern. Ich bin unzufrieden mit dem moven löschen und erstellen von files, außerdem dauert es teilweise
-lange in tiefe directories zu navigieren. Das aussehen finde ich gut. Ich bin mir selber nicht ganz sicher wie ich es haben will, gib mir verschiedene ideen und stelle mir fragen mit dessen antowrten du mir neotree perfekt machen kann
-Dazu ist irgendwie links neben den line numbers so eine bar in einer andere farbe (die farbe hängt halt von theme ab), woran liegt das und wie könnte ich es beheben (tu dies noch nicht, beschreibe mir erstmal wie es gehen würde und ich entscheide dann ob ich es entfernen möchte odder nicht)
-Anschließend habe ich ein großes Problem mit java, ich habe kein formatting und keine autocompletion. Fixxe das alles, irgnedwie ist java einfach kompeltt kaputt, vielleicht liegt es auch an einer fehlenden / falsches / doppelten installation von java auf meinem pc.
-Dazu hatte ich heute wo ich diese config auf einem frischen mac geladen hatte irgendwie einen error in treesitter dass irgendiwe nvim-treesitter.config oder sowas nicht existiert , vielleicht war das auch was anderes aber halt irgendwas in meiner treesitter config hat auf frischen systemene nicht funktioniert.
-Dazu möchte ich die Autocompletion etwas minimalistischer haltne. das aussehen etc finde ich gut aber es sollte nicht mehr so fett und so viel angezeigt werden, erstmal einfach nur die autocompletion und halt zb was für ein typ das ist also int funktion float string etc
-und zb die ganze documentation etc soll dann erst nach dem man zb einen remap gedrückt hat angezeigt werden. ich finde die autocompletion halt eigentlich gut wie sie ist, sie ist nur teilweise overwhelming weil so viel angzeigt wird (also viele möglichkeiten und dann zu den möglihzckeiten noch viele infos)
-Außerdem möchte ich meine neovim config auch debloaten, suche nach unnötigem stuff aber lösche erstmal noch nichts / refactor noch nichts, gib mir ideen wie ich die config kleiner und simpler halten könnte und halt einfach debloaten könnte.
-Nenne mir außerdem eventuelle unnötige plugins.
-
-
