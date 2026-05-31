@@ -3,11 +3,12 @@ Dev-Env
 - Bild anzeigen leicher machen
 - Wallpaper leichter zu ändern machen
 - Wlogout raus => nutze ich eh nicht
-- komplette config debloaten und gucken ob es noch unnötige settings gibt
 - Network und Sound einstellungen schöner machen (nciht mehr dieses default ding)
 
 nvim:
+- manchmal beendet nvim nicht richtig
 - Mac testen
+- c formatting => andere sprachen auch testen
 - Themes debloaten
     - nur die besten behalten
     - neue gute raussuchen
