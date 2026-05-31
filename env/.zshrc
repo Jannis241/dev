@@ -2,8 +2,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="awesomepanda"
+ZSH_THEME="robbyrussell"
 unset PROMPT_EOL_MARK
 
 plugins=(git)
