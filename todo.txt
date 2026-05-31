@@ -4,6 +4,7 @@ Dev-Env
 - Wallpaper leichter zu ändern machen
 - Wlogout raus => nutze ich eh nicht
 - komplette config debloaten und gucken ob es noch unnötige settings gibt
+- Network und Sound einstellungen schöner machen (nciht mehr dieses default ding)
 
 nvim:
 - Mac testen

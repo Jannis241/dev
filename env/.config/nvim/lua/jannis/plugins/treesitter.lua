@@ -62,8 +62,8 @@ return {
 						return
 					end
 
-					pcall(vim.treesitter.start, args.buf, lang)
-					if pcall(require, "nvim-treesitter") then
+					local started = pcall(vim.treesitter.start, args.buf, lang)
+					if started and pcall(require, "nvim-treesitter") then
 						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 					end
 				end,

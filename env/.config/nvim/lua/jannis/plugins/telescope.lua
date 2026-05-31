@@ -40,7 +40,13 @@ return {
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+			cond = function()
+				return require("jannis.requirements").can_build_native()
+			end,
+		},
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
 
@@ -100,8 +106,7 @@ return {
 			},
 		})
 
-		-- Extensions laden
-		telescope.load_extension("fzf")
-		telescope.load_extension("ui-select")
+		pcall(telescope.load_extension, "fzf")
+		pcall(telescope.load_extension, "ui-select")
 	end,
 }

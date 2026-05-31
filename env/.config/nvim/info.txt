@@ -1,0 +1,7 @@
+- Braucht nvim 0.12+
+- damit nichts outdated wird:
+    :checkhealth
+    :checkhealth vim.lsp
+    :Lazy check
+    :Lazy update
+     

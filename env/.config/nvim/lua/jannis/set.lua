@@ -2,15 +2,14 @@
 pcall(vim.cmd, "language messages C")
 pcall(vim.cmd, "language ctype C.UTF-8")
 
-
 -- Macht die default neovim "lualine" transparent
 vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
 vim.api.nvim_create_autocmd("ColorScheme", {
-    callback = function()
-        vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
-    end,
+	callback = function()
+		vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+	end,
 })
 
 vim.g.mapleader = " "
@@ -33,7 +32,7 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = require("jannis.requirements").undo_dir()
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false

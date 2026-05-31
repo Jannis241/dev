@@ -1,4 +1,5 @@
 require("jannis.bootstrap").lazy()
+require("jannis.requirements").setup()
 require("jannis.set")
 require("jannis.lsp")
 
