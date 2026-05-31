@@ -366,6 +366,36 @@ return {
 		end,
 	},
 	{
+		"ring0-rootkit/ring0-dark.nvim",
+		name = "ring0-dark",
+		lazy = true,
+		priority = 1000,
+	},
+	{
+		"dgox16/oldworld.nvim",
+		name = "oldworld",
+		lazy = true,
+		priority = 1000,
+		opts = {
+			transparent = true,
+		},
+	},
+	{
+		"ishan9299/modus-theme-vim",
+		name = "modus-theme-vim",
+		lazy = true,
+		priority = 1000,
+	},
+	{
+		"kvrohit/substrata.nvim",
+		name = "substrata",
+		lazy = true,
+		priority = 1000,
+		init = function()
+			vim.g.substrata_transparent = true
+		end,
+	},
+	{
 		"challenger-deep-theme/vim",
 		name = "challenger-deep",
 		lazy = true,
