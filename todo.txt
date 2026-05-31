@@ -1,8 +1,5 @@
-Rofi:
-- schöner machen
-
 Waybar:
-- nicht so langweilig machen => nach inspiration suchen
+- besser machen
 
 Ghostty:
 - prompt schöner machen
