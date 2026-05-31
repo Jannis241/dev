@@ -5,10 +5,6 @@ Dev-Env
 - Wlogout raus => nutze ich eh nicht
 - komplette config debloaten und gucken ob es noch unnötige settings gibt
 
-Dunst
-- besser machen
-
-
 nvim:
 - Dressing -> Snacks upgraden
 - Neotree verbessern / erstetzen
@@ -30,6 +26,7 @@ nvim:
     - neue gute raussuchen
     - jeweils die custom Einstellungen richtig machen
 
+Erklärungen in text form:
 Verbesser nun außerdem meine Neovim config. Erstelle dafür erneut einen Plan. Ich möchte: Von dem dressing plugin zu dem snacks plugin convetieren (weil das so von dem)
 author von dressing genannt wurde, da dressing archived ist ab jetzt. Dazu möchte ich neotree verbessern. Ich bin unzufrieden mit dem moven löschen und erstellen von files, außerdem dauert es teilweise
 lange in tiefe directories zu navigieren. Das aussehen finde ich gut. Ich bin mir selber nicht ganz sicher wie ich es haben will, gib mir verschiedene ideen und stelle mir fragen mit dessen antowrten du mir neotree perfekt machen kann
