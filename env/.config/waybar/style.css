@@ -1,115 +1,85 @@
 @import "../colors/colors.css";
 
 * {
+    border: none;
+    border-radius: 0;
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 17px;
+    font-size: 13px;
     font-weight: 600;
     min-height: 0;
 }
 
 window#waybar {
-    background: @background2;
+    background: rgba(15, 20, 25, 0.96);
     color: @foreground;
-    border-bottom: 1px solid @select;
+    border-bottom: 1px solid rgba(37, 51, 64, 0.82);
 }
 
 tooltip {
-    background: @background;
+    background: rgba(15, 20, 25, 0.96);
     border: 1px solid @select;
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 tooltip label {
     padding: 6px 10px;
+    color: @foreground;
+}
+
+#workspaces {
+    margin-left: 10px;
 }
 
 #workspaces button {
     color: @gray;
     background: transparent;
-    padding: 0 9px;
-    margin: 5px 2px;
+    padding: 0 8px;
+    margin: 6px 1px;
     border-radius: 6px;
-    border: 1px solid transparent;
 }
 
 #workspaces button:hover {
     color: @foreground;
-    background: transparent;
-    border-color: @select;
+    background: rgba(37, 51, 64, 0.48);
 }
 
 #workspaces button.active {
-    color: @blue;
-    background: transparent;
-    border-color: @blue;
+    color: @foreground;
+    background: rgba(37, 51, 64, 0.78);
 }
 
 #workspaces button.urgent {
     color: @red;
-    border-color: @red;
-}
-
-#cpu,
-#memory {
-    color: @second;
-    background: transparent;
-    border: none;
-    margin: 0 14px 0 0;
-    padding: 0;
-    font-size: 17px;
-    font-weight: 800;
-}
-
-#network {
-    color: @second;
-    background: transparent;
-    border-color: transparent;
-    padding: 0 10px;
-}
-
-#battery {
-    color: @second;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 6px;
-    margin: 4px 4px;
-    padding: 0 10px;
-}
-
-#battery.warning {
-    color: @orange;
-}
-
-#battery.critical {
-    color: @red;
-}
-
-#pulseaudio {
-    color: @second;
-    background: transparent;
-    border: none;
-    margin: 0 22px 0 0;
-    padding: 0;
-    font-size: 15px;
-    font-weight: 800;
 }
 
 #clock {
     color: @foreground;
-    background: transparent;
-    border: none;
-    margin: 0 14px 0 0;
-    font-weight: 900;
-    font-size: 20px;
-    padding: 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+#network,
+#pulseaudio,
+#cpu,
+#memory,
+#custom-power {
+    color: @foreground;
+    padding: 0 9px;
+}
+
+#network,
+#cpu,
+#memory {
+    color: @gray;
+}
+
+#pulseaudio.muted {
+    color: @orange;
 }
 
 #custom-power {
     color: @red;
-    background: transparent;
-    border: none;
-    margin: 0 14px 0 0;
-    padding: 0;
-    font-size: 16px;
-    font-weight: 900;
+    padding-right: 14px;
 }
+
+
