@@ -10,7 +10,7 @@ usage() {
 Usage: update_script [update|cleanup|full] [--dry-run] [--yes]
 
 Modes:
-  update   Update pacman, AUR, Flatpak, rustup and optional Oh My Zsh.
+  update   Update pacman, AUR, Flatpak, rustup, optional Oh My Zsh and Neovim.
   cleanup  Remove orphan packages, prune caches conservatively and vacuum logs.
   full     Run update and cleanup.
 
@@ -30,6 +30,20 @@ run() {
     fi
 
     "$@"
+}
+
+run_in_dir() {
+    local dir="$1"
+    shift
+
+    if [[ "$dry_run" -eq 1 ]]; then
+        printf '[DRY RUN] cd %q &&' "$dir"
+        printf ' %q' "$@"
+        printf '\n'
+        return
+    fi
+
+    (cd "$dir" && "$@")
 }
 
 confirm() {
@@ -103,6 +117,37 @@ omz_update() {
     fi
 }
 
+nvim_update() {
+    local nvim_config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+    local mason_update_lua
+    local treesitter_update_lua
+
+    if ! command -v nvim >/dev/null 2>&1; then
+        echo "==> nvim nicht gefunden, Neovim update wird uebersprungen."
+        return
+    fi
+
+    if [[ ! -d "$nvim_config_dir" ]]; then
+        echo "==> Neovim config nicht gefunden: $nvim_config_dir"
+        return
+    fi
+
+    mason_update_lua='require("lazy").load({ plugins = { "mason.nvim", "mason-tool-installer.nvim" } }); require("mason").setup(); require("mason-tool-installer").setup({ ensure_installed = { "black", "google-java-format", "jdtls", "rust-analyzer", "shellcheck", "shfmt", "stylua", "lua-language-server", "pyright", "clangd" }, auto_update = true, run_on_start = false })'
+    treesitter_update_lua='local task = require("nvim-treesitter.install").update(nil, { summary = true }); local ok, err = task:pwait(); if not ok then error(err) end'
+
+    echo "==> Neovim lazy.nvim sync"
+    run_in_dir "$nvim_config_dir" nvim --headless "+Lazy! sync" "+qa"
+
+    echo "==> Neovim Mason registry and tools update"
+    run_in_dir "$nvim_config_dir" nvim --headless "+lua $mason_update_lua" "+MasonUpdate" "+MasonToolsUpdateSync" "+qa"
+
+    echo "==> Neovim Treesitter parser update"
+    run_in_dir "$nvim_config_dir" nvim --headless "+lua $treesitter_update_lua" "+qa"
+
+    echo "==> Neovim health check"
+    run_in_dir "$nvim_config_dir" nvim --headless "+checkhealth" "+qa"
+}
+
 remove_orphans() {
     local orphans
 
@@ -169,6 +214,7 @@ update_all() {
     flatpak_update
     rust_update
     omz_update
+    nvim_update
 }
 
 while [[ $# -gt 0 ]]; do
