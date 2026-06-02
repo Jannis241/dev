@@ -5,11 +5,12 @@ Dev-Env
 - Wlogout raus => nutze ich eh nicht
 - Network und Sound einstellungen schöner machen (nciht mehr dieses default ding)
 
+
 nvim:
 - manchmal beendet nvim nicht richtig
 - Mac testen
 - c formatting => andere sprachen auch testen
-- Themes debloaten
-    - nur die besten behalten
-    - neue gute raussuchen
-    - jeweils die custom Einstellungen richtig machen
+
+- real die commands verstehen wie man zb mass replaced oder sucht oder references findet
+- besser navigieren können mit diese ctrl d zb => maybe auf ctrl j k remappen => insgesamt ziel: maus gar nicht nutzen
+- quickfix liste verstehen, diesee built in sachen einfach
