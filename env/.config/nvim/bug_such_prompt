@@ -1,0 +1,64 @@
+Du arbeitest in meiner Neovim-Config-Sandbox unter:
+
+  /home/jannis/dev/env/.config/nvim
+
+  Wichtig: Diese Sandbox ist absichtlich NICHT direkt meine echte ~/.config/nvim. Ich ändere hier die
+  Config und kopiere sie danach manuell rüber. Behandle das also nicht als Bug.
+
+  Aufgabe:
+  Untersuche meine komplette Neovim-Config gründlich. Finde Bugs, kaputte Features, deprecated Optionen,
+  unnötige Warnungen, schlechte Patterns, mögliche Performance-Probleme, fehlende Tool-Konfigurationen,
+  falsche Lazy-Events, Healthcheck-Probleme, LSP-/Completion-/Formatting-Probleme und Dinge, die
+  robuster oder sauberer gelöst werden können.
+
+  Ziel:
+  Erstelle nur einen vollständigen Plan. Ändere noch keine Dateien.
+
+  Arbeitsweise:
+  - Lies zuerst die vorhandene Config und verstehe die Struktur.
+  - Nutze `rg`/`rg --files`, um schnell relevante Dateien zu finden.
+  - Prüfe relevante Dateien unter `lua/jannis/**`, `init.lua`, `lazy-lock.json` und Plugin-Specs.
+  - Führe sinnvolle Headless-Checks aus, z.B.:
+    - `nvim --headless '+qa!'`
+    - `nvim --headless '+checkhealth' '+qa!'`
+    - gezielte Checks für `vim.lsp`, `vim.deprecated`, `conform`, `snacks`, `nvim-treesitter`
+  - Wenn möglich, lies Healthcheck-Buffer-Inhalte aus, nicht nur den Shell-Output.
+  - Unterscheide echte Fehler von optionalen Warnungen.
+  - Prüfe insbesondere:
+    - Rust ohne Cargo-Projekt
+    - Rust Autocompletion
+    - C/C++ Formatting mit `<leader>f`
+    - LSP-Konfiguration
+    - `nvim-cmp`
+    - `rustaceanvim`
+    - `mason` / `mason-tool-installer`
+    - `conform.nvim`
+    - `crates.nvim`
+    - `snacks.nvim`
+    - Theme-System
+    - Lazy-loading Events
+    - deprecated Plugin-Optionen
+    - Startzeit-/Auto-Install-Auswirkungen
+
+  Bekannter aktueller Kontext:
+  - Ich möchte aktuell keine `lualine`, auch wenn eine Datei dafür existiert oder auskommentiert ist.
+  Das ist gewollt.
+  - Die Sandbox-Struktur ist gewollt.
+  - Änderungen sollen erst nach Rückfrage/Bestätigung gemacht werden.
+
+  Was du liefern sollst:
+  1. Eine priorisierte Liste aller gefundenen Probleme.
+  2. Für jedes Problem:
+     - Datei und möglichst genaue Stelle
+     - warum es ein Problem ist
+     - ob es ein echter Bug, Warning, optionales Feature oder Stil-/Robustheitsproblem ist
+     - konkrete Fix-Idee
+     - Risiko/Nebenwirkungen
+  3. Einen kompletten Umsetzungsplan in sinnvoller Reihenfolge.
+  4. Stelle Rückfragen, wenn etwas unklar ist.
+  5. Triff keine unbestätigten Annahmen über meine gewünschten Features. Wenn du nicht weißt, ob ich ein
+  Feature will, frage mich.
+  6. Ändere keine Dateien, bevor ich explizit sage, dass du den Plan implementieren sollst.
+
+  Sprache:
+  Antworte auf Deutsch, direkt und technisch präzise. Kein unnötiger Smalltalk.

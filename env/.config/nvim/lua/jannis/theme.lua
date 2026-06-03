@@ -266,6 +266,10 @@ function M.apply_float_highlights()
 	local context_bg = vim.o.background == "light" and "#eef2f7" or "#141b24"
 	local line_nr = color(comment.fg or type_hl.fg, vim.o.background == "light" and "#707070" or "#7c7c7c")
 
+	if not normal.fg then
+		vim.api.nvim_set_hl(0, "Normal", vim.tbl_extend("force", normal, { fg = fg }))
+	end
+
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = fg })
 	vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none", fg = border })
 	vim.api.nvim_set_hl(0, "FloatTitle", { bg = "none", fg = border, bold = true })
