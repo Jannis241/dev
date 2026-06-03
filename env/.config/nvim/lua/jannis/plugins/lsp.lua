@@ -69,6 +69,7 @@ return {
 			require("mason-tool-installer").setup({
 				ensure_installed = {
 					"black",
+					"clang-format",
 					"google-java-format",
 					"jdtls",
 					"rust-analyzer",

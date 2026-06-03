@@ -11,6 +11,7 @@ nvim:
 - Mac testen
 - c formatting => andere sprachen auch testen
 
+- generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden
 - real die commands verstehen wie man zb mass replaced oder sucht oder references findet
 - besser navigieren können mit diese ctrl d zb => maybe auf ctrl j k remappen => insgesamt ziel: maus gar nicht nutzen
 - quickfix liste verstehen, diesee built in sachen einfach

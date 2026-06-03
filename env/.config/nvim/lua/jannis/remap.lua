@@ -4,7 +4,7 @@ vim.keymap.set({ "n", "v", "i" }, "<C-a>", "<esc>gg_vG$", { noremap = true, sile
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<leader>f", function()
-	require("conform").format({ bufnr = 0 })
+	require("conform").format({ bufnr = 0, lsp_format = "fallback" })
 end)
 
 vim.keymap.set("n", "<leader>e", function()
