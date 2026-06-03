@@ -3,28 +3,29 @@ local M = {}
 function M.setup()
 	local cmp = require("cmp")
 	local lspkind = require("lspkind")
+	local ui = require("jannis.lsp.ui")
 
 	local cmp_select = { behavior = cmp.SelectBehavior.Select }
 	local cmp_confirm = { behavior = cmp.ConfirmBehavior.Insert, select = true }
-	local cmp_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-
-	local function completion_widths()
-		return {
-			abbr = math.max(14, math.min(34, math.floor(vim.o.columns * 0.22))),
-			menu = math.max(7, math.min(16, math.floor(vim.o.columns * 0.10))),
-		}
-	end
-
-	local function doc_width()
-		return math.max(24, math.min(70, math.floor(vim.o.columns * 0.40)))
-	end
-
-	local function doc_height()
-		return math.max(8, math.min(18, math.floor(vim.o.lines * 0.35)))
-	end
 
 	local function bordered_window(opts, extra)
 		return vim.tbl_extend("force", cmp.config.window.bordered(opts), extra or {})
+	end
+
+	local function select_or_scroll_docs(delta)
+		return cmp.mapping(function(fallback)
+			if cmp.visible_docs() then
+				cmp.scroll_docs(delta)
+			elseif cmp.visible() then
+				if delta > 0 then
+					cmp.select_next_item(cmp_select)
+				else
+					cmp.select_prev_item(cmp_select)
+				end
+			else
+				fallback()
+			end
+		end, { "i", "s" })
 	end
 
 	cmp.setup({
@@ -47,10 +48,10 @@ function M.setup()
 				mode = "symbol_text",
 				maxwidth = {
 					menu = function()
-						return completion_widths().menu
+						return ui.completion_widths().menu
 					end,
 					abbr = function()
-						return completion_widths().abbr
+						return ui.completion_widths().abbr
 					end,
 				},
 				ellipsis_char = "...",
@@ -64,8 +65,8 @@ function M.setup()
 			expand = function() end,
 		},
 		mapping = cmp.mapping.preset.insert({
-			["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
-			["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
+			["<C-k>"] = select_or_scroll_docs(-4),
+			["<C-j>"] = select_or_scroll_docs(4),
 			["<tab>"] = cmp.mapping.confirm(cmp_confirm),
 			["<enter>"] = cmp.mapping.confirm(cmp_confirm),
 			["<C-Space>"] = cmp.mapping.complete(),
@@ -81,22 +82,22 @@ function M.setup()
 		}),
 		window = {
 			completion = bordered_window({
-				border = cmp_border,
+				border = ui.border,
 				max_height = 8,
 				side_padding = 1,
 				scrollbar = false,
-				winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
+				winhighlight = ui.cmp_menu_winhighlight,
 				zindex = 1002,
 			}),
 			documentation = bordered_window({
-				border = cmp_border,
-				max_height = doc_height(),
+				border = ui.border,
+				max_height = ui.docs_size().max_height,
 				side_padding = 1,
 				scrollbar = false,
-				winhighlight = "Normal:CmpDocNormal,FloatBorder:CmpDocBorder",
+				winhighlight = ui.cmp_doc_winhighlight,
 				zindex = 1001,
 			}, {
-				max_width = doc_width(),
+				max_width = ui.docs_size().max_width,
 			}),
 		},
 		sources = cmp.config.sources({

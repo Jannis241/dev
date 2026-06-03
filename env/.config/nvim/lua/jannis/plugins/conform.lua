@@ -41,6 +41,13 @@ return {
 				lsp_format = "fallback",
 				timeout_ms = 3000,
 			},
+			formatters = {
+				["clang-format"] = {
+					prepend_args = {
+						"--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
+					},
+				},
+			},
 			format_on_save = function(bufnr)
 				if not format_on_save_filetypes[vim.bo[bufnr].filetype] then
 					return

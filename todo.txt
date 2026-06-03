@@ -9,7 +9,15 @@ Dev-Env
 (codex mal wieder maximaler slop, es ist zeit für einen rewerite) -> nvim wirklich versthen -> nvim wirklich versthen
 nvim:
 
+- ctrl h noch so eine box rum malen
+- docs scrollen angucken => docs eventuell bisschen größer weil wenn man das manuell öffnet will man es ja schon groß haben
+
+- clang formatting besser machen (tabs)
+
+- mehrfache cursor ??
+
 - Mac testen
+
 - generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden
 - real die commands verstehen wie man zb mass replaced oder sucht oder references findet
 - besser navigieren können mit diese ctrl d zb => maybe auf ctrl j k remappen => insgesamt ziel: maus gar nicht nutzen

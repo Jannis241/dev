@@ -471,24 +471,20 @@ function M.setup()
 		callback = M.apply_float_highlights,
 	})
 
+	local ui = require("jannis.lsp.ui")
+
 	local hover = vim.lsp.handlers.hover
 	vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
-		config = vim.tbl_deep_extend("force", config or {}, {
-			border = "rounded",
-			max_width = 100,
-			max_height = 26,
-		})
-		return hover(err, result, ctx, config)
+		local bufnr, win = hover(err, result, ctx, ui.lsp_float_config("hover", config))
+		ui.apply_lsp_float_style(win)
+		return bufnr, win
 	end
 
 	local signature_help = vim.lsp.handlers.signature_help
 	vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
-		config = vim.tbl_deep_extend("force", config or {}, {
-			border = "rounded",
-			max_width = 100,
-			max_height = 18,
-		})
-		return signature_help(err, result, ctx, config)
+		local bufnr, win = signature_help(err, result, ctx, ui.lsp_float_config("signature", config))
+		ui.apply_lsp_float_style(win)
+		return bufnr, win
 	end
 
 	vim.api.nvim_create_user_command("Theme", M.pick, { desc = "Change colorscheme" })
