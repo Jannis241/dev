@@ -352,7 +352,12 @@ function M.apply(theme, opts)
 	opts = opts or {}
 	theme = theme or saved_theme()
 
-	load_theme_plugin(theme)
+	local plugin_ok, plugin_err = pcall(load_theme_plugin, theme)
+	if not plugin_ok then
+		vim.notify("Theme plugin could not be loaded: " .. theme .. "\n" .. plugin_err, vim.log.levels.ERROR)
+		return
+	end
+
 	local ok, err = pcall(vim.cmd.colorscheme, theme)
 	if not ok then
 		vim.notify("Theme could not be loaded: " .. theme .. "\n" .. err, vim.log.levels.ERROR)

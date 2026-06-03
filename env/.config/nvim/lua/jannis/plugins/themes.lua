@@ -329,7 +329,10 @@ return {
 		lazy = true,
 		priority = 1000,
 		opts = {
-			transparent = true,
+			transparent = {
+				bg = true,
+				float = true,
+			},
 		},
 	},
 	{
