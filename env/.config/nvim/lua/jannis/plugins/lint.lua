@@ -13,7 +13,11 @@ return {
 		local group = vim.api.nvim_create_augroup("jannis_lint", { clear = true })
 		vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
 			group = group,
-			callback = function()
+			callback = function(args)
+				if not lint.linters_by_ft[vim.bo[args.buf].filetype] then
+					return
+				end
+
 				lint.try_lint()
 			end,
 		})

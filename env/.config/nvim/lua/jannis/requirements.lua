@@ -100,6 +100,19 @@ function M.undo_dir()
 	return vim.fn.stdpath("state") .. "/undo"
 end
 
+function M.mason_bin()
+	return vim.fn.stdpath("data") .. "/mason/bin"
+end
+
+function M.ensure_mason_bin_on_path()
+	local mason_bin = M.mason_bin()
+	local path = vim.env.PATH or ""
+
+	if not path:find(mason_bin, 1, true) then
+		vim.env.PATH = mason_bin .. ":" .. path
+	end
+end
+
 function M.ensure_directories()
 	mkdir(M.undo_dir())
 end
@@ -166,6 +179,7 @@ function M.report()
 end
 
 function M.setup()
+	M.ensure_mason_bin_on_path()
 	M.ensure_directories()
 
 	vim.api.nvim_create_user_command("Requirements", M.report, {

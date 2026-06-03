@@ -273,6 +273,8 @@ function M.apply_float_highlights()
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = fg })
 	vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none", fg = border })
 	vim.api.nvim_set_hl(0, "FloatTitle", { bg = "none", fg = border, bold = true })
+	vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
+	vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "none" })
 	vim.api.nvim_set_hl(0, "LineNr", { bg = "none", fg = line_nr })
 	vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "none", fg = border, bold = true })
 	vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
@@ -319,6 +321,8 @@ function M.apply_float_highlights()
 		"NormalFloat",
 		"FloatBorder",
 		"FloatTitle",
+		"StatusLine",
+		"StatusLineNC",
 	}) do
 		local existing = hl(name)
 		vim.api.nvim_set_hl(0, name, vim.tbl_extend("force", existing, { bg = "none" }))

@@ -8,9 +8,6 @@ Dev-Env
 
 (codex mal wieder maximaler slop, es ist zeit für einen rewerite) -> nvim wirklich versthen -> nvim wirklich versthen
 nvim:
-- rust geht nicht wenn man kein cargo nutzt
-- auto completion in rust ist kaputt (wenn ich enter bei autcompletion drücke wird einfach das wort gelöscht)
-- c formatting funktioniert nicht, (= geht aber wenn ich leader f drücke passiert einfach nichts)
 
 - Mac testen
 - generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden

@@ -2,16 +2,6 @@
 pcall(vim.cmd, "language messages C")
 pcall(vim.cmd, "language ctype C.UTF-8")
 
--- Macht die default neovim "lualine" transparent
-vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
-vim.api.nvim_create_autocmd("ColorScheme", {
-	callback = function()
-		vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
-		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
-	end,
-})
-
 vim.g.mapleader = " "
 vim.opt.guicursor = ""
 

@@ -20,21 +20,8 @@ return {
 	},
 
 	config = function()
-		local cmp_lsp = require("cmp_nvim_lsp")
+		local capabilities = require("jannis.lsp.capabilities").make()
 		local diagnostics = require("jannis.diagnostics")
-		local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
-
-		if not vim.env.PATH:find(mason_bin, 1, true) then
-			vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
-		end
-
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			cmp_lsp.default_capabilities()
-		)
-		capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 		local interactive = #vim.api.nvim_list_uis() > 0
 		local jdtls_java_home = vim.env.JDTLS_JAVA_HOME ~= "" and vim.env.JDTLS_JAVA_HOME
@@ -72,6 +59,7 @@ return {
 					"clang-format",
 					"google-java-format",
 					"jdtls",
+					"rust-analyzer",
 					"shellcheck",
 					"shfmt",
 					"stylua",
