@@ -72,7 +72,6 @@ return {
 					"clang-format",
 					"google-java-format",
 					"jdtls",
-					"rust-analyzer",
 					"shellcheck",
 					"shfmt",
 					"stylua",

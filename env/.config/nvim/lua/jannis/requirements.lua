@@ -97,11 +97,7 @@ local requirements = {
 }
 
 function M.undo_dir()
-	local home = vim.env.HOME
-	if not home or home == "" then
-		return vim.fn.stdpath("state") .. "/undo"
-	end
-	return home .. "/.vim/undodir"
+	return vim.fn.stdpath("state") .. "/undo"
 end
 
 function M.ensure_directories()

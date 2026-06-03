@@ -6,11 +6,13 @@ Dev-Env
 - Network und Sound einstellungen schöner machen (nciht mehr dieses default ding)
 
 
+(codex mal wieder maximaler slop, es ist zeit für einen rewerite) -> nvim wirklich versthen -> nvim wirklich versthen
 nvim:
-- manchmal beendet nvim nicht richtig
-- Mac testen
-- c formatting => andere sprachen auch testen
+- rust geht nicht wenn man kein cargo nutzt
+- auto completion in rust ist kaputt (wenn ich enter bei autcompletion drücke wird einfach das wort gelöscht)
+- c formatting funktioniert nicht, (= geht aber wenn ich leader f drücke passiert einfach nichts)
 
+- Mac testen
 - generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden
 - real die commands verstehen wie man zb mass replaced oder sucht oder references findet
 - besser navigieren können mit diese ctrl d zb => maybe auf ctrl j k remappen => insgesamt ziel: maus gar nicht nutzen

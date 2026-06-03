@@ -5,6 +5,7 @@ function M.setup()
 	local lspkind = require("lspkind")
 
 	local cmp_select = { behavior = cmp.SelectBehavior.Select }
+	local cmp_confirm = { behavior = cmp.ConfirmBehavior.Insert, select = true }
 	local cmp_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 	local function completion_widths()
@@ -65,8 +66,8 @@ function M.setup()
 		mapping = cmp.mapping.preset.insert({
 			["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
 			["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
-			["<tab>"] = cmp.mapping.confirm({ select = true }),
-			["<enter>"] = cmp.mapping.confirm({ select = true }),
+			["<tab>"] = cmp.mapping.confirm(cmp_confirm),
+			["<enter>"] = cmp.mapping.confirm(cmp_confirm),
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-d>"] = cmp.mapping(function()
 				if cmp.visible_docs() then
