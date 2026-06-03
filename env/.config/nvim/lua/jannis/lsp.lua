@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local bufnr = event.buf
 
+        map(bufnr, "n", "<leader>gr", vim.lsp.buf.references)
 		map(bufnr, "n", "<leader>gd", vim.lsp.buf.definition, "Go to definition")
 		map(bufnr, "n", "<leader>gb", "<C-o>", "Go back")
 		map(bufnr, "n", "<leader>gf", "<C-i>", "Go forward")
