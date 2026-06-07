@@ -14,6 +14,7 @@ nvim:
 - harpoon?
 - so buffer machen ähnlich wie harpoon und arch workspaces zb auf 1 ist dann parser.c und auf 2 ist dann main.c und dann kann man irgendwie zhwischen den easy wechseln
 - checken ob lsp und formatting geht
+- comletion und fuzzy finder bisschen schöner machen?!
 
 Vim motions lernen:
 - generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden
