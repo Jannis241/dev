@@ -1,8 +1,7 @@
 function set_theme(theme)
 	vim.cmd.colorscheme(theme)
-	if apply_theme_overrides then
-		apply_theme_overrides()
-	end
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 return {

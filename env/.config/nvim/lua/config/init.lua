@@ -1,25 +1,12 @@
 require("config.remap")
 require("config.settings")
-
-function apply_theme_overrides()
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
-
 require("config.lazy")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
-local ThemeOverrides = augroup('ThemeOverrides', { clear = true })
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
-
-autocmd('ColorScheme', {
-    group = ThemeOverrides,
-    pattern = '*',
-    callback = apply_theme_overrides,
-})
 
 -- Wenn kopiert wird dann wird das kopierte kurz für 40ms makiert
 autocmd('TextYankPost', {
@@ -50,8 +37,9 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
         vim.keymap.set("n", "<leader>fr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+        vim.keymap.set("n", "<leader>gb", "<C-o>", opts)
+        vim.keymap.set("n", "<leader>gf", "<C-i>", opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
         vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
         vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
         vim.keymap.set("n", "<leader>n", function() vim.diagnostic.goto_next() end, opts)
