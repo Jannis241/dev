@@ -53,6 +53,12 @@ return {
             -- damit man nicht immer das erste noch auswählen muss, sondern direkt dort startet
             preselect = cmp.PreselectMode.Item,
 
+            snippet = {
+                expand = function(args)
+                    require('luasnip').lsp_expand(args.body)
+                end,
+            },
+
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
 				["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
@@ -67,6 +73,7 @@ return {
             },
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
+                { name = 'luasnip' },
 			}, {
 				{ name = "buffer" },
 			}),
