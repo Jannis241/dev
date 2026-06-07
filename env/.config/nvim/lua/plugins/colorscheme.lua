@@ -4,8 +4,16 @@ function set_theme(theme)
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
-
 return {
+    {
+        'Mofiqul/vscode.nvim',
+        name = "vscode",
+        config = function ()
+            require("vscode").setup({
+                transparent = true,
+            })
+        end
+    },
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
@@ -53,7 +61,6 @@ return {
             })
         end
     },
-
     {
         "rose-pine/neovim",
         name = "rose-pine",
