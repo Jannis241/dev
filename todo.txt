@@ -6,6 +6,7 @@ Dev-Env
 - Network und Sound einstellungen schöner machen (nciht mehr dieses default ding)
 - ctrl c zum stoppen bringen
 - tmux angucken
+- primeagen hypr config angucken
 
 nvim:
 - nvim wieder selber machen und nciht den ganzen codex slop
