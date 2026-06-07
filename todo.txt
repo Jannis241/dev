@@ -3,3 +3,8 @@ Dev-Env
 - Bild anzeigen leicher machen
 - ctrl c zum stoppen bringen
 
+
+nvim
+- trouble upsetten (da kann man wirklich sehr viele modes machen und jetzt weißt du ja auch wie qf geht)
+- neue keybinds lernen
+
