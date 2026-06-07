@@ -9,16 +9,10 @@ Dev-Env
 - primeagen hypr config angucken
 
 nvim:
-- nvim wieder selber machen und nciht den ganzen codex slop
-- prime config nochmal ausprobieren
-- clang formatting besser machen 
+- clang formatting besser machen
 - mehrfache cursor ??
 - so ein jump back point
 - harpoon?
-- fira code? comic?
-- keybinds von prime angucken weil der hat seher viele nützliche
-- lsp viel mehr möglihckeiten nutzen
-- eingaben vllt wieder unten in der eingabe ding da machen
 
 Vim motions lernen:
 - generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden
