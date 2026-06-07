@@ -4,10 +4,13 @@ Dev-Env
 - Wallpaper leichter zu ändern machen
 - Wlogout raus => nutze ich eh nicht
 - Network und Sound einstellungen schöner machen (nciht mehr dieses default ding)
+- ctrl c zum stoppen bringen
 
 nvim:
 - clang formatting besser machen 
 - mehrfache cursor ??
+- so ein jump back point
+- harpoon?
 
 Vim motions lernen:
 - generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden

@@ -74,7 +74,7 @@ return {
 			"lua_ls",
 			"jdtls",
 			"pyright",
-			-- "gopls",
+			"gopls",
 			"clangd",
 		}
 
