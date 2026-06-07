@@ -5,7 +5,6 @@ vim.g.maplocalleader = "\\"
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv") --
 
-
 -- Verbindet aktuelle Zeile mit der nächsten Zeile
 vim.keymap.set("n", "J", "mzJ`z")
 
@@ -16,7 +15,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- Bei Suche (/) : n = nächster Treffer, N = vorheriger Treffer
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
-
 
 -- Copy zu System Clipboard
 vim.keymap.set({ "n", "v" }, "<C-y>", '"+y')
@@ -29,7 +27,7 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- Löschen ohne kopieren
-vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 
 -- Einfügen ohne Buffer zu überschreiben
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -41,3 +39,6 @@ vim.keymap.set("n", "q", "<cmd>cclose<CR>")
 
 -- Erstellt automatisch ein Substitute Befehl für das Wort unter dem Cursor (nur für das eine File)
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+vim.keymap.set("n", "<leader>sm", "mM", { desc = "Set return mark" })
+vim.keymap.set("n", "<leader>jm", "`M", { desc = "Jump to return mark" })

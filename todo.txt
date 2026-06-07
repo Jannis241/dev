@@ -9,15 +9,14 @@ Dev-Env
 - primeagen hypr config angucken
 
 nvim:
-- mehrfache cursor ??
-- so ein jump back point
-- harpoon?
-- so buffer machen ähnlich wie harpoon und arch workspaces zb auf 1 ist dann parser.c und auf 2 ist dann main.c und dann kann man irgendwie zhwischen den easy wechseln
-- checken ob lsp und formatting geht
-- comletion und fuzzy finder bisschen schöner machen?!
 
-Vim motions lernen:
-- generell effizienter werden zb machst du voll oft normal mode, o und gehst dann wieder hoch nur um eine zeile zu adden
-- real die commands verstehen wie man zb mass replaced oder sucht oder references findet
-- besser navigieren können mit diese ctrl d zb => maybe auf ctrl j k remappen => insgesamt ziel: maus gar nicht nutzen
-- quickfix liste verstehen, diesee built in sachen einfach
+1. Die Autocompletion scheint irgendwie nur mit dem rose-pine theme zu funktioneiren, sobald ich ein anderes auswähle, sehe ich keine vorschläge mehr.
+2. fuzzy finder findet irgendwie keine endungen richtig also ich wollte zb einmal in meinem c programm nach .h dateien suchen aber es hat nur komische dinge gefunden
+3. Kann ich irgendwie mehrfache cursor haben dass ich zb sage: platzier hier einen cursor dann geheh ich etwas weiter, dann hier einen cursor etc und dann kann ich alle "aktvieren" und anfangen von dort aus jeweils überall aktionen zu tätigen?
+4. wenn ich einfüge mit p dauert es sehr lange, habe ich vielleicht irgendwo einen conflicting keybind wo er zb noch auf einen zweiten key wartet? vielleicht nicht explizit aber irgendwo so ein default keybind?
+5. kann ich irgendwie einen jump back point machen, zb sage ich okay ich bin jetzt hier aber ich mss mal kurz was wo anders suchen und dann gehe ich da hin, mache ganz viel und gehe dann mit einem keybind wieder zurück
+6. harpoon installieren
+7. so buffer machen ähnlich wie harpoon und arch workspaces zb auf 1 ist dann parser.c und auf 2 ist dann main.c und dann kann man irgendwie zhwischen den easy wechseln
+8. checken ob lsp und formatting in allen sprachen geht
+9. wie kann ich die ganzen fenster bisschen schöner machen also zb die completion und das fuzzy finding?
+
