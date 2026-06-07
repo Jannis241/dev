@@ -12,7 +12,7 @@ return {
 			require("vscode").setup({
 				transparent = true,
 			})
-            --set_theme("vscode")
+			-- set_theme("vscode")
 		end,
 	},
 	{
@@ -41,9 +41,9 @@ return {
 				palette_overrides = {},
 				overrides = {},
 				dim_inactive = false,
-				transparent_mode = false,
+				transparent_mode = true,
 			})
-			set_theme("gruvbox")
+			-- set_theme("gruvbox")
 		end,
 	},
 	{
@@ -61,7 +61,7 @@ return {
 					floats = "dark",
 				},
 			})
-			--set_theme("tokyonight")
+			-- set_theme("tokyonight")
 		end,
 	},
 	{
@@ -74,7 +74,7 @@ return {
 					italic = false,
 				},
 			})
-			-- set_theme("rose-pine")
+			set_theme("rose-pine")
 		end,
 	},
 }
