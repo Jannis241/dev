@@ -16,9 +16,13 @@ return {
 			["<C-k>"] = { "select_prev" },
 			["<C-b>"] = { "scroll_documentation_up" },
 			["<C-f>"] = { "scroll_documentation_down" },
-			["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
-			["<CR>"] = { "select_and_accept", "fallback" },
-			["<tab>"] = { "select_and_accept", "fallback" },
+
+			["<CR>"] = { "accept", "fallback" },
+			["<tab>"] = { "accept", "fallback" },
+
+			["<S-l>"] = { "snippet_forward", "fallback" },
+			["<S-j>"] = { "snippet_backward", "fallback" },
+
 			["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
 		},
 
@@ -28,8 +32,17 @@ return {
 		signature = { enabled = false },
 
 		completion = {
-			documentation = { auto_show = false },
-			ghost_text = { enabled = false },
+			ghost_text = { enabled = true },
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 500,
+			},
+			list = {
+				selection = {
+					preselect = true,
+					auto_insert = false,
+				},
+			},
 		},
 		sources = { default = { "lsp", "path", "snippets", "buffer" } },
 		fuzzy = { implementation = "rust" },
