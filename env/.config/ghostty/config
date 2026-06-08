@@ -5,60 +5,35 @@
 # font-family = SFMono Nerd Font
 # font-family = BerkeleyMono Nerd Font
 # font-family = Square Sans Mono
-#
-font-size = 23
-
-# keybinds
-keybind = ctrl+c=copy_to_clipboard
-keybind = ctrl+v=paste_from_clipboard
-
+font-family = JetBrainsMonoNL Nerd Font
 
 # themes
 # theme = ayu
 # theme = rose-pine-moon
-#theme = GruvboxDarkHard
+# theme = GruvboxDarkHard
 # theme = tokyonight
 # theme = catppuccin-mocha
 # theme = Kanagawa Wave
-#theme = gruvbox-material
-# theme = carbonfox
-# theme = vesper
+# theme = gruvbox-material
+#theme = rose-pine-moon
 
+#config-file = themes/rosepine
 
-# background = 000000
-# background-opacity = 0.85
-#background-blur = true
-#background-opacity-cells = true
-
-# window sachen
-# window-padding-x = 12
-# window-padding-y = 6
-# gtk-titlebar = false
-# confirm-close-surface=false
-# window-decoration = true
-#
-#
-# # cursor
-# cursor-style = block
-# cursor-style-blink = false
-# adjust-cursor-thickness = 20%
-#
-#
-# shell-integration = zsh
-# shell-integration-features = no-cursor,sudo,no-title
-# mouse-scroll-multiplier = 2
-#
-#
-#
-# ----------------------------------------
-
-theme = rose-pine-moon
+font-size = 23
 background = 010101
-background-opacity = 0.85
-background-blur = false
+background-opacity = 0.88
+background-blur-radius = 25
+#background-blur = false
 confirm-close-surface=false
 cursor-style-blink = false
+
+window-decoration = auto
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
 
 shell-integration-features = no-cursor,no-sudo,no-title
 gtk-titlebar = false
 
+keybind = ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard

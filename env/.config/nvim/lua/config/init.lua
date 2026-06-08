@@ -2,6 +2,10 @@ require("config.remap")
 require("config.settings")
 require("config.lazy")
 
+-- Colorscheme erst nach config.lazy laden, damit alle Themes korrekt
+-- initialisiert wurden.
+vim.cmd("colorscheme rose-pine")
+
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
 

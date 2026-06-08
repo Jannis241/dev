@@ -22,7 +22,9 @@ return {
 		},
 		signature = { enabled = true },
 
-		completion = { documentation = { auto_show = false } },
+		completion = {
+			documentation = { auto_show = false },
+		},
 		sources = { default = { "lsp", "path", "snippets", "buffer" } },
 		fuzzy = { implementation = "rust" },
 	},
