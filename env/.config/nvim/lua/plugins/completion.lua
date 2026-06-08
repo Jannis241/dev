@@ -15,8 +15,8 @@ return {
 			["<CR>"] = { "accept", "fallback" },
 			["<tab>"] = { "accept", "fallback" },
 
-			["<C-l>"] = { "snippet_forward", "fallback" },
-			["<C-h>"] = { "snippet_backward", "fallback" },
+			["<C-n>"] = { "snippet_forward", "fallback" },
+			["<C-p>"] = { "snippet_backward", "fallback" },
 
 			["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
 		},
@@ -29,8 +29,7 @@ return {
 		completion = {
 			ghost_text = { enabled = true },
 			documentation = {
-				auto_show = true,
-				auto_show_delay_ms = 500,
+				auto_show = false,
 			},
 			list = {
 				selection = {

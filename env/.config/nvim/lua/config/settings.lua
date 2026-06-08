@@ -10,7 +10,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
-vim.opt.wrap = false
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
@@ -26,6 +25,11 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
+
+vim.opt.wrap = false
+
+vim.opt.sidescrolloff = 8
+vim.opt.sidescroll = 1
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
