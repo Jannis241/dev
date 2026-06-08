@@ -2,13 +2,8 @@ return {
 	"saghen/blink.cmp",
 	version = "1.*",
 	dependencies = {
-		"saghen/blink.lib",
 		"rafamadriz/friendly-snippets",
 	},
-	build = function()
-		require("blink.cmp").build():pwait()
-	end,
-
 	opts = {
 		keymap = {
 			preset = "default",
@@ -20,8 +15,8 @@ return {
 			["<CR>"] = { "accept", "fallback" },
 			["<tab>"] = { "accept", "fallback" },
 
-			["<S-f>"] = { "snippet_forward", "fallback" },
-			["<S-b>"] = { "snippet_backward", "fallback" },
+			["<C-l>"] = { "snippet_forward", "fallback" },
+			["<S-h>"] = { "snippet_backward", "fallback" },
 
 			["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
 		},
