@@ -16,7 +16,7 @@ return {
 			["<tab>"] = { "accept", "fallback" },
 
 			["<C-l>"] = { "snippet_forward", "fallback" },
-			["<S-h>"] = { "snippet_backward", "fallback" },
+			["<C-h>"] = { "snippet_backward", "fallback" },
 
 			["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
 		},
