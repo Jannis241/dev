@@ -1,7 +1,8 @@
 return {
 	"saghen/blink.cmp",
+	version = "1.*",
 	dependencies = {
-		"saghen/blink.lib",
+          "saghen/blink.lib",
 		"rafamadriz/friendly-snippets",
 	},
 	build = function()
@@ -20,10 +21,15 @@ return {
 			["<tab>"] = { "select_and_accept", "fallback" },
 			["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
 		},
+
+		appearance = {
+			nerd_font_variant = "mono",
+		},
 		signature = { enabled = true },
 
 		completion = {
-			documentation = { auto_show = false },
+			documentation = { auto_show = true },
+			ghost_text = { enabled = true },
 		},
 		sources = { default = { "lsp", "path", "snippets", "buffer" } },
 		fuzzy = { implementation = "rust" },

@@ -5,6 +5,7 @@ Dev-Env
 
 
 nvim
-- trouble upsetten (da kann man wirklich sehr viele modes machen und jetzt weißt du ja auch wie qf geht)
+- trouble verbessern: jumpen können, zurück ins fenster gehen etc
+- errors inline anzeigen wie prime? wie?
 - neue keybinds lernen
 
