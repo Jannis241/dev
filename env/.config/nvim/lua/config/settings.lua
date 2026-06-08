@@ -1,6 +1,3 @@
--- pcall(vim.cmd, "language C.UTF-8")
--- pcall(vim.cmd, "language messages C")
-
 vim.cmd("language C.UTF-8")
 vim.cmd("language messages C")
 

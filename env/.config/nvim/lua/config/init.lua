@@ -42,7 +42,7 @@ autocmd('LspAttach', {
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
         vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>n", function() vim.diagnostic.goto_next() end, opts)
-        vim.keymap.set("n", "<leader>N", function() vim.diagnostic.goto_prev() end, opts)
+        vim.keymap.set("n", "<leader>l", function() vim.diagnostic.goto_next() end, opts)
+        vim.keymap.set("n", "<leader>j", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
