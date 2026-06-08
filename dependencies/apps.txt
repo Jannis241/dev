@@ -13,6 +13,7 @@ mousepad
 nano
 nvidia-open
 nvidia-settings
+raylib
 spotify-launcher
 xorg-server
 xorg-xinit

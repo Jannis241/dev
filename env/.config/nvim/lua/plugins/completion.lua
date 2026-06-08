@@ -2,7 +2,7 @@ return {
 	"saghen/blink.cmp",
 	version = "1.*",
 	dependencies = {
-          "saghen/blink.lib",
+		"saghen/blink.lib",
 		"rafamadriz/friendly-snippets",
 	},
 	build = function()
@@ -25,11 +25,11 @@ return {
 		appearance = {
 			nerd_font_variant = "mono",
 		},
-		signature = { enabled = true },
+		signature = { enabled = false },
 
 		completion = {
-			documentation = { auto_show = true },
-			ghost_text = { enabled = true },
+			documentation = { auto_show = false },
+			ghost_text = { enabled = false },
 		},
 		sources = { default = { "lsp", "path", "snippets", "buffer" } },
 		fuzzy = { implementation = "rust" },

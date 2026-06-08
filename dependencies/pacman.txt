@@ -78,6 +78,7 @@ polkit-kde-agent
 python-pip
 qt5-wayland
 qt6-wayland
+raylib
 ripgrep
 rofi
 rust
