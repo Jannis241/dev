@@ -21,7 +21,7 @@ font-family = JetBrainsMonoNL Nerd Font
 
 font-size = 23
 background = 000000
-background-opacity = 0.85
+background-opacity = 0.9
 background-blur-radius = 25
 #background-blur = false
 confirm-close-surface=false
