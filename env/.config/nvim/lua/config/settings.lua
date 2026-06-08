@@ -1,6 +1,13 @@
 vim.cmd("language C.UTF-8")
 vim.cmd("language messages C")
 
+-- damit header files nicht als cpp files erkannt werden
+vim.filetype.add({
+      extension = {
+          h = "c",
+      },
+  })
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
