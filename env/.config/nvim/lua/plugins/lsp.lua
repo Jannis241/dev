@@ -8,7 +8,6 @@ return {
 		"saghen/blink.cmp",
 	},
 	config = function()
-		require("conform").setup()
 		require("fidget").setup()
 		require("mason").setup()
 

@@ -20,8 +20,8 @@ return {
 			["<CR>"] = { "accept", "fallback" },
 			["<tab>"] = { "accept", "fallback" },
 
-			["<S-l>"] = { "snippet_forward", "fallback" },
-			["<S-j>"] = { "snippet_backward", "fallback" },
+			["<S-f>"] = { "snippet_forward", "fallback" },
+			["<S-b>"] = { "snippet_backward", "fallback" },
 
 			["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
 		},
@@ -45,6 +45,6 @@ return {
 			},
 		},
 		sources = { default = { "lsp", "path", "snippets", "buffer" } },
-		fuzzy = { implementation = "rust" },
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
 }

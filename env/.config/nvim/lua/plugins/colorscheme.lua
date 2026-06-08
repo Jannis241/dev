@@ -7,6 +7,7 @@ return {
     -- NOTE: Rose pine
     {
         "rose-pine/neovim",
+        lazy = true,
         name = "rose-pine",
         -- priority = 1000,
         config = function()
@@ -73,6 +74,7 @@ return {
     -- NOTE: gruvbox
     {
         "ellisonleao/gruvbox.nvim",
+        lazy = true,
         -- priority = 1000 ,
         config = function()
             require("gruvbox").setup({
@@ -108,6 +110,7 @@ return {
     -- NOTE: Kanagwa
     {
         "rebelot/kanagawa.nvim",
+        lazy = true,
         config = function()
             require('kanagawa').setup({
                 compile = false,
@@ -165,7 +168,7 @@ return {
     -- NOTE: neosolarized
     {
         "craftzdog/solarized-osaka.nvim",
-        lazy = false,
+        lazy = true,
         config = function()
             require("solarized-osaka").setup({
                 transparent = true,
@@ -222,6 +225,7 @@ return {
     -- NOTE : tokyonight
     {
         "folke/tokyonight.nvim",
+        lazy = true,
         name = "folkeTokyonight",
         -- priority = 1000,
         config = function()
@@ -268,6 +272,7 @@ return {
     },
     {
         "loctvl842/monokai-pro.nvim",
+        lazy = true,
         config = function()
             require("monokai-pro").setup({
                 transparent_background = true,
@@ -278,6 +283,7 @@ return {
         "catppuccin/nvim",
         name = "catppuccin-nvim",
         priority = 1000,
+        lazy = true,
         config = function()
             require("catppuccin").setup({
                 flavour = "mocha",
