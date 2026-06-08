@@ -38,7 +38,12 @@ vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "q", "<cmd>cclose<CR>")
 
 -- Erstellt automatisch ein Substitute Befehl für das Wort unter dem Cursor (nur für das eine File)
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- global
+vim.keymap.set("n", "<leader>sg", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+vim.keymap.set("x", "<leader>sv", [[:s///gI<Left><Left><Left>]], {
+    desc = "Substitute in visual selection",
+})
 
 vim.keymap.set("n", "<leader>ms", "mM", { desc = "Set return mark" })
 vim.keymap.set("n", "<leader>mj", "`M", { desc = "Jump to return mark" })
