@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+update_script
+dev-env
+dev-git
+dev-doctor
+fix-paru
