@@ -1,10 +1,8 @@
 require("config.remap")
 require("config.settings")
 require("config.lazy")
+require("config.set_theme")
 
--- Colorscheme erst nach config.lazy laden, damit alle Themes korrekt
--- initialisiert wurden.
-vim.cmd("colorscheme tokyonight")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup("ThePrimeagen", {})

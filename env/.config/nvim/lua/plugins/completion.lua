@@ -27,7 +27,7 @@ return {
 		signature = { enabled = false },
 
 		completion = {
-			ghost_text = { enabled = true },
+			ghost_text = { enabled =false},
 			documentation = {
 				auto_show = false,
 			},

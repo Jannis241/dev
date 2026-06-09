@@ -1,8 +1,3 @@
-function set_theme(theme)
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-	vim.cmd.colorscheme(theme)
-end
 return {
 	-- NOTE: Rose pine
 	{
@@ -17,24 +12,16 @@ return {
 				styles = {
 					bold = true,
 					italic = false,
-					transparency = true,
+                    -- disable_background = true,
+                    -- Wenn man alles durchsichtig haben will => sieht cleaner aus aber man hat keinen unterschied mehr
+                    -- zum Hintergrund z.B
+					-- transparency = true,
 				},
 				enable = {
 					terminal = true,
 					legacy_highlights = true,
 					migrations = true,
 				},
-				-- highlight_groups = {
-				-- 	ColorColumn = { bg = "#1C1C21" },
-				-- 	-- Normal = { bg = "#000000" }, -- Main background remains transparent
-				-- 	NormalFloat = { bg = "#1C1C21" },
-				-- 	Pmenu = { bg = "#191724" }, -- Completion menu background
-				-- 	PmenuSel = { bg = "#4a465d", fg = "NONE" }, -- Highlighted completion item
-				-- 	FloatBorder = { bg = "base" },
-				-- 	FloatTitle = { bg = "base" },
-				-- 	-- PmenuSbar = { bg = "#191724" }, -- Scrollbar background
-				-- 	-- PmenuThumb = { bg = "#9ccfd8" }, -- Scrollbar thumb
-				-- },
 			})
 		end,
 	},
@@ -64,7 +51,7 @@ return {
                 palette_overrides = {},
                 overrides = {},
                 dim_inactive = false,
-                transparent_mode = false,
+                transparent_mode = true,
             })
         end,
 	},
