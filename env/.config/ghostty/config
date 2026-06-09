@@ -9,21 +9,20 @@ font-family = JetBrainsMonoNL Nerd Font
 
 # themes
 # theme = ayu
- theme = rose-pine-moon
 # theme = GruvboxDarkHard
 # theme = tokyonight
 # theme = catppuccin-mocha
 # theme = Kanagawa Wave
 # theme = gruvbox-material
 #theme = rose-pine-moon
-#
+#theme = Catppuccin Frappe
 #config-file = themes/rosepine
+theme = rose-pine-moon
 
 font-size = 23
 background = 000000
 background-opacity = 0.9
 background-blur-radius = 25
-#background-blur = false
 confirm-close-surface=false
 cursor-style-blink = false
 

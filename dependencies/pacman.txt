@@ -25,6 +25,7 @@ fzf
 ghostty
 gimp
 git
+github-cli
 go
 graphviz
 grim

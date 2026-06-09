@@ -47,3 +47,4 @@ vim.keymap.set("x", "<leader>sv", [[:s///gI<Left><Left><Left>]], {
 
 vim.keymap.set("n", "<leader>ms", "mM", { desc = "Set return mark" })
 vim.keymap.set("n", "<leader>mj", "`M", { desc = "Jump to return mark" })
+

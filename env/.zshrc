@@ -19,6 +19,30 @@ fi
 
 # PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} $(git_prompt_info)'
 # PROMPT='%{$fg_bold[green]%}%n@%m%{$reset_color%} %{$fg_bold[blue]%}%~%{$reset_color%} $(git_prompt_info)'
+#
+initrepo() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: initrepo <repo-name>"
+        return 1
+    fi
+
+    local repo="$1"
+
+    git init || return 1
+
+    if [[ ! -f README.md ]]; then
+        echo "# $repo" > README.md
+    fi
+
+    git add .
+    git commit -m "Initial commit"
+
+    gh repo create "$repo" \
+        --source=. \
+        --remote=origin \
+        --public \
+        --push
+}
 
 if command -v fd >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
 	fzf-cd-to() {
