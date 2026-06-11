@@ -48,3 +48,14 @@ vim.keymap.set("x", "<leader>sv", [[:s///gI<Left><Left><Left>]], {
 vim.keymap.set("n", "<leader>ms", "mM", { desc = "Set return mark" })
 vim.keymap.set("n", "<leader>mj", "`M", { desc = "Jump to return mark" })
 
+vim.keymap.set("i", "<M-j>", "{}<esc>i")
+vim.keymap.set("i", "<M-k>", "[]<esc>i")
+vim.keymap.set("i", "<M-l>", "\\")
+vim.keymap.set("i", "<M-ö>", "|")
+
+vim.keymap.set("n", "N", "mMo<esc>`M")
+
+
+
+
+
