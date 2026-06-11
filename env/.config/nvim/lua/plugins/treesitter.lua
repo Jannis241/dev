@@ -25,7 +25,7 @@ return {
             -- Nach dem Start von nvim alle fehlenden parser installieren
 			vim.api.nvim_create_autocmd("User", {
 				group = group,
-				pattern = "VeryLazy",
+				pattern = "Lazy",
 				once = true,
 				callback = function()
 					require("nvim-treesitter").install(parsers)
