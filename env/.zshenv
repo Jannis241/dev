@@ -8,8 +8,8 @@ export LUA_LIBDIR=/usr/lib
 typeset -U path
 path=(
 	"$HOME/.local/scripts"
+	"$HOME/.local/bin"
 	"$HOME/.cargo/bin"
-	"$HOME/bin"
 	/usr/local/bin
 	$path
 )

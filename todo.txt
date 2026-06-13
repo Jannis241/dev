@@ -3,9 +3,5 @@ Dev-Env
 - Bild anzeigen leicher machen
 - ctrl c zum stoppen bringen
 
-
-nvim
-- trouble verbessern: jumpen können, zurück ins fenster gehen etc
-- errors inline anzeigen wie prime? wie?
-- neue keybinds lernen
-
+ghostty:
+- font

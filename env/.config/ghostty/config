@@ -1,27 +1,28 @@
 #font-family = Meslo
+
 #font-family = ComicShannsMono Nerd Font Mono
 #font-family = "FiraCode Nerd Font Mono"
 #font-family = Iosevka Nerd Font # comic
 # font-family = SFMono Nerd Font
-# font-family = BerkeleyMono Nerd Font
-# font-family = Square Sans Mono
+#font-family = BerkeleyMono Nerd Font
+#font-family = Square Sans Mono
 font-family = JetBrainsMonoNL Nerd Font
 
 # themes
-# theme = ayu
-# theme = GruvboxDarkHard
-# theme = tokyonight
+theme = ayu
+#theme = GruvboxDarkHard
+#theme = tokyonight
 # theme = catppuccin-mocha
 # theme = Kanagawa Wave
 # theme = gruvbox-material
 #theme = rose-pine-moon
 #theme = Catppuccin Frappe
 #config-file = themes/rosepine
-theme = rose-pine-moon
+#theme = rose-pine-moon
 
 font-size = 23
-background = 000000
-background-opacity = 0.85
+#background = 000000
+#background-opacity = 0.85
 confirm-close-surface=false
 cursor-style-blink = false
 
