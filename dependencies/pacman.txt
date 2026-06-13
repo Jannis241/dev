@@ -109,6 +109,7 @@ ttf-liberation
 ttf-nerd-fonts-symbols
 tumbler
 unzip
+upx
 uwsm
 vim
 waybar

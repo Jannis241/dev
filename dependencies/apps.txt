@@ -16,5 +16,6 @@ nvidia-open
 nvidia-settings
 raylib
 spotify-launcher
+upx
 xorg-server
 xorg-xinit

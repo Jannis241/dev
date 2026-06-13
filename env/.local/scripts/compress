@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+clang -Oz -flto \
+  -fuse-ld=lld \
+  -nostdlib \
+  -static \
+  -no-pie \
+  -fno-stack-protector \
+  -fno-unwind-tables \
+  -fno-asynchronous-unwind-tables \
+  -fno-ident \
+  -ffunction-sections \
+  -fdata-sections \
+  -Wl,--gc-sections \
+  -Wl,--strip-all \
+  -Wl,--build-id=none \
+  -Wl,-z,norelro \
+  main.c -o app
+
+strip -s -R .comment -R .note -R .eh_frame -R .eh_frame_hdr app
+
+upx --best --lzma app
+
+
+
+

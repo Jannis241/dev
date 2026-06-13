@@ -1,0 +1,8 @@
+#!/bin/bash
+
+clang -O3 -march=native -mtune=native -flto \
+  -fuse-ld=lld \
+  -funroll-loops \
+  -fomit-frame-pointer \
+  -DNDEBUG \
+  main.c -o app
