@@ -1,5 +1,4 @@
 #font-family = Meslo
-
 #font-family = ComicShannsMono Nerd Font Mono
 #font-family = "FiraCode Nerd Font Mono"
 #font-family = Iosevka Nerd Font # comic
@@ -7,6 +6,7 @@
 #font-family = BerkeleyMono Nerd Font
 #font-family = Square Sans Mono
 font-family = JetBrainsMonoNL Nerd Font
+#font-family = GeistMono
 
 # themes
 theme = ayu
