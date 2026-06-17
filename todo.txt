@@ -2,6 +2,11 @@ Dev-Env
 - Thunar cleaner machen
 - Bild anzeigen leicher machen
 - ctrl c zum stoppen bringen
+- scroll wheel keybind machen
+==> sodass man die maus eigentich gar nicht mehr braucht
 
-ghostty:
-- font
+Firefox keybinds machen:
+- tab öffnen / schließen
+- näcshten / vorherigen tab gehen etc
+
+
