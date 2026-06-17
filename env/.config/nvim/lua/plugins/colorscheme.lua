@@ -12,7 +12,7 @@ return {
 				styles = {
 					bold = true,
 					italic = false,
-                    -- disable_background = true,
+                    disable_background = true,
                     -- Wenn man alles durchsichtig haben will => sieht cleaner aus aber man hat keinen unterschied mehr
                     -- zum Hintergrund z.B
 					-- transparency = true,
