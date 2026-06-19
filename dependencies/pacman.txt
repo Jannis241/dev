@@ -1,4 +1,6 @@
 amd-ucode
+arm-none-eabi-gcc
+arm-none-eabi-newlib
 base
 base-devel
 bat
@@ -110,6 +112,7 @@ ttf-nerd-fonts-symbols
 tumbler
 unzip
 upx
+usbutils
 uwsm
 vim
 waybar

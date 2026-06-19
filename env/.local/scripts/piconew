@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+    echo "Usage: pico-proj <name>"
+    exit 1
+fi
+
+NAME="$1"
+DIR="$PWD/$NAME"
+
+mkdir -p "$DIR"
+cd "$DIR"
+
+cat > CMakeLists.txt <<EOF
+cmake_minimum_required(VERSION 3.13)
+
+include(\$ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+
+project($NAME C CXX ASM)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+
+pico_sdk_init()
+
+add_executable($NAME
+    main.c
+)
+
+target_link_libraries($NAME
+    pico_stdlib
+    pico_cyw43_arch_none
+)
+
+pico_add_extra_outputs($NAME)
+EOF
+
+cat > main.c <<EOF
+#include "pico/stdlib.h"
+#include "pico/cyw43_arch.h"
+
+int main() {
+    if (cyw43_arch_init()) {
+        return 1;
+    }
+
+    while (true) {
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+        sleep_ms(500);
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
+        sleep_ms(500);
+    }
+}
+EOF
+
+mkdir build
+cd build
+cmake -DPICO_BOARD=pico_w -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+cd ..
+ln -sf build/compile_commands.json compile_commands.json
+
+echo "Projekt erstellt: $DIR"
+echo "Starte mit:"
+echo "cd $DIR"
+echo "pico-flash"

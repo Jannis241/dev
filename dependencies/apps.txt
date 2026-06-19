@@ -1,3 +1,5 @@
+arm-none-eabi-gcc
+arm-none-eabi-newlib
 chromium
 discord
 ex-vi-compat
@@ -17,5 +19,6 @@ nvidia-settings
 raylib
 spotify-launcher
 upx
+usbutils
 xorg-server
 xorg-xinit

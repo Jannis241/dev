@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(pwd)"
+BUILD_DIR="$PROJECT_DIR/build"
+MOUNT_DIR="$HOME/pico_mount"
+
+if [ ! -f "$PROJECT_DIR/CMakeLists.txt" ]; then
+    echo "Fehler: Kein CMakeLists.txt im aktuellen Ordner."
+    exit 1
+fi
+
+if [ ! -d "$BUILD_DIR" ]; then
+    mkdir "$BUILD_DIR"
+fi
+
+cd "$BUILD_DIR"
+
+if [ ! -f "Makefile" ]; then
+    cmake -DPICO_BOARD=pico_w -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+fi
+
+ln -sf build/compile_commands.json "$PROJECT_DIR/compile_commands.json" 2>/dev/null || true
+
+echo "[1/4] Build..."
+make -j"$(nproc)"
+
+UF2="$(find "$BUILD_DIR" -maxdepth 1 -name "*.uf2" | head -n1)"
+
+if [ -z "$UF2" ]; then
+    echo "Fehler: Keine .uf2 gefunden."
+    exit 1
+fi
+
+echo "[2/4] Suche Pico..."
+PICO_PART="$(lsblk -rpno NAME,SIZE,TYPE | awk '$2=="128M" && $3=="part"{print $1}' | head -n1)"
+
+if [ -z "$PICO_PART" ]; then
+    echo "Kein Pico gefunden. Stecke ihn mit BOOTSEL ein."
+    exit 1
+fi
+
+echo "[3/4] Mount..."
+mkdir -p "$MOUNT_DIR"
+
+if ! mountpoint -q "$MOUNT_DIR"; then
+    sudo mount "$PICO_PART" "$MOUNT_DIR"
+fi
+
+echo "[4/4] Flash $UF2 ..."
+cp "$UF2" "$MOUNT_DIR/"
+sync
+
+echo "Fertig. Pico startet neu."

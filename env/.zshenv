@@ -5,6 +5,8 @@ export LUA_VERSION=5.1
 export LUA_INCDIR=/usr/include/lua5.1
 export LUA_LIBDIR=/usr/lib
 
+export PICO_SDK_PATH=$HOME/pico-sdk
+
 typeset -U path
 path=(
 	"$HOME/.local/scripts"
