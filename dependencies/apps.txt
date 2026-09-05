@@ -8,12 +8,14 @@ firefox
 flatpak
 gimp
 github-cli
+gnome-disk-utility
 jdk21-openjdk
 libva-nvidia-driver
 man-db
 man-pages
 mousepad
 nano
+ncdu
 nvidia-open
 nvidia-settings
 raylib

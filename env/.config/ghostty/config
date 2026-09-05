@@ -1,34 +1,36 @@
-#font-family = Meslo
-#font-family = ComicShannsMono Nerd Font Mono
-#font-family = "FiraCode Nerd Font Mono"
-#font-family = Iosevka Nerd Font # comic
-# font-family = SFMono Nerd Font
-#font-family = BerkeleyMono Nerd Font
-#font-family = Square Sans Mono
-font-family = JetBrainsMonoNL Nerd Font
-#font-family = GeistMono
-
-#theme = ayu
-#theme = GruvboxDarkHard
-#theme = tokyonight
-#theme = catppuccin-mocha
-#theme = Kanagawa Wave
-#theme = gruvbox-material
-#theme = rose-pine-moon
-#theme = Catppuccin Frappe
-#config-file = themes/rosepine
-theme = rose-pine-moon
-
+font-family = SF Mono Bold
 font-size = 25
-background = 000000
-background-opacity = 0.9
-confirm-close-surface=false
-cursor-style-blink = false
+
+background = #1e1e1e
+
+cursor-color = #bfbfbf
+foreground = #ffffff
+
+selection-background = #4d4d4d
+
+palette = 0=#000000
+palette = 1=#990000
+palette = 2=#00a600
+palette = 3=#999900
+palette = 4=#0000b2
+palette = 5=#b200b2
+palette = 6=#00a6b2
+palette = 7=#bfbfbf
+
+palette = 8=#666666
+palette = 9=#e50000
+palette = 10=#00d900
+palette = 11=#e5e500
+palette = 12=#0000ff
+palette = 13=#e500e5
+palette = 14=#00e5e5
+palette = 15=#ffffff
 
 window-decoration = auto
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
+cursor-style-blink = false
 
 shell-integration-features = no-cursor,no-sudo,no-title
 gtk-titlebar = false
