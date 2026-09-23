@@ -1,0 +1,16 @@
+/* Wlogout colors. Edit this file directly. */
+@define-color blur_background #0f1419;
+@define-color blur_background8 #101010;
+@define-color background #0f1419;
+@define-color foreground #e6e1cf;
+@define-color on_primary #253340;
+@define-color shadow #000000;
+@define-color primary #59c2ff;
+@define-color secondary #d2a6ff;
+@define-color tertiary #ffb454;
+@define-color error #f07178;
+@define-color surface #0f1419;
+@define-color surface_container #101010;
+@define-color on_surface #e6e1cf;
+@define-color outline #5c6773;
+@define-color source_color #ff8f40;

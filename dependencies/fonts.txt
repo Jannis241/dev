@@ -1,0 +1,11 @@
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
+ttf-dejavu
+ttf-firacode-nerd
+ttf-hack-nerd
+ttf-jetbrains-mono-nerd
+ttf-liberation
+ttf-nerd-fonts-symbols
+woff2-font-awesome

@@ -1,0 +1,253 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mode="full"
+dry_run=0
+assume_yes=0
+
+usage() {
+    cat <<'EOF'
+Usage: update_script [update|cleanup|full] [--dry-run] [--yes]
+
+Modes:
+  update   Update pacman, AUR, Flatpak, rustup, optional Oh My Zsh and Neovim.
+  cleanup  Remove orphan packages, prune caches conservatively and vacuum logs.
+  full     Run update and cleanup.
+
+Options:
+  --dry-run  Print commands without running them.
+  --yes      Skip confirmations and pass non-interactive flags where supported.
+  -h, --help Show this help.
+EOF
+}
+
+run() {
+    if [[ "$dry_run" -eq 1 ]]; then
+        printf '[DRY RUN]'
+        printf ' %q' "$@"
+        printf '\n'
+        return
+    fi
+
+    "$@"
+}
+
+run_in_dir() {
+    local dir="$1"
+    shift
+
+    if [[ "$dry_run" -eq 1 ]]; then
+        printf '[DRY RUN] cd %q &&' "$dir"
+        printf ' %q' "$@"
+        printf '\n'
+        return
+    fi
+
+    (cd "$dir" && "$@")
+}
+
+confirm() {
+    local prompt="$1"
+    local answer
+
+    if [[ "$assume_yes" -eq 1 ]]; then
+        return 0
+    fi
+
+    if [[ "$dry_run" -eq 1 ]]; then
+        return 0
+    fi
+
+    read -r -p "$prompt [y/N] " answer
+    [[ "$answer" == "y" || "$answer" == "Y" || "$answer" == "yes" || "$answer" == "YES" ]]
+}
+
+pacman_update() {
+    echo "==> Pacman update"
+    if [[ "$assume_yes" -eq 1 ]]; then
+        run sudo pacman -Syu --noconfirm
+    else
+        run sudo pacman -Syu
+    fi
+}
+
+aur_update() {
+    if ! command -v paru >/dev/null 2>&1; then
+        echo "==> paru nicht gefunden, AUR update wird uebersprungen."
+        return
+    fi
+
+    echo "==> AUR update"
+    if [[ "$assume_yes" -eq 1 ]]; then
+        run paru -Sua --noconfirm
+    else
+        run paru -Sua
+    fi
+}
+
+flatpak_update() {
+    if ! command -v flatpak >/dev/null 2>&1; then
+        echo "==> flatpak nicht gefunden, Flatpak update wird uebersprungen."
+        return
+    fi
+
+    echo "==> Flatpak update"
+    if [[ "$assume_yes" -eq 1 ]]; then
+        run flatpak update -y
+    else
+        run flatpak update
+    fi
+}
+
+rust_update() {
+    if ! command -v rustup >/dev/null 2>&1; then
+        echo "==> rustup nicht gefunden, Rust update wird uebersprungen."
+        return
+    fi
+
+    echo "==> Rust toolchain update"
+    run rustup update
+    run rustup component add rust-analyzer
+}
+
+omz_update() {
+    if command -v omz >/dev/null 2>&1; then
+        echo "==> Oh My Zsh update"
+        run omz update
+    fi
+}
+
+nvim_update() {
+    local nvim_config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+    local mason_update_lua
+    local treesitter_update_lua
+
+    if ! command -v nvim >/dev/null 2>&1; then
+        echo "==> nvim nicht gefunden, Neovim update wird uebersprungen."
+        return
+    fi
+
+    if [[ ! -d "$nvim_config_dir" ]]; then
+        echo "==> Neovim config nicht gefunden: $nvim_config_dir"
+        return
+    fi
+
+    treesitter_update_lua='local task = require("nvim-treesitter.install").update(nil, { summary = true }); local ok, err = task:pwait(); if not ok then error(err) end'
+
+    echo "==> Neovim lazy.nvim sync"
+    run_in_dir "$nvim_config_dir" nvim --headless "+Lazy! sync" "+qa"
+
+    echo "==> Neovim Treesitter parser update"
+    run_in_dir "$nvim_config_dir" nvim --headless "+lua $treesitter_update_lua" "+qa"
+
+    echo "==> Neovim health check"
+    run_in_dir "$nvim_config_dir" nvim --headless "+checkhealth" "+qa"
+}
+
+remove_orphans() {
+    local orphans
+
+    orphans="$(pacman -Qtdq 2>/dev/null || true)"
+    if [[ -z "$orphans" ]]; then
+        echo "==> Keine unbenutzten Pacman-Abhaengigkeiten gefunden."
+        return
+    fi
+
+    echo "==> Unbenutzte Pacman-Abhaengigkeiten:"
+    printf '%s\n' "$orphans"
+    if confirm "Diese Pakete mit pacman -Rns entfernen?"; then
+        # shellcheck disable=SC2086
+        run sudo pacman -Rns $orphans
+    else
+        echo "==> Orphan-Removal uebersprungen."
+    fi
+}
+
+clean_pacman_cache() {
+    if ! command -v paccache >/dev/null 2>&1; then
+        echo "==> paccache nicht gefunden. Installiere pacman-contrib fuer Cache-Pflege."
+        return
+    fi
+
+    echo "==> Pacman cache: behalte die letzten 3 installierten Versionen."
+    run sudo paccache -rk3
+
+    if confirm "Nicht mehr installierte Paketversionen bis auf 1 Version bereinigen?"; then
+        run sudo paccache -ruk1
+    fi
+}
+
+clean_flatpak() {
+    if ! command -v flatpak >/dev/null 2>&1; then
+        return
+    fi
+
+    if confirm "Ungenutzte Flatpak-Runtimes entfernen?"; then
+        if [[ "$assume_yes" -eq 1 ]]; then
+            run flatpak uninstall --unused -y
+        else
+            run flatpak uninstall --unused
+        fi
+    fi
+}
+
+vacuum_journal() {
+    if confirm "Systemd-Journal auf 14 Tage begrenzen?"; then
+        run sudo journalctl --vacuum-time=14d
+    fi
+}
+
+cleanup() {
+    remove_orphans
+    clean_pacman_cache
+    clean_flatpak
+    vacuum_journal
+}
+
+update_all() {
+    pacman_update
+    aur_update
+    flatpak_update
+    rust_update
+    omz_update
+    nvim_update
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        update|cleanup|full)
+            mode="$1"
+            ;;
+        --dry-run)
+            dry_run=1
+            ;;
+        --yes|-y)
+            assume_yes=1
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unbekannte Option: $1" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+    shift
+done
+
+case "$mode" in
+    update)
+        update_all
+        ;;
+    cleanup)
+        cleanup
+        ;;
+    full)
+        update_all
+        cleanup
+        ;;
+esac
+
+echo "==> Fertig."

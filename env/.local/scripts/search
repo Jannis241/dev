@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+# Configuration
+BROWSER="${BROWSER:-firefox}"
+SEARCH_ENGINE="${SEARCH_ENGINE:-https://google.com/search?q=}"
+
+if [[ $# -gt 0 ]]; then
+    INPUT="$*"
+else
+    INPUT="$(rofi -dmenu -p "Search: ")"
+fi
+
+if [[ -z "${INPUT// }" ]]; then
+    exit 0
+fi
+
+if command -v jq >/dev/null 2>&1; then
+    ENCODED_INPUT="$(printf '%s' "$INPUT" | jq -sRr @uri)"
+else
+    ENCODED_INPUT="$INPUT"
+fi
+
+"$BROWSER" "${SEARCH_ENGINE}${ENCODED_INPUT}" >/dev/null 2>&1 &

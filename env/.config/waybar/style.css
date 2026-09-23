@@ -1,0 +1,85 @@
+@import "../colors/colors.css";
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(15, 20, 25, 0.96);
+    color: @foreground;
+    border-bottom: 1px solid rgba(37, 51, 64, 0.82);
+}
+
+tooltip {
+    background: rgba(15, 20, 25, 0.96);
+    border: 1px solid @select;
+    border-radius: 8px;
+}
+
+tooltip label {
+    padding: 6px 10px;
+    color: @foreground;
+}
+
+#workspaces {
+    margin-left: 10px;
+}
+
+#workspaces button {
+    color: @gray;
+    background: transparent;
+    padding: 0 8px;
+    margin: 6px 1px;
+    border-radius: 6px;
+}
+
+#workspaces button:hover {
+    color: @foreground;
+    background: rgba(37, 51, 64, 0.48);
+}
+
+#workspaces button.active {
+    color: @foreground;
+    background: rgba(37, 51, 64, 0.78);
+}
+
+#workspaces button.urgent {
+    color: @red;
+}
+
+#clock {
+    color: @foreground;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+#network,
+#pulseaudio,
+#cpu,
+#memory,
+#custom-power {
+    color: @foreground;
+    padding: 0 9px;
+}
+
+#network,
+#cpu,
+#memory {
+    color: @gray;
+}
+
+#pulseaudio.muted {
+    color: @orange;
+}
+
+#custom-power {
+    color: @red;
+    padding-right: 14px;
+}
+
+

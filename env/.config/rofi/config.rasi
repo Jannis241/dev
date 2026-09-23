@@ -1,0 +1,108 @@
+configuration {
+    modi: "drun,run";
+    show-icons: true;
+    drun-display-format: "{name}";
+    display-drun: "Open";
+    display-run: "Run";
+    scroll-method: 1;
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-accept-entry: "Return,Control+m,KP_Enter";
+    kb-remove-to-eol: "";
+    kb-remove-to-sol: "";
+}
+
+@import "~/.config/colors/colors.rasi"
+
+* {
+    font: "JetBrainsMono Nerd Font 14";
+    background-soft: #0f1419ee;
+    border-soft: #253340cc;
+}
+
+#window {
+    width: 620px;
+    padding: 16px;
+    border: 1px;
+    border-radius: 12px;
+    border-color: @border-soft;
+    background-color: @background-soft;
+}
+
+#mainbox {
+    spacing: 10px;
+    background-color: transparent;
+}
+
+#inputbar {
+    padding: 12px 14px;
+    spacing: 8px;
+    border-radius: 9px;
+    background-color: #25334066;
+    children: [ prompt, entry ];
+}
+
+#prompt {
+    text-color: @gray;
+    background-color: transparent;
+}
+
+#entry {
+    placeholder: "Search";
+    placeholder-color: @gray;
+    text-color: @foreground;
+    background-color: transparent;
+}
+
+#listview {
+    lines: 7;
+    fixed-height: true;
+    spacing: 4px;
+    scrollbar: false;
+    border: 0;
+    background-color: transparent;
+}
+
+#message {
+    border: 0;
+    background-color: transparent;
+}
+
+#sidebar {
+    border: 0;
+    background-color: transparent;
+}
+
+#element {
+    padding: 8px 10px;
+    spacing: 10px;
+    border-radius: 8px;
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+#element.normal.normal {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+#element.alternate.normal {
+    background-color: transparent;
+    text-color: @foreground;
+}
+
+#element.selected.normal {
+    background-color: #253340aa;
+    text-color: @foreground;
+}
+
+#element-icon {
+    size: 22px;
+    background-color: transparent;
+}
+
+#element-text {
+    background-color: transparent;
+    text-color: inherit;
+}
+

@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dry_run=0
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+if [[ -z "${DEV_ENV:-}" ]]; then
+    if [[ -d "$script_dir/env" ]]; then
+        DEV_ENV="$script_dir"
+    else
+        echo "env var DEV_ENV needs to be present"
+        exit 1
+    fi
+fi
+
+if [[ ${1:-} == "--dry" ]]; then
+    dry_run=1
+elif [[ $# -gt 0 ]]; then
+    echo "Usage: dev-env [--dry]" >&2
+    exit 2
+fi
+
+log() {
+    if [[ $dry_run -eq 1 ]]; then
+        printf '[dry] %s\n' "$*"
+    else
+        printf '%s\n' "$*"
+    fi
+}
+
+run() {
+    log "$*"
+    if [[ $dry_run -eq 0 ]]; then
+        "$@"
+    fi
+}
+
+replace_path() {
+    local source_path="$1"
+    local destination="$2"
+    local copy_mode="$3"
+    local destination_dir
+    local destination_name
+    local stage
+    local backup
+
+    destination_dir="$(dirname -- "$destination")"
+    destination_name="$(basename -- "$destination")"
+    stage="$destination_dir/.dev-env-stage.$destination_name.$$"
+    backup="$destination_dir/.dev-env-backup.$destination_name.$$"
+
+    run rm -rf -- "$stage" "$backup"
+
+    if [[ "$copy_mode" == "archive" ]]; then
+        run cp -a -- "$source_path" "$stage"
+    else
+        run cp -f -- "$source_path" "$stage"
+    fi
+
+    if [[ -e "$destination" || -L "$destination" ]]; then
+        run mv -T -- "$destination" "$backup"
+    fi
+
+    if ! run mv -T -- "$stage" "$destination"; then
+        if [[ $dry_run -eq 0 ]] && [[ -e "$backup" || -L "$backup" ]]; then
+            mv -T -- "$backup" "$destination"
+        fi
+        return 1
+    fi
+
+    run rm -rf -- "$backup"
+}
+
+log "env: $DEV_ENV"
+log "config: $XDG_CONFIG_HOME"
+log "home: $HOME"
+
+run mkdir -p "$XDG_CONFIG_HOME" "$HOME/.local" "$HOME/.local/scripts" "$HOME/.local/bin"
+
+update_files() {
+    local source_dir="$1"
+    local target_root="$2"
+
+    if [[ ! -d "$source_dir" ]]; then
+        log "skip missing source dir: $source_dir"
+        return
+    fi
+
+    log "sync dir: $source_dir -> $target_root"
+    pushd "$source_dir" &> /dev/null
+    (
+        while IFS= read -r -d '' entry; do
+            local local_name="${entry#./}"
+            local destination="${target_root%/}/$local_name"
+
+            replace_path "$entry" "$destination" archive
+        done < <(find . -mindepth 1 -maxdepth 1 -print0)
+    )
+    popd &> /dev/null
+}
+
+copy_file() {
+    local source_file="$1"
+    local destination_file="$2"
+
+    if [[ ! -f "$source_file" ]]; then
+        log "skip missing file: $source_file"
+        return
+    fi
+
+    replace_path "$source_file" "$destination_file" file
+}
+
+update_files "$DEV_ENV/env/.config" "$XDG_CONFIG_HOME"
+update_files "$DEV_ENV/env/.local" "$HOME/.local"
+
+copy_file "$DEV_ENV/env/.zshenv" "$HOME/.zshenv"
+copy_file "$DEV_ENV/env/.zprofile" "$HOME/.zprofile"
+copy_file "$DEV_ENV/env/.zshrc" "$HOME/.zshrc"
+copy_file "$DEV_ENV/env/.profile" "$HOME/.profile"
+copy_file "$DEV_ENV/dev-env" "$HOME/.local/scripts/dev-env"
+copy_file "$DEV_ENV/wallpaper.png" "$HOME/wallpaper.png"
+
+
+if [[ $dry_run -eq 0 ]] && command -v hyprctl >/dev/null 2>&1; then
+    hyprctl reload >/dev/null 2>&1 || true
+fi
+
+restart_background_app() {
+    local process_name="$1"
+    shift
+
+    if [[ $dry_run -eq 1 ]]; then
+        log "would restart/start: $process_name"
+        return
+    fi
+
+    if ! command -v "$process_name" >/dev/null 2>&1; then
+        log "skip missing binary: $process_name"
+        return
+    fi
+
+    if pgrep -x "$process_name" >/dev/null 2>&1; then
+        log "restarting: $process_name"
+        pkill -x "$process_name" >/dev/null 2>&1 || true
+        sleep 0.2
+    else
+        log "starting: $process_name"
+    fi
+
+    nohup "$process_name" "$@" >/dev/null 2>&1 &
+}
+
+restart_background_app waybar
+restart_background_app hyprpaper

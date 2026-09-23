@@ -1,0 +1,10 @@
+env/.config/*
+!env/.config/nvim/
+!env/.config/hypr/
+!env/.config/waybar/
+!env/.config/rofi/
+!env/.config/ghostty/
+!env/.config/wlogout/
+!env/.config/systemd/
+
+todo.txt

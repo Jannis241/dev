@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(pwd)"
+BUILD_DIR="$PROJECT_DIR/build"
+MOUNT_DIR="$HOME/pico_mount"
+
+if [ ! -f "$PROJECT_DIR/CMakeLists.txt" ]; then
+    echo "Fehler: Kein CMakeLists.txt im aktuellen Ordner."
+    exit 1
+fi
+
+echo "[0/5] Alten Mount lösen..."
+sudo umount -l "$MOUNT_DIR" 2>/dev/null || true
+mkdir -p "$MOUNT_DIR"
+
+echo "[1/5] Build vorbereiten..."
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR"
+
+if [ ! -f Makefile ]; then
+    cmake -DPICO_BOARD=pico_w -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+fi
+
+ln -sf build/compile_commands.json "$PROJECT_DIR/compile_commands.json" 2>/dev/null || true
+
+echo "[2/5] Build..."
+make -j"$(nproc)"
+
+UF2="$(find "$BUILD_DIR" -maxdepth 1 -name "*.uf2" | head -n1)"
+if [ -z "$UF2" ]; then
+    echo "Fehler: Keine .uf2 gefunden."
+    exit 1
+fi
+
+echo "[3/5] Suche Pico BOOTSEL..."
+PICO_PART="$(lsblk -rpno NAME,SIZE,FSTYPE,LABEL,TYPE | awk '$2=="128M" && $3=="vfat" && $4=="RPI-RP2" && $5=="part"{print $1}' | head -n1)"
+
+if [ -z "$PICO_PART" ]; then
+    echo "Kein gültiger Pico gefunden."
+    echo "Mach:"
+    echo "1. Pico abziehen"
+    echo "2. BOOTSEL gedrückt halten"
+    echo "3. Pico einstecken"
+    echo "4. BOOTSEL loslassen"
+    exit 1
+fi
+
+echo "[4/5] Mount $PICO_PART ..."
+sudo mount "$PICO_PART" "$MOUNT_DIR"
+
+if [ ! -f "$MOUNT_DIR/INFO_UF2.TXT" ]; then
+    echo "Fehler: Das ist kein gültiger Pico BOOTSEL-Mount."
+    sudo umount -l "$MOUNT_DIR" 2>/dev/null || true
+    exit 1
+fi
+
+echo "[5/5] Flash $UF2 ..."
+sudo cp "$UF2" "$MOUNT_DIR/"
+sync
+
+echo "Fertig. Pico startet neu."
