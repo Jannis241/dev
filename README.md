@@ -1,21 +1,21 @@
 # Dotfiles / Dev Environment
 
-Persoenliche Dotfiles fuer ein Arch/Hyprland-Setup mit Zsh, Neovim, Ghostty, Waybar, Rofi und eigenen Helper-Skripten.
+My personal dotfiles for an Arch Linux + Hyprland setup with Zsh, Neovim, Ghostty, Waybar, Rofi and some of my own helper scripts. I use this setup every day, and with the setup script I can install it on a new computer in a few minutes.
 
-## Struktur
+## Structure
 
-- `env/`: Home-Overlay, das durch `dev-env` nach `$HOME` kopiert wird.
-- `env/.config/`: App-Konfigurationen fuer `nvim`, `hypr`, `waybar`, `rofi`, `ghostty`, `wlogout` usw.
-- `env/.local/scripts/`: Eigene Skripte wie `dev-env`, `dev-doctor`, `fix-paru`, `get-dependencies`, `update_script`, `jnew`, `jrun`, `search`.
-- `env/.zshenv`, `env/.zprofile`, `env/.zshrc`, `env/.profile`: Shell- und PATH-Setup.
-- `dependencies/`: Paketlisten fuer Pacman, AUR und Flatpak.
-- `dev-env`: Kopiert die Dotfiles aus `env/` ins Home-Verzeichnis.
-- `dotfiles_setup`: Installiert Pakete, aktiviert Dienste und fuehrt `dev-env` aus.
-- `wallpaper.png`: Desktop-Wallpaper.
+- `env/`: home overlay that `dev-env` copies to `$HOME`.
+- `env/.config/`: configs for `nvim`, `hypr`, `waybar`, `rofi`, `ghostty`, `wlogout` and more.
+- `env/.local/scripts/`: my own scripts like `dev-env`, `dev-doctor`, `fix-paru`, `get-dependencies`, `update_script`, `jnew`, `jrun` and `search`.
+- `env/.zshenv`, `env/.zprofile`, `env/.zshrc`, `env/.profile`: shell and `PATH` setup.
+- `dependencies/`: package lists for pacman, AUR and Flatpak.
+- `dev-env`: copies the dotfiles from `env/` to the home directory.
+- `dotfiles_setup`: installs packages, enables services and runs `dev-env`.
+- `wallpaper.png`: desktop wallpaper.
 
-## Von normalem Arch zu diesem Setup
+## From a fresh Arch install to this setup
 
-Auf einem bereits installierten Arch-System als normaler User:
+On an already installed Arch system, as a normal user:
 
 ```bash
 sudo pacman -Syu --needed git base-devel
@@ -24,32 +24,32 @@ cd "$HOME/dev"
 ./dotfiles_setup
 ```
 
-Trockenlauf ohne Aenderungen:
+Dry run without changing anything:
 
 ```bash
 ./dotfiles_setup --dry-run
 ```
 
-Nichtinteraktiver Lauf, soweit die Paketmanager das zulassen:
+Non-interactive run (as far as the package managers allow it):
 
 ```bash
 ./dotfiles_setup --yes
 ```
 
-Nuetzliche Optionen:
+Useful options:
 
-- `--no-packages`: Pacman-Pakete ueberspringen.
-- `--no-aur`: Paru/AUR ueberspringen.
-- `--no-flatpak`: Flatpak ueberspringen.
-- `--no-dotfiles`: Dotfiles nicht kopieren.
-- `--no-services`: `NetworkManager` und `sddm` nicht aktivieren.
-- `--no-shell`: Login-Shell nicht auf Zsh setzen.
+- `--no-packages`: skip pacman packages.
+- `--no-aur`: skip paru/AUR.
+- `--no-flatpak`: skip Flatpak.
+- `--no-dotfiles`: don't copy the dotfiles.
+- `--no-services`: don't enable `NetworkManager` and `sddm`.
+- `--no-shell`: don't change the login shell to Zsh.
 
-Nach dem Setup einmal neu einloggen oder `exec zsh` ausfuehren.
+After the setup, log in again or run `exec zsh`.
 
-## Dotfiles manuell anwenden
+## Apply the dotfiles manually
 
-`dev-env` nutzt standardmaessig das aktuelle Repo als `DEV_ENV`, wenn es direkt aus dem Repo gestartet wird. Nach der Installation setzt `.zshenv` `DEV_ENV="$HOME/dev"`.
+When you start `dev-env` directly from the repo, it uses the current repo as `DEV_ENV` by default. After the installation, `.zshenv` sets `DEV_ENV="$HOME/dev"`.
 
 ```bash
 cd "$HOME/dev"
@@ -57,90 +57,38 @@ cd "$HOME/dev"
 ./dev-env
 ```
 
-`dev-env` kopiert:
+`dev-env` copies:
 
-- `env/.config/*` nach `${XDG_CONFIG_HOME:-$HOME/.config}`
-- `env/.local/*` nach `$HOME/.local`
-- Shell-Dateien nach `$HOME`
-- `dev-env` nach `$HOME/.local/scripts/dev-env`
-- `wallpaper.png` nach `$HOME/wallpaper.png`
+- `env/.config/*` to `${XDG_CONFIG_HOME:-$HOME/.config}`
+- `env/.local/*` to `$HOME/.local`
+- the shell files to `$HOME`
+- `dev-env` to `$HOME/.local/scripts/dev-env`
+- `wallpaper.png` to `$HOME/wallpaper.png`
 
-Bestehende Zielpfade werden dabei ersetzt. Lokale, host-spezifische Anpassungen gehoeren deshalb nicht direkt in die synchronisierten Dateien.
+Existing files at these paths get replaced. So local, host-specific changes should not go directly into the synced files.
 
-## Themes
+## Manual changes
 
-Themes werden nicht zentral gekoppelt. Aendere das Theme direkt in der Config des jeweiligen Programms:
+The repo can't know these things automatically:
 
-- Neovim: `<C-t>` oder `:Theme`; gespeichert wird in `stdpath("state") .. "/jannis-theme"`
-- Ghostty: `~/.config/ghostty/config`
-- Rofi: `~/.config/colors/colors.rasi` und `~/.config/rofi/config.rasi`
-- Waybar: `~/.config/colors/colors.css` und `~/.config/waybar/style.css`
-- Wlogout: `~/.config/wlogout/colors.css`
+- Monitor names and layouts (run `hyprctl monitors`, then change `env/.config/hypr/custom_settings.conf`).
+- Hostname, Git identity and SSH keys.
+- Hardware-specific packages like `nvidia-open`, `amd-ucode`, CUDA, or printer/Bluetooth setup.
+- Private paths, tokens, AI tool configs and real SSH notes.
+- Whether you want `sddm` as display manager.
 
-## Hyprland
+## Packages
 
-`env/.config/hypr/hyprland.conf` ist der Einstiegspunkt und sourced:
+The package lists are in `dependencies/`:
 
-- `custom_settings.conf`: Programme, Monitorlayout, Workspace-Zuordnung und Tastaturlayout; das ist die Datei, die du auf neuer Hardware zuerst anpasst.
-- `env.conf`
-- `autostart.conf`
-- `look.conf`
-- `input.conf`
-- `workspaces.conf`
-- `binds.conf`
-- `windowrules.conf`
+- `base.txt`: base system, shell, network, package management.
+- `desktop.txt`: Hyprland, Wayland, audio, UI tools.
+- `dev.txt`: editor, toolchains, linters, formatters, CLI helpers.
+- `fonts.txt`: fonts.
+- `apps.txt`: applications and hardware-related packages.
+- `aur.txt`: AUR packages.
+- `flatpak.txt`: Flatpak apps.
+- `pacman.txt` and `paru.txt`: combined lists for compatibility.
 
-Alles liegt im Repo unter `env/.config/hypr`. Nach Aenderungen kopiert `dev-env` die komplette Hyprland-Config nach `~/.config/hypr`.
+On the first start, Neovim installs missing plugins with `lazy.nvim`.
 
-## Skripte
-
-- `dev-doctor`: Prueft wichtige Tools, Sync-Status, `paru`, Oh My Zsh, Hyprland-Custom-Settings und ob Neovim headless laedt.
-- `fix-paru`: Baut `paru` neu gegen die aktuelle Pacman/`libalpm`-Version.
-- `get-dependencies`: Ueberschreibt die Paketlisten mit dem aktuellen Systemzustand plus Pflichtpaketen.
-- `update_script`: Aktualisiert System, AUR, Flatpak, Rust und optional Oh My Zsh; Cleanup ist separat.
-
-## Manuelle Anpassungen
-
-Diese Punkte kann das Repo nicht sicher automatisch wissen:
-
-- Monitor-Namen und Layouts (`hyprctl monitors`, dann `env/.config/hypr/custom_settings.conf` anpassen).
-- Hostname, Git-Identitaet und SSH-Keys.
-- Hardware-spezifische Pakete wie `nvidia-open`, `amd-ucode`, CUDA oder Drucker/Bluetooth-Setup.
-- Private Pfade, Tokens, AI-Tool-Konfigurationen und echte SSH-Notizen.
-- Ob `sddm` als Display Manager gewuenscht ist.
-
-## Pakete
-
-Die Paketlisten liegen in `dependencies/`:
-
-- `base.txt`: Basissystem, Shell, Netzwerk, Paketmanagement.
-- `desktop.txt`: Hyprland, Wayland, Audio, UI-Tools.
-- `dev.txt`: Editor, Toolchains, Linter, Formatter, CLI-Helfer.
-- `fonts.txt`: Fonts.
-- `apps.txt`: Anwendungen und hardware-nahe Pakete.
-- `aur.txt`: AUR-Pakete.
-- `flatpak.txt`: Flatpak-Apps.
-- `pacman.txt` und `paru.txt`: Kompatibilitaets-Aggregate.
-
-Manuell:
-
-```bash
-sudo pacman -S --needed - < dependencies/base.txt
-sudo pacman -S --needed - < dependencies/desktop.txt
-sudo pacman -S --needed - < dependencies/dev.txt
-sudo pacman -S --needed - < dependencies/fonts.txt
-sudo pacman -S --needed - < dependencies/apps.txt
-paru -S --needed - < dependencies/aur.txt
-xargs -a dependencies/flatpak.txt -r flatpak install -y flathub
-```
-
-## Checks
-
-```bash
-command -v nvim hyprland waybar rofi ghostty paru
-command -v rg shellcheck shfmt stylua
-ls -la ~/.config ~/.local/scripts
-hyprctl monitors
-```
-
-Neovim installiert Plugins beim ersten Start ueber `lazy.nvim`, falls sie noch fehlen.
