@@ -7,4 +7,6 @@ env/.config/*
 !env/.config/wlogout/
 !env/.config/systemd/
 
+package-lock.json
+
 todo.txt
