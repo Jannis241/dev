@@ -1,3 +1,4 @@
+# --- Configs: alles in env/.config ignorieren, außer diesen Ordnern ---
 env/.config/*
 !env/.config/nvim/
 !env/.config/hypr/
@@ -6,7 +7,25 @@ env/.config/*
 !env/.config/ghostty/
 !env/.config/wlogout/
 !env/.config/systemd/
-
+.env
+.env.*
+*.pem
+*.key
+*.p12
+id_rsa*
+id_ed25519*
+id_ecdsa*
+.ssh/
+.gnupg/
+.git-credentials
+.netrc
+*.secret
+*token*
+*_history
+.zcompdump*
+.cache/
+.local/share/
+.local/state/
 package-lock.json
-
 todo.txt
+.DS_Store
